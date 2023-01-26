@@ -1,0 +1,49 @@
+name: "Build android"
+on: [push]
+  # push:
+  #   branches:
+  #     - develop
+  #     - "release/**"
+  # pull_request:
+  #   branches:
+  #     - develop
+  #     - master
+jobs:
+  build_apk:
+    name: Build Flutter (Android)
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      # - uses: dart-lang/setup-dart@v1.3
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: "stable" # or: 'beta', 'dev' or 'master'
+
+      - run: flutter doctor -v
+      - run: flutter pub get
+      
+      - run: dart fix --apply
+      - run: flutter analyze
+      - run: flutter build apk --release --dart-define IS_DEBUG=true --dart-define IS_ANALYTICS_ENABLED=true --dart-define APP_DB_PASSWORD=${{secrets.APP_DB_PASSWORD}}
+
+      - uses: actions/upload-artifact@v1
+        with:
+          name: app-release
+          path: build/app/outputs/apk/release/app-release.apk
+
+      - uses: actions/download-artifact@master
+        with:
+          name: app-release
+      - name: Upload APK
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:
+          appId: ${{secrets.FIREBASE_ANDROID_APPID}}
+          token: ${{secrets.FIREBASE_TOKEN}}
+          groups: testers
+          file: app-release.apk
+          releaseNotes: " 1 ${{ github.event.head_commit.author.name }} 2 : ${{ github.event.head_commit.message }} "
+      
