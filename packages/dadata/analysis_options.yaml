@@ -1,0 +1,38 @@
+include: package:very_good_analysis/analysis_options.yaml
+
+linter:
+  rules:
+    public_member_api_docs: false
+    sort_pub_dependencies: false
+    # lines_longer_than_80_chars: false
+    # non_constant_identifier_names: false
+    # constant_identifier_names: false
+
+analyzer:
+  errors:
+    argument_type_not_assignable: ignore
+    invalid_assignment: ignore
+
+  exclude:
+    # Generated code
+    - "**/*.g.dart"
+    - "**/*.freezed.dart"
+    - "lib/**.graphql.dart"
+    - "lib/**.gen.dart"
+    - "lib/generated_plugin_registrant.dart"
+    - "lib/pigeon.dart"
+    # Firebase
+    - "lib/src/common/constant/firebase_options.dart"
+    # Localization
+    - "lib/src/common/localization/intl/**"
+    - "lib/src/common/localization/l10n.dart"
+    # Tests
+    - "test/**.mocks.dart"
+    - "test/*.dart"
+    - ".test_coverage.dart"
+    # Web
+    - "web/**"
+    # Build
+    - "build/**"
+    # Assets
+    - "assets/**"
