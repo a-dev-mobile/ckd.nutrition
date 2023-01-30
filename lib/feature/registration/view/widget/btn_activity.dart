@@ -1,0 +1,41 @@
+// ignore_for_file: lines_longer_than_80_chars,
+
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nutrition/core/widget/widget.dart';
+import 'package:nutrition/feature/registration/registration.dart';
+import 'package:nutrition/feature/widgets/widgets.dart';
+import 'package:nutrition/localization/localization.dart';
+
+class BtnActivity extends StatelessWidget {
+  const BtnActivity({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l = context.l10n;
+    final cubit = context.read<RegistrationCubit>();
+
+    return AppCard(
+      child: BlocBuilder<RegistrationCubit, RegistrationState>(
+        builder: (context, state) {
+          final valid = state.validActivity;
+
+          return BtnToggleText(
+            textList: [l.normal, l.light],
+            isSelected: state.activitySelected,
+            onPressed: cubit.checkActivity,
+            title: 'Укажите свою физическую активность',
+            errorText: valid.errorText(l: l),
+            dialogText:
+                'Физическая активность влияет для расчета суточной нормы нутриентов.',
+          );
+        },
+        buildWhen: (p, c) =>
+            p.validActivity.isPure != c.validActivity.isPure ||
+            p.validActivity.value != c.validActivity.value,
+      ),
+    );
+  }
+}

@@ -5,7 +5,7 @@ linter:
     public_member_api_docs: false
     sort_pub_dependencies: false
     lines_longer_than_80_chars: false
-    sort_constructors_first: false
+    # sort_constructors_first: false
     # non_constant_identifier_names: false
     # constant_identifier_names: false
 
@@ -24,7 +24,7 @@ analyzer:
     - "packages/**"
     - "**/*.g.dart"
     - "**/*.freezed.dart"
-    - "lib/l10n/**"
+    - "lib/localization/gen**"
 
     - "lib/**.gen.dart"
     - "lib/generated_plugin_registrant.dart"
@@ -45,7 +45,7 @@ dart_code_metrics:
     - package:dart_code_metrics/presets/all.yaml
   rules:
     - member-ordering: false
-    - prefer-match-file-name: false
+    # - prefer-match-file-name: false
     - avoid-dynamic: false
     - format-comment: false
     - prefer-commenting-analyzer-ignores: false

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "96038361233",
+    "project_id": "prod-ckd-nutrition",
+    "storage_bucket": "prod-ckd-nutrition.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:96038361233:android:c43ba1f8da1740abbf8730",
+        "android_client_info": {
+          "package_name": "mobile.ckd.nutrition"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "96038361233-3b6e110ekdkbodekjds911urvaesck1k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDE0LdtI3V3MYd0S0ms_uhsq2kJ78uEwrA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "96038361233-3b6e110ekdkbodekjds911urvaesck1k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

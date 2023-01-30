@@ -6,7 +6,8 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: '>=2.19.0 <3.0.0'
+  sdk: ">=2.19.0 <3.0.0"
+  flutter: ">=3.7.0 <4.0.0"
 
 dependencies:
   flutter:
@@ -16,7 +17,11 @@ dependencies:
   meta: ^1.8.0
   # flutter_localizations from sdk depends on collection 1.16.0
   collection: ^1.16.0
+  async: ^2.10.0
 
+  # Stream
+  stream_transform: ^2.1.0
+  rxdart: ^0.27.7
   # System
   path_provider: ^2.0.12
   # flutter_localizations from sdk depends on path 1.8.2
@@ -76,24 +81,22 @@ dependencies:
   flash: ^2.0.5
   lottie: ^2.2.0
   flutter_native_splash: ^2.2.17
-  flutter_screenutil: ^5.6.0
   flutter_svg: ^1.1.6
   flex_color_scheme: ^6.1.2
   introduction_screen: ^3.1.4
   syncfusion_flutter_pdfviewer: ^20.4.44
   syncfusion_flutter_charts: ^20.4.44
   syncfusion_flutter_calendar: ^20.4.44
-  google_fonts: ^3.0.1
-  flutter_typeahead: ^4.1.1
+  google_fonts: ^4.0.1
+  flutter_typeahead: ^4.3.2
   # TEST
   device_preview: ^1.1.0
   feedback: ^2.5.0
 
   # Validation
-  # formz: ^0.5.0-dev.1
   mask_text_input_formatter: ^2.4.0
   crypto: ^3.0.2
-
+  formz: ^0.5.0-dev.1
  # firebase
   firebase_core: ^2.4.1
   firebase_crashlytics: ^3.0.11
@@ -114,7 +117,7 @@ dependencies:
 dev_dependencies:
 
   # Analyzer extensions
-  dart_code_metrics: ^5.5.0
+  dart_code_metrics: ^5.5.1
   very_good_analysis: ^3.1.0
 
   # Code generation
@@ -129,7 +132,7 @@ dev_dependencies:
   #  sdk: flutter
   #flutter_test:
   #  sdk: flutter
-  coverage: ^1.6.2
+  # coverage: ^1.6.2
   # test: ^1.22.1
   #bloc_test: ^8.1.0
   #mockito: ^5.1.0
@@ -142,7 +145,7 @@ flutter:
     - assets/svg/
     - assets/lottie/
     - assets/image/
-    - assets/db/
+
 
 # flutter pub get && flutter pub run flutter_native_splash:create
 # flutter_native_splash:
