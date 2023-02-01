@@ -1,5 +1,5 @@
-import 'package:formz/formz.dart';
 import 'package:nutrition/core/utils/utils.dart';
+import 'package:nutrition/core/valid/valid.dart';
 import 'package:nutrition/localization/gen/app_localizations.dart';
 
 /// Examples of accepted strings:
@@ -40,6 +40,7 @@ class ValidBirthday extends FormzInput<String, ValidBrithdayError> {
     return <String, dynamic>{'ValidBirthdayFormz': value};
   }
 
+  @override
   String? errorText({required AppLocalizations l}) {
     return null;
   }

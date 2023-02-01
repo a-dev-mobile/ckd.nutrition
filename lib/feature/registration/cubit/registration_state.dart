@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
-import 'package:formz/formz.dart';
+import 'package:nutrition/core/valid/valid.dart';
 import 'package:nutrition/feature/registration/registration.dart';
 
 @immutable

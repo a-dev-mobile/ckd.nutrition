@@ -1,4 +1,4 @@
-import 'package:formz/formz.dart';
+import 'package:nutrition/core/valid/valid.dart';
 import 'package:nutrition/feature/registration/registration.dart';
 import 'package:nutrition/localization/gen/app_localizations.dart';
 
@@ -21,6 +21,7 @@ class ValidCkd extends FormzInput<EnumCkd, ValidCkdError> {
     return value == EnumCkd.none ? ValidCkdError.notSelected : null;
   }
 
+  @override
   String? errorText({required AppLocalizations l}) => isPure
       ? null
       : error == notSelected

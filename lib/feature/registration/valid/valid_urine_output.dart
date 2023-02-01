@@ -1,4 +1,4 @@
-import 'package:formz/formz.dart';
+import 'package:nutrition/core/valid/valid.dart';
 import 'package:nutrition/localization/gen/app_localizations.dart';
 
 ///
@@ -34,6 +34,7 @@ class ValidUrineOutput extends FormzInput<double?, ValidUrineOutputError> {
     return <String, dynamic>{'ValidUrineOutput': value};
   }
 
+  @override
   String? errorText({required AppLocalizations l}) {
     return null;
   }

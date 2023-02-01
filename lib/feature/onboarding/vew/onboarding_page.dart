@@ -42,7 +42,7 @@ class _OnBoardingViewState extends State<_OnBoardingView> {
     final pageDecoration = PageDecoration(
       titleTextStyle: AppTextStyles.h5(),
       bodyTextStyle: AppTextStyles.bodyText2(),
-      bodyPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+      bodyPadding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
       imagePadding: EdgeInsets.zero,
     );
 

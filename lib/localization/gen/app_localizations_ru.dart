@@ -5,7 +5,7 @@ class AppLocalizationsRu extends AppLocalizations {
   AppLocalizationsRu([String locale = 'ru']) : super(locale);
 
   @override
-  String get app_name => 'Диализ';
+  String get app_name => 'Питание при ХБП';
 
   @override
   String get continueTo => 'Продолжить';

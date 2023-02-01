@@ -136,7 +136,7 @@ class DebugMenuPage extends StatelessWidget {
                     onPressed: () {
                       storage.clearAll();
                       _hydratedClean();
-                      go.router.goNamed(OnBoardingPage.name);
+                      go.router.goNamed(SplashPage.name);
                     },
                     child: const Text('RESTART'),
                   ),

@@ -4,14 +4,13 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nutrition/core/storage/storage.dart';
-import 'package:nutrition/core/widget/widget.dart';
 import 'package:nutrition/feature/debug_menu/debug_menu.dart';
 import 'package:nutrition/feature/onboarding/vew/vew.dart';
 import 'package:nutrition/feature/overlay_widget/overlay_widget.dart';
 import 'package:nutrition/feature/registration/registration.dart';
+import 'package:nutrition/feature/setting/view/setting_page.dart';
 import 'package:nutrition/feature/splash/splash.dart';
 import 'package:nutrition/feature/test_app/test_app.dart';
-import 'package:nutrition/feature/welcome/view/welcome_page.dart';
 import 'package:nutrition/global.dart';
 
 class AppRouter {
@@ -48,11 +47,11 @@ class AppRouter {
             ),
           ),
           GoRoute(
-            path: WelcomePage.path,
-            name: WelcomePage.name,
+            path: SettingPage.path,
+            name: SettingPage.name,
             pageBuilder: (context, state) => MaterialPage<void>(
               key: state.pageKey,
-              child: const WelcomePage(),
+              child: const SettingPage(),
             ),
           ),
           GoRoute(
@@ -87,18 +86,6 @@ class AppRouter {
               child: const TestAppPage(),
             ),
           ),
-          GoRoute(
-            path: PdfPage.path,
-            name: PdfPage.name,
-            pageBuilder: (context, state) {
-              final url = state.extra ?? 'https://www.orimi.com/pdf-test.pdf';
-
-              return MaterialPage<void>(
-                key: state.pageKey,
-                child: PdfPage(url: url.toString()),
-              );
-            },
-          ),
         ],
         navigatorKey: _pageNavigatorKey,
       ),
@@ -109,29 +96,36 @@ class AppRouter {
     ),
   );
 
-  Future<void> selectedRouter() async {
+  Future<void> nextPage() async {
     final isFirstTime = await _storage.isFirstStart();
 
     final isOnboardingCompleted = await _storage.isOnboardingCompleted();
 
-    if (isFirstTime || !isOnboardingCompleted) {
-      final _ = await _storage.completeFirstStart();
-      router.goNamed(
-        OnBoardingPage.name,
-      );
+    if (isOnboardingCompleted && !isFirstTime) {
+      router.goNamed(RegistrationPage.name);
 
       return;
+    }
 
-      // if you can't find anything
-    } else {
-      // router.goNamed(BottomNavBarPage.name);
+    if (isFirstTime) {
+      final _ = await _storage.completeFirstStart();
+      router.goNamed(SplashPage.name);
+
+      return;
+    }
+
+    if (!isOnboardingCompleted) {
+      final _ = await _storage.completeFirstStart();
+      router.goNamed(OnBoardingPage.name);
+
+      return;
     }
   }
 
   Future<void> exitApp() async {
     await _storage.clearAll();
-    await _storage.completeOnboarding();
-    await _storage.completeFirstStart();
+    // await _storage.completeOnboarding();
+    // await _storage.completeFirstStart();
 
     router.goNamed(SplashPage.name);
   }

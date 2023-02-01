@@ -1,6 +1,6 @@
 // ignore_for_file: avoid-nested-conditional-expressions
 
-import 'package:formz/formz.dart';
+import 'package:nutrition/core/valid/valid.dart';
 import 'package:nutrition/localization/gen/app_localizations.dart';
 
 class ValidName extends FormzInput<String, ValidNameError> {
@@ -28,6 +28,7 @@ class ValidName extends FormzInput<String, ValidNameError> {
     };
   }
 
+  @override
   String? errorText({required AppLocalizations l}) {
     return isPure
         ? null

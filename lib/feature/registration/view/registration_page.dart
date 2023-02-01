@@ -37,6 +37,13 @@ class _RegistrationPage extends StatelessWidget {
     // final l = context.l10n;
     return ClearFocus(
       child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Заполните данные'),
+          actions: [
+            IconButton(
+                onPressed: cubit.pushSetting, icon: const Icon(Icons.settings),),
+          ],
+        ),
         body: SafeArea(
           child: BlocBuilder<RegistrationCubit, RegistrationState>(
             builder: (context, state) {

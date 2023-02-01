@@ -16,7 +16,7 @@
 # debugging stack traces.
 #-keepattributes SourceFile,LineNumberTable
 
--keep class net.sqlcipher.** { *; }
+#-keep class net.sqlcipher.** { *; }
 
 # If you keep the line number information, uncomment this to
 # hide the original source file name.

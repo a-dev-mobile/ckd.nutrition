@@ -45,7 +45,7 @@ dart_code_metrics:
     - package:dart_code_metrics/presets/all.yaml
   rules:
     - member-ordering: false
-    # - prefer-match-file-name: false
+    - prefer-match-file-name: false
     - avoid-dynamic: false
     - format-comment: false
     - prefer-commenting-analyzer-ignores: false

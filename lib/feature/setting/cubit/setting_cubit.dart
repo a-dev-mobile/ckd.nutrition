@@ -9,8 +9,8 @@ import 'package:nutrition/app/app.dart';
 import 'package:nutrition/feature/registration/registration.dart';
 import 'package:nutrition/navigation/navigation.dart';
 
-class WelcomeCubit extends Cubit<WelcomeState> {
-  WelcomeCubit({
+class SettingCubit extends Cubit<SettingState> {
+  SettingCubit({
     required ThemeCubit cubitTheme,
     required LocaleCubit cubitLocale,
     required AppRouter router,
@@ -18,9 +18,7 @@ class WelcomeCubit extends Cubit<WelcomeState> {
         _go = router,
         _cubitLocale = cubitLocale,
         super(
-          WelcomeState(
-            boolsLocale: const [],
-            boolsTheme: const [],
+          SettingState(
             localeActive: cubitLocale.state,
             themeActive: cubitTheme.state,
           ),
@@ -81,10 +79,10 @@ class WelcomeCubit extends Cubit<WelcomeState> {
 }
 
 @immutable
-class WelcomeState {
-  /*  */
+class SettingState {
+  /* init: const[] */
   final List<bool> boolsLocale;
-  /*  */
+  /* init: const[] */
   final List<bool> boolsTheme;
   /* type:enum */
   final LocaleEnum localeActive;
@@ -97,26 +95,24 @@ class WelcomeState {
   // GENERATED CODE BELOW - DO NOT MODIFY
   //  ******************************
 
-  const WelcomeState({
-    required this.boolsLocale,
-    required this.boolsTheme,
+  const SettingState({
+    this.boolsLocale = const [],
+    this.boolsTheme = const [],
     required this.localeActive,
     required this.themeActive,
   });
   /*
-   factory WelcomeState.init() => WelcomeState(
-        boolsLocale: const [],
-        boolsTheme: const [],
+   factory SettingState.init() => SettingState(
       ); 
   */
 
-  WelcomeState copyWith({
+  SettingState copyWith({
     List<bool>? boolsLocale,
     List<bool>? boolsTheme,
     LocaleEnum? localeActive,
     ThemeMode? themeActive,
   }) {
-    return WelcomeState(
+    return SettingState(
       boolsLocale: boolsLocale ?? this.boolsLocale,
       boolsTheme: boolsTheme ?? this.boolsTheme,
       localeActive: localeActive ?? this.localeActive,
@@ -133,31 +129,35 @@ class WelcomeState {
     };
   }
 
-  factory WelcomeState.fromMap(Map<String, dynamic> map) {
-    return WelcomeState(
-      boolsLocale:
-          (map['boolsLocale'] as List<dynamic>).map((e) => e as bool).toList(),
-      boolsTheme:
-          (map['boolsTheme'] as List<dynamic>).map((e) => e as bool).toList(),
+  factory SettingState.fromMap(Map<String, dynamic> map) {
+    return SettingState(
+      boolsLocale: (map['boolsLocale'] as List<dynamic>?)
+              ?.map((e) => e as bool)
+              .toList() ??
+          const [],
+      boolsTheme: (map['boolsTheme'] as List<dynamic>?)
+              ?.map((e) => e as bool)
+              .toList() ??
+          const [],
       localeActive: LocaleEnum.values[map['localeActive'] as int],
       themeActive: ThemeMode.values[map['themeActive'] as int],
     );
   }
   @override
   String toString() {
-    return 'WelcomeState(boolsLocale: $boolsLocale, boolsTheme: $boolsTheme, localeActive: $localeActive, themeActive: $themeActive, )';
+    return 'SettingState(boolsLocale: $boolsLocale, boolsTheme: $boolsTheme, localeActive: $localeActive, themeActive: $themeActive, )';
   }
 
   String toJson() => json.encode(toMap());
 
-  factory WelcomeState.fromJson(String source) =>
-      WelcomeState.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory SettingState.fromJson(String source) =>
+      SettingState.fromMap(json.decode(source) as Map<String, dynamic>);
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is WelcomeState &&
+            other is SettingState &&
             const DeepCollectionEquality()
                 .equals(other.boolsLocale, boolsLocale) &&
             const DeepCollectionEquality()

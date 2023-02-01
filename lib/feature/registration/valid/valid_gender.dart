@@ -1,4 +1,4 @@
-import 'package:formz/formz.dart';
+import 'package:nutrition/core/valid/valid.dart';
 import 'package:nutrition/feature/registration/registration.dart';
 import 'package:nutrition/localization/gen/app_localizations.dart';
 
@@ -27,6 +27,7 @@ class ValidGender extends FormzInput<EnumGender, ValidGenderError> {
     };
   }
 
+  @override
   String? errorText({required AppLocalizations l}) {
     return isPure
         ? null

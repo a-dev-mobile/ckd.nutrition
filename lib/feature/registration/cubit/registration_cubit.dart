@@ -3,12 +3,15 @@ import 'dart:async';
 
 import 'package:dadata/dadata.dart';
 import 'package:flutter/widgets.dart';
-import 'package:formz/formz.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:nutrition/app/app.dart';
-import 'package:nutrition/core/storage/app_storage.dart';
-import 'package:nutrition/core/utils/launch_links.dart';
+import 'package:nutrition/core/storage/storage.dart';
+import 'package:nutrition/core/utils/utils.dart';
+import 'package:nutrition/core/valid/valid.dart';
+import 'package:nutrition/core/widget/widget.dart';
 import 'package:nutrition/feature/registration/registration.dart';
+import 'package:nutrition/feature/setting/setting.dart';
+import 'package:nutrition/localization/localization.dart';
 import 'package:nutrition/navigation/navigation.dart';
 
 class RegistrationCubit extends HydratedCubit<RegistrationState> {
@@ -32,7 +35,6 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
         );
   final DaDataClient _clienTips;
 
-  // ignore: unused_field
   final AppRouter _go;
 
   final AppStorage _storage;
@@ -52,14 +54,11 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
       fallback: LocaleEnum.en,
     );
 
-    // await _db.load();
-
-    // final db = await _db.openDB();
-    // final result =
-    //     await db.rawQuery('SELECT * from ${TableEnum.date_month.name}');
-    // unawaited(db.close());
-
     emit(state.copyWith(isLoadPage: false, isLoadNextPage: false));
+  }
+
+  void pushSetting() {
+    _go.router.pushNamed(SettingPage.name);
   }
 
   static List<String> _initYears() {
@@ -142,26 +141,26 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
     );
   }
 
-  // Future<void> nextPage() async {
-  //   emit(state.copyWith(isLoadNextPage: true));
-  //   final userInfo = UserInfoModel(
-  //     name: state.validName.value,
-  //     gender: state.validGender.value,
-  //     activity: state.validActivity.value,
-  //     birthday: DateTime.parse(state.validBirthday.value),
-  //     height: int.tryParse(state.validHeight.value ?? '0') ?? 0,
-  //     weight: state.validWeight.value ?? 0,
-  //     ckd: state.validCkd.value,
-  //     creatinin: state.validCreatinine.value ?? 0,
-  //     created: DateTime.now(),
-  //     updated: DateTime.now(),
-  //   );
-  //   await _storage.setUserInfoModel(userInfo);
-  //   await Future<void>.delayed(const Duration(seconds: 5));
+  Future<void> nextPage() async {
+    // emit(state.copyWith(isLoadNextPage: true));
+    // final userInfo = UserInfoModel(
+    //   name: state.validName.value,
+    //   gender: state.validGender.value,
+    //   activity: state.validActivity.value,
+    //   birthday: DateTime.parse(state.validBirthday.value),
+    //   height: int.tryParse(state.validHeight.value ?? '0') ?? 0,
+    //   weight: state.validWeight.value ?? 0,
+    //   ckd: state.validCkd.value,
+    //   creatinin: state.validCreatinine.value ?? 0,
+    //   created: DateTime.now(),
+    //   updated: DateTime.now(),
+    // );
+    // await _storage.setUserInfoModel(userInfo);
+    // await Future<void>.delayed(const Duration(seconds: 5));
 
-  //   _go.router.goNamed(DashBoardPage.name);
-  //   // emit(state.copyWith(isLoadNextPage: false));
-  // }
+    // _go.router.goNamed(DashBoardPage.name);
+    // emit(state.copyWith(isLoadNextPage: false));
+  }
 
   String _getDateRaw() {
     final day = state.daySelected;
@@ -190,9 +189,6 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
       state.copyWith(
         genderSelected: genderSelected,
         validGender: validGender,
-        // isValid: .validate(
-        //   [state.validName, validGender, state.validActivity],
-        // ),
       ),
     );
   }
@@ -492,6 +488,24 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
       ),
     );
 //  error enumeration and display
+    final buffer = StringBuffer();
+    String? error;
+    for (final v in listValidate) {
+      error = v.errorText(l: context.l10n);
+      if (error != null) {
+        buffer
+          ..write(error)
+          ..write('\n');
+      }
+    }
+    if (!state.isValid) {
+      MySnackBar.show(
+        context: context,
+        alertType: AlertType.error,
+        duration: const Duration(seconds: 5),
+        title: buffer.toString(),
+      );
+    }
 
     return state.isValid;
   }

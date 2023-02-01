@@ -9,7 +9,7 @@ class SplashPage extends StatelessWidget {
   const SplashPage({super.key});
 
   static const path = '/splash';
-  static const name = 'Splash';
+  static const name = 'splash';
 
   @override
   Widget build(BuildContext context) {

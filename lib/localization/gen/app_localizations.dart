@@ -99,7 +99,7 @@ abstract class AppLocalizations {
   /// No description provided for @app_name.
   ///
   /// In ru, this message translates to:
-  /// **'Диализ'**
+  /// **'Питание при ХБП'**
   String get app_name;
 
   /// No description provided for @continueTo.

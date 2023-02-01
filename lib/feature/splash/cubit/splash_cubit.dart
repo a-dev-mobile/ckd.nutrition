@@ -1,10 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nutrition/feature/welcome/view/welcome_page.dart';
 import 'package:nutrition/navigation/app_router.dart';
 
 class SplashCubit extends Cubit<SplashState> {
@@ -15,12 +13,8 @@ class SplashCubit extends Cubit<SplashState> {
 
   final AppRouter _go;
 
-  Future<void> load() async {
-    emit(state.copyWith(isLoad: true));
-
-    _go.router.goNamed(WelcomePage.name);
-
-    emit(state.copyWith(isLoad: false));
+  void load() {
+    _go.nextPage();
   }
 }
 

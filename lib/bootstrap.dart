@@ -2,7 +2,6 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
@@ -20,7 +19,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:nutrition/core/device/device.dart';
 import 'package:nutrition/core/log/log.dart';
-import 'package:nutrition/core/network/network.dart';
+
 import 'package:nutrition/core/storage/storage.dart';
 import 'package:nutrition/firebase_options.dart';
 import 'package:nutrition/global.dart';
@@ -72,11 +71,8 @@ Future<void> bootstrap(FutureOr<Widget> Function() app) async {
       final userAgent = await DeviceInfo.getUserAgent();
       final packageName = await DeviceInfo.getPackageName();
       log.i(
-        'IS_DEBUG = ${DartDefine.IS_DEBUG} | IS_PROD = ${DartDefine.IS_PROD}\n$packageName\n$userAgent',
+        'IS_DEBUG = ${DartDefine.IS_DEBUG} | IS_PROD = ${DartDefine.IS_ANALYTICS}\n$packageName\n$userAgent',
       );
-
-      // Bad Certificate for http analize
-      if (DartDefine.IS_DEBUG) HttpOverrides.global = BadHttpOverrides();
 
       HydratedBloc.storage = await _hydratedStorageBuild();
       runApp(
@@ -98,7 +94,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() app) async {
       );
     },
     (error, stackTrace) {
-      if (DartDefine.IS_PROD) {
+      if (DartDefine.IS_ANALYTICS) {
         FirebaseCrashlytics.instance.recordError(error, stackTrace);
       } else {
         logger.e('App Zone Stack Trace', error.toString(), stackTrace);

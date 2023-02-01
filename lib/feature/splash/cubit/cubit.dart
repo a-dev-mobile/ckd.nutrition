@@ -1,1 +1,1 @@
-export 'splash_c.dart';
+export 'splash_cubit.dart';

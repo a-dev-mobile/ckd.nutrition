@@ -1,4 +1,4 @@
-import 'package:formz/formz.dart';
+import 'package:nutrition/core/valid/valid.dart';
 import 'package:nutrition/localization/gen/app_localizations.dart';
 
 ///
@@ -31,6 +31,7 @@ class ValidWeight extends FormzInput<double?, ValidWeightError> {
     return <String, dynamic>{'ValidWeightFormz': value};
   }
 
+  @override
   String? errorText({required AppLocalizations l}) {
     return null;
   }

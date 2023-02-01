@@ -3,6 +3,7 @@ extension DurationExtensions on Duration {
   /// 05:15
   String toHoursMinutes() {
     final twoDigitMinutes = _toTwoDigits(inMinutes.remainder(60));
+
     return '${_toTwoDigits(inHours)}:$twoDigitMinutes';
   }
 
@@ -12,6 +13,7 @@ extension DurationExtensions on Duration {
     final twoDigitDays = _toTwoDigits(inHours ~/ 24);
     final twoDigitHours = _toTwoDigits(inHours.remainder(24));
     final twoDigitMinutes = _toTwoDigits(inMinutes.remainder(60));
+
     return '$twoDigitDays:$twoDigitHours:$twoDigitMinutes';
   }
 
