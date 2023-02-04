@@ -7,6 +7,7 @@ import 'package:introduction_screen/introduction_screen.dart';
 import 'package:nutrition/app/style/style.dart';
 import 'package:nutrition/feature/onboarding/onboarding.dart';
 import 'package:nutrition/feature/splash/splash.dart';
+import 'package:nutrition/navigation/app_router.dart';
 
 class OnBoardingPage extends StatelessWidget {
   const OnBoardingPage({super.key});
@@ -16,7 +17,10 @@ class OnBoardingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => OnboardingCubit(storage: context.read()),
+      create: (context) => OnboardingCubit(
+        storage: context.read(),
+        router: context.read<AppRouter>(),
+      ),
       child: const _OnBoardingView(),
     );
   }

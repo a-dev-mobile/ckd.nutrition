@@ -1,1 +1,1 @@
-export 'onboarding_c.dart';
+export 'onboarding_cubit.dart';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nutrition/core/storage/app_storage.dart';
 import 'package:nutrition/core/widget/widget.dart';
 import 'package:nutrition/feature/splash/splash.dart';
 import 'package:nutrition/navigation/app_router.dart';
@@ -17,6 +18,7 @@ class SplashPage extends StatelessWidget {
       lazy: false,
       create: (context) => SplashCubit(
         router: context.read<AppRouter>(),
+        storage: context.read<AppStorage>(),
       )..load(),
       child: const _SplashView(),
     );

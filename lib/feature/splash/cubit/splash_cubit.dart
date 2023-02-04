@@ -3,18 +3,24 @@ import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nutrition/core/storage/app_storage.dart';
 import 'package:nutrition/navigation/app_router.dart';
 
 class SplashCubit extends Cubit<SplashState> {
   SplashCubit({
     required AppRouter router,
+    required AppStorage storage,
   })  : _go = router,
+        _storage = storage,
         super(const SplashState());
 
   final AppRouter _go;
+  final AppStorage _storage;
 
-  void load() {
-    _go.nextPage();
+  Future<void> load() async {
+    final _ = await _storage.completeFirstStart();
+
+    await _go.nextPage();
   }
 }
 
