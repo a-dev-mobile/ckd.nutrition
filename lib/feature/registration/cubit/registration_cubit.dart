@@ -14,6 +14,9 @@ import 'package:nutrition/feature/setting/setting.dart';
 import 'package:nutrition/localization/localization.dart';
 import 'package:nutrition/navigation/navigation.dart';
 
+const _maxDayInMonth = 31;
+const _maxMonth = 12;
+
 class RegistrationCubit extends HydratedCubit<RegistrationState> {
   RegistrationCubit({
     required AppRouter router,
@@ -25,14 +28,15 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
         super(
           RegistrationState(
             dateRegModel: DateRegModel(
-              days: _initDayMonth(start: 1, end: 31),
-              months: _initDayMonth(start: 1, end: 12),
+              days: _initDayMonth(start: 1, end: _maxDayInMonth),
+              months: _initDayMonth(start: 1, end: _maxMonth),
               years: _initYears(),
             ),
             heightList: _initHeight(),
             ckdSelected: _getListBoolByIndexTrue(indexTrue: null),
           ),
         );
+
   final DaDataClient _clienTips;
 
   final AppRouter _go;
@@ -448,7 +452,6 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
     final validCkd = ValidCkd.dirty(state.validCkd.value);
     final validDailyDiuresis =
         ValidDailyDiuresis.dirty(state.validDailyDiuresis.value);
-
 
     final validCreatinine =
         ValidCreatinine.dirty(value: state.validCreatinine.value);

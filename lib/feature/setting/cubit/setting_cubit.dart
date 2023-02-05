@@ -1,4 +1,5 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first, lines_longer_than_80_chars
+// ignore_for_file: sort_constructors_first
+// ignore_for_file: public_member_api_docs,  lines_longer_than_80_chars
 
 import 'dart:convert';
 
@@ -79,7 +80,7 @@ class SettingCubit extends Cubit<SettingState> {
 }
 
 @immutable
-class SettingState {
+class SettingState { 
   /* init: const[] */
   final List<bool> boolsLocale;
   /* init: const[] */
@@ -90,21 +91,42 @@ class SettingState {
   final ThemeMode themeActive;
 
   // end
-
+   
   //  ******************************
   // GENERATED CODE BELOW - DO NOT MODIFY
   //  ******************************
 
+  
   const SettingState({
-    this.boolsLocale = const [],
-    this.boolsTheme = const [],
+    this.boolsLocale = const[],
+    this.boolsTheme = const[],
     required this.localeActive,
     required this.themeActive,
   });
   /*
+  
    factory SettingState.init() => SettingState(
       ); 
   */
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'boolsLocale': boolsLocale, 
+      'boolsTheme': boolsTheme, 
+      'localeActive': localeActive.index, 
+      'themeActive': themeActive.index, 
+    };
+  }
+
+    
+  factory SettingState.fromMap(Map<String, dynamic> map) {
+    return SettingState(
+      boolsLocale: (map['boolsLocale'] as List<dynamic>?)?.map((e) => e as bool).toList() ?? const[], 
+      boolsTheme: (map['boolsTheme'] as List<dynamic>?)?.map((e) => e as bool).toList() ?? const[], 
+      localeActive: LocaleEnum.values[map['localeActive'] as int], 
+      themeActive: ThemeMode.values[map['themeActive'] as int], 
+    );
+  }
 
   SettingState copyWith({
     List<bool>? boolsLocale,
@@ -113,61 +135,29 @@ class SettingState {
     ThemeMode? themeActive,
   }) {
     return SettingState(
-      boolsLocale: boolsLocale ?? this.boolsLocale,
-      boolsTheme: boolsTheme ?? this.boolsTheme,
-      localeActive: localeActive ?? this.localeActive,
-      themeActive: themeActive ?? this.themeActive,
+      boolsLocale: boolsLocale ?? this.boolsLocale, 
+      boolsTheme: boolsTheme ?? this.boolsTheme, 
+      localeActive: localeActive ?? this.localeActive, 
+      themeActive: themeActive ?? this.themeActive, 
     );
   }
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'boolsLocale': boolsLocale,
-      'boolsTheme': boolsTheme,
-      'localeActive': localeActive.index,
-      'themeActive': themeActive.index,
-    };
-  }
-
-  factory SettingState.fromMap(Map<String, dynamic> map) {
-    return SettingState(
-      boolsLocale: (map['boolsLocale'] as List<dynamic>?)
-              ?.map((e) => e as bool)
-              .toList() ??
-          const [],
-      boolsTheme: (map['boolsTheme'] as List<dynamic>?)
-              ?.map((e) => e as bool)
-              .toList() ??
-          const [],
-      localeActive: LocaleEnum.values[map['localeActive'] as int],
-      themeActive: ThemeMode.values[map['themeActive'] as int],
-    );
-  }
-  @override
-  String toString() {
-    return 'SettingState(boolsLocale: $boolsLocale, boolsTheme: $boolsTheme, localeActive: $localeActive, themeActive: $themeActive, )';
-  }
-
+  
   String toJson() => json.encode(toMap());
-
-  factory SettingState.fromJson(String source) =>
-      SettingState.fromMap(json.decode(source) as Map<String, dynamic>);
-
+  
+    
+  factory SettingState.fromJson(String source) => SettingState.fromMap(json.decode(source) as Map<String, dynamic>);
+  
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is SettingState &&
-            const DeepCollectionEquality()
-                .equals(other.boolsLocale, boolsLocale) &&
-            const DeepCollectionEquality()
-                .equals(other.boolsTheme, boolsTheme) &&
-            (identical(other.localeActive, localeActive) ||
-                other.localeActive == localeActive) &&
-            (identical(other.themeActive, themeActive) ||
-                other.themeActive == themeActive));
+            const DeepCollectionEquality().equals(other.boolsLocale, boolsLocale)&& 
+            const DeepCollectionEquality().equals(other.boolsTheme, boolsTheme)&& 
+            (identical(other.localeActive, localeActive) || other.localeActive == localeActive)&& 
+            (identical(other.themeActive, themeActive) || other.themeActive == themeActive));
   }
-
+  
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
@@ -175,5 +165,10 @@ class SettingState {
         const DeepCollectionEquality().hash(boolsTheme),
         localeActive,
         themeActive,
-      ]);
-}
+]);
+  
+  @override
+  String toString() {
+    return 'SettingState(boolsLocale: $boolsLocale, boolsTheme: $boolsTheme, localeActive: $localeActive, themeActive: $themeActive, )';
+    }
+  }

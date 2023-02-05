@@ -11,8 +11,8 @@ linter:
 
 analyzer:
   # errors:
-    # argument_type_not_assignable: ignore
-    # invalid_assignment: ignore
+  # argument_type_not_assignable: ignore
+  # invalid_assignment: ignore
   plugins:
     - dart_code_metrics
   # strong-mode:
@@ -59,9 +59,7 @@ dart_code_metrics:
     - avoid-late-keyword: false
 
     - avoid-nested-conditional-expressions: false
-  
-
-
-
-
-  
+    - prefer-static-class:
+        ignore-annotations:
+          - allowedAnnotation
+        ignore-private: true

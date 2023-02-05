@@ -1,8 +1,9 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: sort_constructors_first
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:meta/meta.dart';
 import 'package:nutrition/core/storage/app_storage.dart';
 import 'package:nutrition/navigation/app_router.dart';
 
@@ -25,52 +26,51 @@ class SplashCubit extends Cubit<SplashState> {
 }
 
 @immutable
-class SplashState {
-  /* init:false */
+class SplashState {    
+  /* init:true */
   final bool isLoad;
   // end
-
+   
   //  ******************************
   // GENERATED CODE BELOW - DO NOT MODIFY
   //  ******************************
 
+  
   const SplashState({
-    this.isLoad = false,
+    this.isLoad = true,
   });
   /*
+  
    factory SplashState.init() => SplashState(
       ); 
   */
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'isLoad': isLoad, 
+    };
+  }
+
+    
+  factory SplashState.fromMap(Map<String, dynamic> map) {
+    return SplashState(
+      isLoad: map['isLoad'] as bool? ?? true, 
+    );
+  }
 
   SplashState copyWith({
     bool? isLoad,
   }) {
     return SplashState(
-      isLoad: isLoad ?? this.isLoad,
+      isLoad: isLoad ?? this.isLoad, 
     );
   }
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'isLoad': isLoad,
-    };
-  }
-
-  factory SplashState.fromMap(Map<String, dynamic> map) {
-    return SplashState(
-      isLoad: map['isLoad'] as bool? ?? false,
-    );
-  }
-  @override
-  String toString() {
-    return 'SplashState(isLoad: $isLoad, )';
-  }
-
+  
   String toJson() => json.encode(toMap());
-
-  factory SplashState.fromJson(String source) =>
-      SplashState.fromMap(json.decode(source) as Map<String, dynamic>);
-
+  
+    
+  factory SplashState.fromJson(String source) => SplashState.fromMap(json.decode(source) as Map<String, dynamic>);
+  
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
@@ -78,10 +78,15 @@ class SplashState {
             other is SplashState &&
             (identical(other.isLoad, isLoad) || other.isLoad == isLoad));
   }
-
+  
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
         isLoad,
-      ]);
-}
+]);
+  
+  @override
+  String toString() {
+    return 'SplashState(isLoad: $isLoad, )';
+    }
+  }

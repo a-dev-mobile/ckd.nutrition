@@ -1,14 +1,47 @@
+// ignore_for_file: sort_constructors_first
 import 'dart:convert';
+import 'package:meta/meta.dart';
 
-import 'package:flutter/foundation.dart';
 import 'package:nutrition/feature/registration/registration.dart';
 
 @immutable
-class UserInfoModel {
+class UserInfoModel {  
+   /*  */
+  final String name;
+  /* 
+  type:enum
+  init: EnumGender.none
+   */
+  final EnumGender gender;
+  /* 
+  type:enum
+  init: EnumActivity.none
+   */
+  final EnumActivity activity;
+  /*  */
+  final DateTime birthday;
+  /*  */
+  final int height;
+  /*  */
+  final double weight;
+/* 
+  type:enum
+  init: EnumCkd.none
+   */
+  final EnumCkd ckd;
+  /*  */
+  final double creatinin;
+  /*  */
+  final DateTime created;
+  /*  */
+  final DateTime? updated;
   // end
-
+   
+  //  ******************************
   // GENERATED CODE BELOW - DO NOT MODIFY
+  //  ******************************
 
+  
   const UserInfoModel({
     required this.name,
     this.gender = EnumGender.none,
@@ -21,56 +54,8 @@ class UserInfoModel {
     required this.created,
     this.updated,
   });
-
-  factory UserInfoModel.fromMap(Map<String, dynamic> map) {
-    return UserInfoModel(
-      name: map['name'] as String,
-      gender: EnumGender.values[map['gender'] as int],
-      activity: EnumActivity.values[map['activity'] as int],
-      birthday: DateTime.parse(map['birthday'] as String),
-      height: map['height'] as int,
-      weight: (map['weight'] as num).toDouble(),
-      ckd: EnumCkd.values[map['ckd'] as int],
-      creatinin: (map['creatinin'] as num).toDouble(),
-      created: DateTime.parse(map['created'] as String),
-      updated: map['updated'] == null
-          ? null
-          : DateTime.parse(map['updated'] as String),
-    );
-  }
-
-  factory UserInfoModel.fromJson(String source) =>
-      UserInfoModel.fromMap(json.decode(source) as Map<String, dynamic>);
-  /*  */
-  final String name;
-  /* 
-  type:enum
-  init: GenderEnum.none
-   */
-  final EnumGender gender;
-  /* 
-  type:enum
-  init: ActivityEnum.none
-   */
-  final EnumActivity activity;
-  /*  */
-  final DateTime birthday;
-  /*  */
-  final int height;
-  /*  */
-  final double weight;
-/* 
-  type:enum
-  init: CkdEnum.none
-   */
-  final EnumCkd ckd;
-  /*  */
-  final double creatinin;
-  /*  */
-  final DateTime created;
-  /*  */
-  final DateTime? updated;
   /*
+  
    factory UserInfoModel.init() => UserInfoModel(
         name: '',
         birthday: DateTime.now(),
@@ -80,6 +65,37 @@ class UserInfoModel {
         created: DateTime.now(),
       ); 
   */
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'name': name, 
+      'gender': gender.index, 
+      'activity': activity.index, 
+      'birthday': birthday.toIso8601String(), 
+      'height': height, 
+      'weight': weight, 
+      'ckd': ckd.index, 
+      'creatinin': creatinin, 
+      'created': created.toIso8601String(), 
+      'updated': updated?.toIso8601String(), 
+    };
+  }
+
+    
+  factory UserInfoModel.fromMap(Map<String, dynamic> map) {
+    return UserInfoModel(
+      name: map['name'] as String, 
+      gender: EnumGender.values[map['gender'] as int], 
+      activity: EnumActivity.values[map['activity'] as int], 
+      birthday: DateTime.parse(map['birthday'] as String), 
+      height: map['height'] as int, 
+      weight: (map['weight'] as num).toDouble(), 
+      ckd: EnumCkd.values[map['ckd'] as int], 
+      creatinin: (map['creatinin'] as num).toDouble(), 
+      created: DateTime.parse(map['created'] as String), 
+      updated: map['updated'] == null ? null : DateTime.parse(map['updated'] as String), 
+    );
+  }
 
   UserInfoModel copyWith({
     String? name,
@@ -94,61 +110,41 @@ class UserInfoModel {
     DateTime? updated,
   }) {
     return UserInfoModel(
-      name: name ?? this.name,
-      gender: gender ?? this.gender,
-      activity: activity ?? this.activity,
-      birthday: birthday ?? this.birthday,
-      height: height ?? this.height,
-      weight: weight ?? this.weight,
-      ckd: ckd ?? this.ckd,
-      creatinin: creatinin ?? this.creatinin,
-      created: created ?? this.created,
-      updated: updated ?? this.updated,
+      name: name ?? this.name, 
+      gender: gender ?? this.gender, 
+      activity: activity ?? this.activity, 
+      birthday: birthday ?? this.birthday, 
+      height: height ?? this.height, 
+      weight: weight ?? this.weight, 
+      ckd: ckd ?? this.ckd, 
+      creatinin: creatinin ?? this.creatinin, 
+      created: created ?? this.created, 
+      updated: updated ?? this.updated, 
     );
   }
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'name': name,
-      'gender': gender.index,
-      'activity': activity.index,
-      'birthday': birthday.toIso8601String(),
-      'height': height,
-      'weight': weight,
-      'ckd': ckd.index,
-      'creatinin': creatinin,
-      'created': created.toIso8601String(),
-      'updated': updated?.toIso8601String(),
-    };
-  }
-
-  @override
-  String toString() {
-    return 'UserInfoModel(name: $name, gender: $gender, activity: $activity, birthday: $birthday, height: $height, weight: $weight, ckd: $ckd, creatinin: $creatinin, created: $created, updated: $updated, )';
-  }
-
+  
   String toJson() => json.encode(toMap());
-
+  
+    
+  factory UserInfoModel.fromJson(String source) => UserInfoModel.fromMap(json.decode(source) as Map<String, dynamic>);
+  
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is UserInfoModel &&
-            (identical(other.name, name) || other.name == name) &&
-            (identical(other.gender, gender) || other.gender == gender) &&
-            (identical(other.activity, activity) ||
-                other.activity == activity) &&
-            (identical(other.birthday, birthday) ||
-                other.birthday == birthday) &&
-            (identical(other.height, height) || other.height == height) &&
-            (identical(other.weight, weight) || other.weight == weight) &&
-            (identical(other.ckd, ckd) || other.ckd == ckd) &&
-            (identical(other.creatinin, creatinin) ||
-                other.creatinin == creatinin) &&
-            (identical(other.created, created) || other.created == created) &&
+            (identical(other.name, name) || other.name == name)&& 
+            (identical(other.gender, gender) || other.gender == gender)&& 
+            (identical(other.activity, activity) || other.activity == activity)&& 
+            (identical(other.birthday, birthday) || other.birthday == birthday)&& 
+            (identical(other.height, height) || other.height == height)&& 
+            (identical(other.weight, weight) || other.weight == weight)&& 
+            (identical(other.ckd, ckd) || other.ckd == ckd)&& 
+            (identical(other.creatinin, creatinin) || other.creatinin == creatinin)&& 
+            (identical(other.created, created) || other.created == created)&& 
             (identical(other.updated, updated) || other.updated == updated));
   }
-
+  
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
@@ -162,5 +158,10 @@ class UserInfoModel {
         creatinin,
         created,
         updated,
-      ]);
-}
+]);
+  
+  @override
+  String toString() {
+    return 'UserInfoModel(name: $name, gender: $gender, activity: $activity, birthday: $birthday, height: $height, weight: $weight, ckd: $ckd, creatinin: $creatinin, created: $created, updated: $updated, )';
+    }
+  }

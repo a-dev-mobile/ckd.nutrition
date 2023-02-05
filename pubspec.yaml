@@ -149,11 +149,11 @@ flutter:
 
 
 # flutter pub get && flutter pub run flutter_native_splash:create
-flutter_native_splash:
-  android: true
-  ios: true
-  web: true
-  desktop: true
-  color: "#ffffff"
-  image: assets/image/splash.png
+# flutter_native_splash:
+#   android: true
+#   ios: true
+#   web: true
+#   desktop: true
+#   color: "#ffffff"
+#   image: assets/image/splash.png
 
