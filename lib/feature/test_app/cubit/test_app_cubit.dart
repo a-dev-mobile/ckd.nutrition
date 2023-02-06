@@ -1,11 +1,14 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: sort_constructors_first
+
 import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
+import 'package:meta/meta.dart';
 
 class TestAppCubit extends Cubit<TestAppState> {
-  TestAppCubit() : super(const TestAppState(isLoad: true, nameNutrient: []));
+  TestAppCubit() : super(const TestAppState());
 
   Future<void> loadNameNutrient() async {
     emit(state.copyWith(isLoad: true));
@@ -13,57 +16,76 @@ class TestAppCubit extends Cubit<TestAppState> {
 }
 
 @immutable
-class TestAppState {
+class TestAppState { 
+  /* init: true */
   final bool isLoad;
+  /* init: const [] */
   final List<String> nameNutrient;
+// end
+   
+  //  ******************************
+  // GENERATED CODE BELOW - DO NOT MODIFY
+  //  ******************************
+
+  
   const TestAppState({
-    required this.isLoad,
-    required this.nameNutrient,
+    this.isLoad = true,
+    this.nameNutrient = const [],
   });
+  /*
+  
+   factory TestAppState.init() => TestAppState(
+      ); 
+  */
+
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'isLoad': isLoad, 
+      'nameNutrient': nameNutrient, 
+    };
+  }
+
+    
+  factory TestAppState.fromMap(Map<String, dynamic> map) {
+    return TestAppState(
+      isLoad: map['isLoad'] as bool? ?? true, 
+      nameNutrient: (map['nameNutrient'] as List<dynamic>?)?.map((e) => e as String).toList() ?? const [], 
+    );
+  }
 
   TestAppState copyWith({
     bool? isLoad,
     List<String>? nameNutrient,
   }) {
     return TestAppState(
-      isLoad: isLoad ?? this.isLoad,
-      nameNutrient: nameNutrient ?? this.nameNutrient,
+      isLoad: isLoad ?? this.isLoad, 
+      nameNutrient: nameNutrient ?? this.nameNutrient, 
     );
   }
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'isLoad': isLoad,
-      'nameNutrient': nameNutrient,
-    };
-  }
-
-  factory TestAppState.fromMap(Map<String, dynamic> map) {
-    return TestAppState(
-      isLoad: map['isLoad'] as bool,
-      nameNutrient: List<String>.from(
-        map['nameNutrient'] as List<String>,
-      ),
-    );
-  }
-
+  
   String toJson() => json.encode(toMap());
-
-  factory TestAppState.fromJson(String source) =>
-      TestAppState.fromMap(json.decode(source) as Map<String, dynamic>);
-
+  
+    
+  factory TestAppState.fromJson(String source) => TestAppState.fromMap(json.decode(source) as Map<String, dynamic>);
+  
   @override
-  String toString() =>
-      'TestAppState(isLoad: $isLoad, nameNutrient: $nameNutrient)';
-
-  @override
-  bool operator ==(covariant TestAppState other) {
-    if (identical(this, other)) return true;
-
-    return other.isLoad == isLoad &&
-        listEquals(other.nameNutrient, nameNutrient);
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is TestAppState &&
+            (identical(other.isLoad, isLoad) || other.isLoad == isLoad)&& 
+            const DeepCollectionEquality().equals(other.nameNutrient, nameNutrient));
   }
-
+  
   @override
-  int get hashCode => isLoad.hashCode ^ nameNutrient.hashCode;
-}
+  int get hashCode => Object.hashAll([
+        runtimeType,
+        isLoad,
+        const DeepCollectionEquality().hash(nameNutrient),
+]);
+  
+  @override
+  String toString() {
+    return 'TestAppState(isLoad: $isLoad, nameNutrient: $nameNutrient, )';
+    }
+  }

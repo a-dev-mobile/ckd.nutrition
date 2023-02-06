@@ -1,6 +1,6 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:feedback/feedback.dart';
-import 'package:flash/flash.dart';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -76,20 +76,9 @@ class _MobileApp extends StatelessWidget {
             var child = widget ?? const SizedBox.shrink();
             final theme = Theme.of(context);
             final isThemeDark = theme.brightness == Brightness.dark;
-            child = Toast(
-              navigatorKey: go.router.routerDelegate.navigatorKey,
-              child: child,
-            );
+            
 
-            return FlashTheme(
-              flashBarTheme: isThemeDark
-                  ? const FlashBarThemeData.dark()
-                  : const FlashBarThemeData.light(),
-              flashDialogTheme: const FlashDialogThemeData(),
-              child: Builder(
-                builder: (context) => DevicePreview.appBuilder(context, child),
-              ),
-            );
+            return DevicePreview.appBuilder(context, child);
           },
           onGenerateTitle: (context) => AppLocalizations.of(context).app_name,
           theme: AppTheme.lightThemeData(),

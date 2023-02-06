@@ -40,7 +40,7 @@ dependencies:
 
   # Helper BLoC
   equatable: ^2.0.5
-  bloc_concurrency: ^0.2.0-dev.2
+  bloc_concurrency: ^0.2.1
   hydrated_bloc: ^9.0.0
 
   # Flutter integrations bloc
@@ -79,7 +79,7 @@ dependencies:
   
 
   # Helper for UI
-  flash: ^2.0.5
+  # flash: ^2.0.5
   lottie: ^2.2.0
   flutter_native_splash: ^2.2.17
   flutter_svg: ^2.0.0+1

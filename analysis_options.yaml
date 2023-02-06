@@ -63,3 +63,8 @@ dart_code_metrics:
         ignore-annotations:
           - allowedAnnotation
         ignore-private: true
+    - no-equal-arguments:
+        ignored-parameters:
+          - height
+          - width
+          - Duration.zero

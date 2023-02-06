@@ -502,12 +502,12 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
       }
     }
     if (!state.isValid) {
-      MySnackBar.show(
-        context: context,
-        alertType: AlertType.error,
-        duration: const Duration(seconds: 5),
-        title: buffer.toString(),
-      );
+      // MySnackBar.show(
+      //   context: context,
+      //   alertType: AlertType.error,
+      //   duration: const Duration(seconds: 5),
+      //   title: buffer.toString(),
+      // );
     }
 
     return state.isValid;
