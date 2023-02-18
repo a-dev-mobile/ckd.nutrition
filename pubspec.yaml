@@ -21,8 +21,8 @@ dependencies:
   async: ^2.10.0
 
   # Stream
-  stream_transform: ^2.1.0
-  rxdart: ^0.27.7
+  # stream_transform: ^2.1.0
+  # rxdart: ^0.27.7
   # System
   path_provider: ^2.0.12
   # flutter_localizations from sdk depends on path 1.8.2
