@@ -7,6 +7,8 @@ import 'package:introduction_screen/introduction_screen.dart';
 import 'package:nutrition/app/style/style.dart';
 import 'package:nutrition/feature/onboarding/onboarding.dart';
 import 'package:nutrition/feature/splash/splash.dart';
+import 'package:nutrition/gen/assets.gen.dart';
+
 import 'package:nutrition/navigation/app_router.dart';
 
 class OnBoardingPage extends StatelessWidget {
@@ -59,7 +61,7 @@ class _OnBoardingViewState extends State<_OnBoardingView> {
             body:
                 'Диализные пациенты должны тщательно контролировать потребление жидкости.\nЭто особенно важно, если ваши почки совсем не вырабатывают мочу',
             image: const OnboardingItemImage(
-              assetName: 'assets/svg/onb_1.svg',
+              assetName: AppAssetsSVG.onb1,
             ),
             decoration: pageDecoration,
           ),
@@ -68,7 +70,7 @@ class _OnBoardingViewState extends State<_OnBoardingView> {
             body:
                 'Для пациента на гемодиализе с массой тела 70–75 кг диета должна содержать 75–85 г белка и 2500–2800 ккал.\nЕсли не обеспечивается нужное количество белка и энергии, то закономерно развивается питательная (белково-энергетическая) недостаточность.',
             image: const OnboardingItemImage(
-              assetName: 'assets/svg/onb_2.svg',
+              assetName: AppAssetsSVG.onb2,
             ),
             decoration: pageDecoration,
           ),
@@ -77,7 +79,7 @@ class _OnBoardingViewState extends State<_OnBoardingView> {
             body:
                 'Данное приложение не может и не преследует цели заменить Вашего лечашего врача.',
             image: const OnboardingItemImage(
-              assetName: 'assets/svg/onb_3.svg',
+              assetName: AppAssetsSVG.onb3,
             ),
             decoration: pageDecoration,
           ),
@@ -86,7 +88,7 @@ class _OnBoardingViewState extends State<_OnBoardingView> {
             body:
                 'Пройдите тест, что бы узнать риски рецидива болезни и получить оптимальные рекомендации.',
             image: const OnboardingItemImage(
-              assetName: 'assets/svg/onb_4.svg',
+              assetName: AppAssetsSVG.onb4,
             ),
             decoration: pageDecoration,
           ),

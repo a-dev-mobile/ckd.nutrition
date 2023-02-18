@@ -73,11 +73,8 @@ class _MobileApp extends StatelessWidget {
           routerDelegate: go.router.routerDelegate,
           // routerConfig: go.router,
           builder: (context, widget) {
-            var child = widget ?? const SizedBox.shrink();
-            final theme = Theme.of(context);
-            final isThemeDark = theme.brightness == Brightness.dark;
-            
-
+            final child = widget ?? const SizedBox.shrink();
+     
             return DevicePreview.appBuilder(context, child);
           },
           onGenerateTitle: (context) => AppLocalizations.of(context).app_name,

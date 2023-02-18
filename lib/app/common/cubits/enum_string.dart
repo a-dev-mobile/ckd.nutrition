@@ -1,33 +1,35 @@
 // ignore_for_file: constant_identifier_names, non_constant_identifier_names, lines_longer_than_80_chars
 /*
-  enum LocaleEnum {
+  
+  enum Locale {
+  en('en_US'),
   ru('ru_RU'),
-  en('en_US');
+    
 }
-
   */
 
-//  ******************************
-// GENERATED CODE BELOW - DO NOT MODIFY
-//  ******************************
+//          --TURN_GEN--
+//  *************************************
+//           GENERATED CODE
+//  *************************************
 
-enum LocaleEnum with Comparable<LocaleEnum> {
-  ru('ru_RU'),
-  en('en_US');
+enum Locale with Comparable<Locale> {
+  en('en_US'),
+  ru('ru_RU');
 
-  const LocaleEnum(this.value);
+  const Locale(this.value);
 
   final String value;
 
-  static LocaleEnum fromValue(
+  static Locale fromValue(
     String? value, {
-    LocaleEnum? fallback,
+    Locale? fallback,
   }) {
     switch (value) {
-      case 'ru_RU':
-        return ru;
       case 'en_US':
         return en;
+      case 'ru_RU':
+        return ru;
 
       default:
         return fallback ?? (throw ArgumentError.value(value));
@@ -36,41 +38,41 @@ enum LocaleEnum with Comparable<LocaleEnum> {
 
   /// Pattern matching
   T map<T>({
-    required T Function() ru,
     required T Function() en,
+    required T Function() ru,
   }) {
     switch (this) {
-      case LocaleEnum.ru:
-        return ru();
-      case LocaleEnum.en:
+      case Locale.en:
         return en();
+      case Locale.ru:
+        return ru();
     }
   }
 
   /// Pattern matching
   T maybeMap<T>({
     required T Function() orElse,
-    T Function()? ru,
     T Function()? en,
+    T Function()? ru,
   }) =>
       map<T>(
-        ru: ru ?? orElse,
         en: en ?? orElse,
+        ru: ru ?? orElse,
       );
 
   /// Pattern matching
   T? maybeMapOrNull<T>({
-    T Function()? ru,
     T Function()? en,
+    T Function()? ru,
   }) =>
       maybeMap<T?>(
         orElse: () => null,
-        ru: ru,
         en: en,
+        ru: ru,
       );
 
   @override
-  int compareTo(LocaleEnum other) => index.compareTo(other.index);
+  int compareTo(Locale other) => index.compareTo(other.index);
 
   @override
   String toString() => value;

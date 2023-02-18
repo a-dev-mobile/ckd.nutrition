@@ -5,11 +5,12 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nutrition/feature/registration/registration.dart';
 import 'package:nutrition/feature/widgets/widgets.dart';
+import 'package:nutrition/localization/localization.dart';
 
 class FieldCreatinine extends StatefulWidget {
   const FieldCreatinine({
-    super.key,
     required this.cubit,
+    super.key,
   });
 
   final RegistrationCubit cubit;
@@ -41,18 +42,18 @@ class _FieldCreatinineState extends State<FieldCreatinine> {
 
   @override
   Widget build(BuildContext context) {
-    // final l = context.l10n;
+    final l = context.l10n;
 
     return BlocBuilder<RegistrationCubit, RegistrationState>(
       buildWhen: (p, c) =>
           p.validCreatinine.isPure != c.validCreatinine.isPure ||
           p.validCreatinine.value != c.validCreatinine.value ||
           p.validCkd.value != c.validCkd.value ||
-          p.isVisibleCreatinine != c.isVisibleCreatinine,
+          p.isVisibleCreatinine != c.isVisibleCreatinine ||
+          p.inputTypeCreatinine != c.inputTypeCreatinine,
       builder: (context, state) {
         final valid = state.validCreatinine;
 
-        const errorMaxLines2 = 2;
         const maxLength = 6;
 
         return Visibility(
@@ -65,28 +66,24 @@ class _FieldCreatinineState extends State<FieldCreatinine> {
                   dialogText:
                       'Мы используем эти сведения для расчета клубочковой фильтрации',
                 ),
-                TextField(
-                  controller: controller,
-                  decoration: InputDecoration(
-                    // labelText: 'Креатинин',
-                    errorText: valid.isPure
-                        ? null
-                        : valid.error == valid.isEmpty
-                            ? 'Креатинин не указан'
-                            : valid.error == valid.isMax
-                                ? 'Указанный креатинин не поддерживается приложением'
-                                : valid.error == valid.isMin
-                                    ? 'Указанный креатинин не поддерживается приложением'
-                                    : valid.error == valid.isNoValid
-                                        ? 'Неправильное значение'
-                                        : null,
-                    errorMaxLines: errorMaxLines2,
-                    suffixText: 'мкмоль/л',
-                  ),
-                  keyboardType: TextInputType.number,
-                  onChanged: widget.cubit.checkCreatinine,
-                  inputFormatters: [
-                    LengthLimitingTextInputFormatter(maxLength),
+                Column(
+                  children: [
+                    const DropInputTypeCreatinine(),
+                    const SizedBox(height: 10),
+                    TextField(
+                      controller: controller,
+                      decoration: InputDecoration(
+                        labelText:
+                            _getText(type: state.inputTypeCreatinine, l: l),
+                        errorText: valid.errorText(l: l),
+                        errorMaxLines: 5,
+                      ),
+                      keyboardType: TextInputType.number,
+                      onChanged: widget.cubit.checkCreatinine,
+                      inputFormatters: [
+                        LengthLimitingTextInputFormatter(maxLength),
+                      ],
+                    ),
                   ],
                 ),
               ],
@@ -94,6 +91,17 @@ class _FieldCreatinineState extends State<FieldCreatinine> {
           ),
         );
       },
+    );
+  }
+
+  String _getText({
+    required EnumInputTypeCreatinine type,
+    required AppLocalizations l,
+  }) {
+    return type.map(
+      mgDl: () => 'Норма: от 0.5 до 1.5',
+      mmmolL: () => 'Норма: от 0.5 до 0.1',
+      mcmolL: () => 'Норма: от 44.2 до 132.6',
     );
   }
 }

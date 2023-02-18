@@ -77,6 +77,7 @@ class _DropDownMonth extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
+
     return DropdownButton<String>(
       hint: Text(hint),
       value: value,
@@ -84,14 +85,14 @@ class _DropDownMonth extends StatelessWidget {
         for (var v in values)
           DropdownMenuItem(
             value: v,
-            child: Text(getMonthName(l: l, monthNumber: v)),
-          )
+            child: Text(_getMonthName(l: l, monthNumber: v)),
+          ),
       ],
       onChanged: onChanged,
     );
   }
 
-  String getMonthName({
+  String _getMonthName({
     required String monthNumber,
     required AppLocalizations l,
   }) {
@@ -109,6 +110,7 @@ class _DropDownMonth extends StatelessWidget {
       '11': l.month_november,
       '12': l.month_december,
     };
+
     return mapMonth[monthNumber] ?? '';
   }
 }

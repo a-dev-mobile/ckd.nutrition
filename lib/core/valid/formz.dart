@@ -1,5 +1,3 @@
-library formz;
-
 import 'package:meta/meta.dart';
 import 'package:nutrition/localization/localization.dart';
 

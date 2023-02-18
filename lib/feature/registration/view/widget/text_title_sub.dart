@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:nutrition/app/style/style.dart';
+import 'package:nutrition/core/utils/utils.dart';
 
 class TitleSub extends StatelessWidget {
   const TitleSub({
-    super.key,
     required this.text,
+    super.key,
     this.dialogText,
   });
   final String text;
@@ -17,7 +18,7 @@ class TitleSub extends StatelessWidget {
         Expanded(
           child: Text(
             text,
-            style: AppTextStyles.bodyText2(),
+            style: AppTextStyles.h6(),
             // textAlign: TextAlign.center,
           ),
         ),

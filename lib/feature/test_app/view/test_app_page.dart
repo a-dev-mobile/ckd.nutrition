@@ -1,6 +1,5 @@
 // ignore_for_file: lines_longer_than_80_chars, avoid_print
 
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -83,18 +82,5 @@ class _TestFlashLibPage extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  // ignore: unused_element
-  void _showTopFlash({
-  
-    required BuildContext context,
-  }) {
-    ;
-  }
-
-  // ignore: unused_element
-  void _showTopFlash2({required BuildContext context}) {
-    ;
   }
 }

@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class AppDropDown extends StatelessWidget {
   const AppDropDown({
-    super.key,
     required this.values,
-    required this.hint,
     required this.onChanged,
+    this.hint = '',
+    super.key,
     this.value,
   });
   final List<String> values;
@@ -21,14 +21,14 @@ class AppDropDown extends StatelessWidget {
     }
 
     return DropdownButton<String>(
-      hint: Text(hint),
+      hint: hint.isEmpty ? null : Text(hint),
       value: isError ? null : value,
       items: [
         for (final v in values)
           DropdownMenuItem(
             value: v,
             child: Text(v),
-          )
+          ),
       ],
       onChanged: onChanged,
     );

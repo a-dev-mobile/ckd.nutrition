@@ -26,16 +26,15 @@ class SplashCubit extends Cubit<SplashState> {
 }
 
 @immutable
-class SplashState {    
+class SplashState {
   /* init:true */
   final bool isLoad;
   // end
-   
+
   //  ******************************
   // GENERATED CODE BELOW - DO NOT MODIFY
   //  ******************************
 
-  
   const SplashState({
     this.isLoad = true,
   });
@@ -47,14 +46,13 @@ class SplashState {
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
-      'isLoad': isLoad, 
+      'isLoad': isLoad,
     };
   }
 
-    
   factory SplashState.fromMap(Map<String, dynamic> map) {
     return SplashState(
-      isLoad: map['isLoad'] as bool? ?? true, 
+      isLoad: map['isLoad'] as bool? ?? true,
     );
   }
 
@@ -62,15 +60,15 @@ class SplashState {
     bool? isLoad,
   }) {
     return SplashState(
-      isLoad: isLoad ?? this.isLoad, 
+      isLoad: isLoad ?? this.isLoad,
     );
   }
-  
+
   String toJson() => json.encode(toMap());
-  
-    
-  factory SplashState.fromJson(String source) => SplashState.fromMap(json.decode(source) as Map<String, dynamic>);
-  
+
+  factory SplashState.fromJson(String source) =>
+      SplashState.fromMap(json.decode(source) as Map<String, dynamic>);
+
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
@@ -78,15 +76,15 @@ class SplashState {
             other is SplashState &&
             (identical(other.isLoad, isLoad) || other.isLoad == isLoad));
   }
-  
+
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
         isLoad,
-]);
-  
+      ]);
+
   @override
   String toString() {
     return 'SplashState(isLoad: $isLoad, )';
-    }
   }
+}

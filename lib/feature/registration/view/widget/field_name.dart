@@ -7,8 +7,8 @@ import 'package:nutrition/localization/localization.dart';
 
 class FieldName extends StatefulWidget {
   const FieldName({
-    super.key,
     required this.cubit,
+    super.key,
   });
 
   final RegistrationCubit cubit;

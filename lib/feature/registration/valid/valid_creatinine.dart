@@ -36,7 +36,17 @@ class ValidCreatinine extends FormzInput<double?, ValidCreatinineError> {
 
   @override
   String? errorText({required AppLocalizations l}) {
-    return null;
+    return isPure
+        ? null
+        : error == isEmpty
+            ? 'Креатинин не указан'
+            : error == isMax
+                ? 'Указанный креатинин не поддерживается приложением'
+                : error == isMin
+                    ? 'Указанный креатинин не поддерживается приложением'
+                    : error == isNoValid
+                        ? 'Неправильное значение'
+                        : null;
   }
 }
 

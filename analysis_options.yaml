@@ -57,6 +57,7 @@ dart_code_metrics:
         allowed-duplicated-chains: 3
     - arguments-ordering: false
     - avoid-late-keyword: false
+    - no-magic-number: false
 
     - avoid-nested-conditional-expressions: false
     - prefer-static-class:

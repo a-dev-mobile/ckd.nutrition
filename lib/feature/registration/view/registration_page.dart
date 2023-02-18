@@ -41,7 +41,9 @@ class _RegistrationPage extends StatelessWidget {
           title: const Text('Заполните данные'),
           actions: [
             IconButton(
-                onPressed: cubit.pushSetting, icon: const Icon(Icons.settings),),
+              onPressed: cubit.pushSetting,
+              icon: const Icon(Icons.settings),
+            ),
           ],
         ),
         body: SafeArea(
@@ -77,7 +79,7 @@ class _RegistrationPage extends StatelessWidget {
                           // ignore: prefer-extracting-callbacks
                           onPressed: () {
                             if (cubit.isValid(context)) {
-                              // cubit.nextPage();
+                              cubit.nextPage();
                             }
                           },
                           child: const Text('Начать'),

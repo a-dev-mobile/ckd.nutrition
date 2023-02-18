@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:nutrition/app/style/extensions/extensions.dart';
+
 import 'package:nutrition/app/style/theme/theme.dart';
+import 'package:nutrition/core/utils/utils.dart';
 
 class BtnToggleText extends StatelessWidget {
   const BtnToggleText({
-    super.key,
     required this.textList,
     required this.isSelected,
     required this.onPressed,
+    super.key,
     this.title = '',
     this.errorText,
     this.infoBottom = '',
@@ -34,7 +35,7 @@ class BtnToggleText extends StatelessWidget {
                   Expanded(
                     child: Text(
                       title,
-                      style: AppTextStyles.bodyText2(),
+                      style: AppTextStyles.h6(),
                     ),
                   ),
                 if (dialogText.isNotEmpty)

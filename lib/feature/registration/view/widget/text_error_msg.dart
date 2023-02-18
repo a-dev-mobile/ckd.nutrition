@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:nutrition/app/style/style.dart';
+import 'package:nutrition/core/utils/utils.dart';
 
 class ErrorMsg extends StatelessWidget {
   const ErrorMsg({
-    super.key,
     required this.error,
+    super.key,
   });
   final String error;
   @override

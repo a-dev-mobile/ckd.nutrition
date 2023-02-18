@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nutrition/app/style/style.dart';
+import 'package:nutrition/core/utils/utils.dart';
 import 'package:nutrition/localization/localization.dart';
 
 class SnackbarInternet extends StatelessWidget {

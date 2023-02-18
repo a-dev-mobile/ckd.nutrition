@@ -31,24 +31,22 @@
   "app_theme": "App Theme",
   "dark_theme": "Dark",
   "light_theme": "Light",
-
-  "month_january":"January",
-  "month_february":"February",
-  "month_march":"March",
-  "month_april":"April",
-  "month_may":"May",
-  "month_june":"June",
-  "month_july":"July",
-  "month_august":"August",
-  "month_september":"September",
-  "month_october":"October",
-  "month_november":"November",
-  "month_december":"December",
-  "welcome_msg":"Congratulations! You have taken a new step toward a healthier lifestyle",
+  "month_january": "January",
+  "month_february": "February",
+  "month_march": "March",
+  "month_april": "April",
+  "month_may": "May",
+  "month_june": "June",
+  "month_july": "July",
+  "month_august": "August",
+  "month_september": "September",
+  "month_october": "October",
+  "month_november": "November",
+  "month_december": "December",
+  "welcome_msg": "Congratulations! You have taken a new step toward a healthier lifestyle",
   "activity_not_selected": "Physical activity is not selected",
+  "mgDl": "mg/dl",
+  "mmmolL": "mmol/l",
+  "mcmolL": "μmol/l",
   "g": "g"
-
-
-  
-  
 }

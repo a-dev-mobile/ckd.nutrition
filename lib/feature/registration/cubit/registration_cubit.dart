@@ -8,7 +8,6 @@ import 'package:nutrition/app/app.dart';
 import 'package:nutrition/core/storage/storage.dart';
 import 'package:nutrition/core/utils/utils.dart';
 import 'package:nutrition/core/valid/valid.dart';
-import 'package:nutrition/core/widget/widget.dart';
 import 'package:nutrition/feature/registration/registration.dart';
 import 'package:nutrition/feature/setting/setting.dart';
 import 'package:nutrition/localization/localization.dart';
@@ -393,6 +392,10 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
         validUrineOutput: validUrineOutput,
       ),
     );
+  }
+
+  void changeTypeCreatinine(EnumInputTypeCreatinine? v) {
+    emit(state.copyWith(inputTypeCreatinine: v));
   }
 
   void checkCreatinine(String value) {

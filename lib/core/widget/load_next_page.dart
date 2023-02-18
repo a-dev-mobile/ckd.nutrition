@@ -7,7 +7,7 @@ import 'package:nutrition/core/widget/progress_indicator/progress_indicator.dart
 /// Widget with disabling user action during load
 /// {@endtemplate}
 class LoadNextPage extends StatelessWidget {
-  const LoadNextPage({super.key, this.isLoad = false, required this.child});
+  const LoadNextPage({required this.child,super.key, this.isLoad = false, });
   final Widget child;
   final bool isLoad;
   @override

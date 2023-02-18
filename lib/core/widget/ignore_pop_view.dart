@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 class IgnorePopView extends StatelessWidget {
   const IgnorePopView({
-    super.key,
     required this.child,
+    super.key,
   });
   final Widget child;
 

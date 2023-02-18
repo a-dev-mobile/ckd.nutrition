@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 
 class ClearFocus extends StatelessWidget {
-  const ClearFocus({super.key, required this.child});
+  const ClearFocus({required this.child,super.key, });
   final Widget child;
 
   @override

@@ -9,9 +9,9 @@ import 'package:nutrition/global.dart';
 
 class OverlayWidget extends StatefulWidget {
   const OverlayWidget({
-    super.key,
     required this.child,
     required this.goRouterState,
+    super.key,
   });
   final Widget child;
   final GoRouterState goRouterState;

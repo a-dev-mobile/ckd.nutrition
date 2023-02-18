@@ -13,7 +13,7 @@ class AppTheme {
   /// *---* [Light Theme] *---*
   static ThemeData lightThemeData() {
     return FlexThemeData.light(
-      scheme: FlexScheme.blue,
+      scheme: FlexScheme.aquaBlue,
       surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
       blendLevel: 9,
       subThemesData: const FlexSubThemesData(
@@ -22,14 +22,15 @@ class AppTheme {
       ),
       visualDensity: FlexColorScheme.comfortablePlatformDensity,
       useMaterial3: true,
+      swapLegacyOnMaterial3: true,
       fontFamily: GoogleFonts.montserrat().fontFamily,
     );
   }
 
-  /// darkThemeData
+  /// *---* [Dark Theme] *---*
   static ThemeData darkThemeData() {
     return FlexThemeData.dark(
-      scheme: FlexScheme.blue,
+      scheme: FlexScheme.aquaBlue,
       surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
       blendLevel: 15,
       subThemesData: const FlexSubThemesData(
@@ -37,6 +38,7 @@ class AppTheme {
       ),
       visualDensity: FlexColorScheme.comfortablePlatformDensity,
       useMaterial3: true,
+      swapLegacyOnMaterial3: true,
       fontFamily: GoogleFonts.montserrat().fontFamily,
     );
   }

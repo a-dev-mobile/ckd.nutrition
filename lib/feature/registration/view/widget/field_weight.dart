@@ -9,8 +9,8 @@ import 'package:nutrition/feature/widgets/widgets.dart';
 //  ignore_for_file: avoid-nested-conditional-expressions
 class FieldWeight extends StatefulWidget {
   const FieldWeight({
-    super.key,
     required this.cubit,
+    super.key,
   });
 
   final RegistrationCubit cubit;

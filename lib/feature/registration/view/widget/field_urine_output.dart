@@ -8,8 +8,8 @@ import 'package:nutrition/feature/widgets/widgets.dart';
 
 class FieldUrineOutput extends StatefulWidget {
   const FieldUrineOutput({
-    super.key,
     required this.cubit,
+    super.key,
   });
 
   final RegistrationCubit cubit;

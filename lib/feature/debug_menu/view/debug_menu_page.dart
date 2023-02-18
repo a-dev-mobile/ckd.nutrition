@@ -170,8 +170,8 @@ class DebugMenuPage extends StatelessWidget {
 
 class _ItemPage extends StatelessWidget {
   const _ItemPage({
-    super.key,
     required this.name,
+    super.key,
     this.route,
     this.onPressed,
     this.isPushPage = true,

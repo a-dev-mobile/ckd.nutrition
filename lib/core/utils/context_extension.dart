@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nutrition/app/style/style.dart';
+import 'package:nutrition/core/utils/utils.dart';
 
 extension ContextExtension on BuildContext {
   ThemeData get theme => Theme.of(this);

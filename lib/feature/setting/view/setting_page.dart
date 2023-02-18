@@ -62,16 +62,18 @@ class _SettingPage extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 20),
-                BlocBuilder<SettingCubit, SettingState>(
-                  buildWhen: (p, c) => p.localeActive != c.localeActive,
-                  builder: (context, state) {
-                    return BtnToggleText(
-                      onPressed: cubit.changeLocale,
-                      textList: [l.lang_en, l.lang_ru],
-                      isSelected: state.boolsLocale,
-                      title: l.app_lang,
-                    );
-                  },
+                AppCard(
+                  child: BlocBuilder<SettingCubit, SettingState>(
+                    buildWhen: (p, c) => p.localeActive != c.localeActive,
+                    builder: (context, state) {
+                      return BtnToggleText(
+                        onPressed: cubit.changeLocale,
+                        textList: [l.lang_en, l.lang_ru],
+                        isSelected: state.boolsLocale,
+                        title: l.app_lang,
+                      );
+                    },
+                  ),
                 ),
               ],
             ),
