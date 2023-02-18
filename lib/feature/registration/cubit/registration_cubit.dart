@@ -263,7 +263,7 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
       state.copyWith(
         ckdSelected: ckdSelected,
         validCkd: validCkd,
-        isVisibleCreatinine: enumValue == EnumCkd.notKnow,
+        isVisibleCreatinine: enumValue == EnumCkd.calculate,
       ),
     );
   }
@@ -456,8 +456,12 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
     final validDailyDiuresis =
         ValidDailyDiuresis.dirty(state.validDailyDiuresis.value);
 
-    final validCreatinine =
-        ValidCreatinine.dirty(value: state.validCreatinine.value);
+// если выбрано определить GFR (клубочковую фильтрацию) то проверяем вилидацию
+    final validCreatinine = state.validCkd.value.maybeMap(
+      orElse: ValidCreatinine.pure,
+      calculate: () => ValidCreatinine.dirty(value: state.validCreatinine.value),
+    );
+
     final validUrineOutput =
         ValidUrineOutput.dirty(value: state.validUrineOutput.value);
 
@@ -472,7 +476,7 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
       validWeight,
       validCkd,
       validDailyDiuresis,
-      if (state.isVisibleCreatinine) validCreatinine,
+      validCreatinine,
       if (state.isVisibleUrineOutput) validUrineOutput,
     ];
 

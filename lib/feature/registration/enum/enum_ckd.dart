@@ -1,5 +1,5 @@
-// ignore_for_file: constant_identifier_names, non_constant_identifier_names, lines_longer_than_80_chars
-/*
+  // ignore_for_file: constant_identifier_names, non_constant_identifier_names, lines_longer_than_80_chars
+  /*
   enum EnumCkd {
   one,
   two,
@@ -7,22 +7,26 @@
   threeB,
   four,
   five,
-  notKnow,
+  calculate,
   none,
 }
 
   */
+  
+//          --TURN_GEN--
+//  *************************************
+//           GENERATED CODE 
+//  *************************************
+  
 
-// GENERATED CODE - DO NOT MODIFY BY HAND
-
-enum EnumCkd with Comparable<EnumCkd> {
+enum EnumCkd with Comparable<EnumCkd> { 
   one('one'),
   two('two'),
   threeA('threeA'),
   threeB('threeB'),
   four('four'),
   five('five'),
-  notKnow('notKnow'),
+  calculate('calculate'),
   none('none');
 
   const EnumCkd(this.value);
@@ -46,8 +50,8 @@ enum EnumCkd with Comparable<EnumCkd> {
         return four;
       case 'five':
         return five;
-      case 'notKnow':
-        return notKnow;
+      case 'calculate':
+        return calculate;
       case 'none':
         return none;
 
@@ -64,29 +68,31 @@ enum EnumCkd with Comparable<EnumCkd> {
     required T Function() threeB,
     required T Function() four,
     required T Function() five,
-    required T Function() notKnow,
+    required T Function() calculate,
     required T Function() none,
+
   }) {
     switch (this) {
       case EnumCkd.one:
-        return one();
+        return one();     
       case EnumCkd.two:
-        return two();
+        return two();     
       case EnumCkd.threeA:
-        return threeA();
+        return threeA();     
       case EnumCkd.threeB:
-        return threeB();
+        return threeB();     
       case EnumCkd.four:
-        return four();
+        return four();     
       case EnumCkd.five:
-        return five();
-      case EnumCkd.notKnow:
-        return notKnow();
+        return five();     
+      case EnumCkd.calculate:
+        return calculate();     
       case EnumCkd.none:
-        return none();
+        return none();     
+
     }
   }
-
+  
   /// Pattern matching
   T maybeMap<T>({
     required T Function() orElse,
@@ -96,18 +102,20 @@ enum EnumCkd with Comparable<EnumCkd> {
     T Function()? threeB,
     T Function()? four,
     T Function()? five,
-    T Function()? notKnow,
+    T Function()? calculate,
     T Function()? none,
+
   }) =>
       map<T>(
-        one: one ?? orElse,
-        two: two ?? orElse,
-        threeA: threeA ?? orElse,
-        threeB: threeB ?? orElse,
-        four: four ?? orElse,
-        five: five ?? orElse,
-        notKnow: notKnow ?? orElse,
-        none: none ?? orElse,
+      one: one ?? orElse,     
+      two: two ?? orElse,     
+      threeA: threeA ?? orElse,     
+      threeB: threeB ?? orElse,     
+      four: four ?? orElse,     
+      five: five ?? orElse,     
+      calculate: calculate ?? orElse,     
+      none: none ?? orElse,     
+
       );
 
   /// Pattern matching
@@ -118,19 +126,21 @@ enum EnumCkd with Comparable<EnumCkd> {
     T Function()? threeB,
     T Function()? four,
     T Function()? five,
-    T Function()? notKnow,
+    T Function()? calculate,
     T Function()? none,
+
   }) =>
       maybeMap<T?>(
         orElse: () => null,
-        one: one,
-        two: two,
-        threeA: threeA,
-        threeB: threeB,
-        four: four,
-        five: five,
-        notKnow: notKnow,
-        none: none,
+        one: one,  
+        two: two,  
+        threeA: threeA,  
+        threeB: threeB,  
+        four: four,  
+        five: five,  
+        calculate: calculate,  
+        none: none,  
+        
       );
 
   @override
@@ -138,4 +148,4 @@ enum EnumCkd with Comparable<EnumCkd> {
 
   @override
   String toString() => value;
-}
+   }
