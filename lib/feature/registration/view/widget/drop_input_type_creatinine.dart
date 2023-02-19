@@ -22,6 +22,7 @@ class DropInputTypeCreatinine extends StatelessWidget {
         return Row(
           children: [
             const Expanded(child: Text('Выберите единицу измерения')),
+            const SizedBox(width: 10),
             DropdownButton<EnumInputTypeCreatinine>(
               value: state.inputTypeCreatinine,
               items: [
@@ -57,7 +58,6 @@ String _getText({
 }) {
   return type.map(
     mgDl: () => l.mgDl,
-    mmmolL: () => l.mmmolL,
     mcmolL: () => l.mcmolL,
   );
 }

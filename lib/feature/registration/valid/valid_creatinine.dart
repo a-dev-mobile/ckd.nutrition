@@ -1,14 +1,10 @@
+// ignore_for_file: sort_constructors_first
+
 import 'package:nutrition/core/valid/valid.dart';
 import 'package:nutrition/localization/gen/app_localizations.dart';
 
 ///
 class ValidCreatinine extends FormzInput<double?, ValidCreatinineError> {
-  factory ValidCreatinine.fromMap(Map<String, dynamic> map) {
-    final result = map['ValidCreatinine'] as double?;
-    if (result == null) return const ValidCreatinine.pure();
-
-    return ValidCreatinine.pure(value: result);
-  }
   const ValidCreatinine.pure({this.externalError, double? value})
       : super.pure(value);
 
@@ -17,8 +13,15 @@ class ValidCreatinine extends FormzInput<double?, ValidCreatinineError> {
 
   final ValidCreatinineError? externalError;
 
+  factory ValidCreatinine.fromMap(Map<String, dynamic> map) {
+    final result = map['ValidCreatinine'] as double?;
+    if (result == null) return const ValidCreatinine.pure();
+
+    return ValidCreatinine.pure(value: result);
+  }
   @override
   ValidCreatinineError? validator(double? value) {
+      // print('--validator ${externalError}');
     if (externalError != null) {
       return externalError;
     }
@@ -36,6 +39,8 @@ class ValidCreatinine extends FormzInput<double?, ValidCreatinineError> {
 
   @override
   String? errorText({required AppLocalizations l}) {
+    // print('--error ${externalError}');
+
     return isPure
         ? null
         : error == isEmpty
@@ -46,7 +51,11 @@ class ValidCreatinine extends FormzInput<double?, ValidCreatinineError> {
                     ? 'Указанный креатинин не поддерживается приложением'
                     : error == isNoValid
                         ? 'Неправильное значение'
-                        : null;
+                        : error == noBirthday
+                            ? 'Укажите дату своего рождения'
+                            : error == noGender
+                                ? 'Укажите ваш пол'
+                                : null;
   }
 }
 
@@ -55,6 +64,8 @@ extension ValidCreatinineExtension on ValidCreatinine {
   ValidCreatinineError get isMax => ValidCreatinineError.isMax;
   ValidCreatinineError get isMin => ValidCreatinineError.isMin;
   ValidCreatinineError get isNoValid => ValidCreatinineError.isNoValid;
+  ValidCreatinineError get noGender => ValidCreatinineError.noGender;
+  ValidCreatinineError get noBirthday => ValidCreatinineError.noBirthday;
 }
 
 enum ValidCreatinineError {
@@ -62,4 +73,6 @@ enum ValidCreatinineError {
   isMax,
   isMin,
   isNoValid,
+  noBirthday,
+  noGender,
 }

@@ -87,13 +87,12 @@ dependencies:
   # syncfusion_flutter_charts: ^20.4.44
   # syncfusion_flutter_calendar: ^20.4.44
   google_fonts: ^4.0.3
-  flutter_typeahead: ^4.3.4
+  flutter_typeahead: ^4.3.6
   # TEST
   device_preview: ^1.1.0
   feedback: ^2.5.0
 
   # Validation
-  # mask_text_input_formatter: ^2.4.0
   crypto: ^3.0.2
   # firebase
   firebase_core: ^2.6.1

@@ -194,6 +194,8 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
         validGender: validGender,
       ),
     );
+    //
+    checkCreatinine(update: true);
   }
 
   void checkHypertension(int index) {
@@ -319,6 +321,9 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
     final validBirthday = ValidBirthday.dirty(_getDateRaw());
 
     emit(state.copyWith(validBirthday: validBirthday));
+
+       //
+    checkCreatinine(update: true);
   }
 
   void changeDay(String? value) {
@@ -398,32 +403,30 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
     emit(state.copyWith(inputTypeCreatinine: v));
   }
 
-  void checkCreatinine(String value) {
-    if (value.isEmpty) {
-      emit(
-        state.copyWith(
-          validCreatinine: const ValidCreatinine.dirty(
-            externalError: ValidCreatinineError.isEmpty,
-          ),
-        ),
-      );
+  void checkCreatinine({String v = '', bool update = false}) {
+    final stateCreatinine = state.validCreatinine.value;
 
-      return;
-    }
+    final oldValue = stateCreatinine == null ? '' : stateCreatinine.toString();
+
+    final value = update ? oldValue : v;
+
+    // подбираю ошибки
+    ValidCreatinineError? error;
+    if (!state.validBirthday.isValid) error = ValidCreatinineError.noBirthday;
+    if (!state.validGender.isValid) error = ValidCreatinineError.noGender;
+    if (value.isEmpty) error = ValidCreatinineError.isEmpty;
 
     final doubleValue = double.tryParse(value);
-
-    ValidCreatinine validCreatinine;
-
-    validCreatinine = doubleValue == null
-        ? const ValidCreatinine.dirty(
-            externalError: ValidCreatinineError.isNoValid,
-          )
-        : ValidCreatinine.dirty(value: doubleValue);
-
+// если не получитьсь в double - ошибка
+    if (doubleValue == null) error = ValidCreatinineError.isNoValid;
+    final creatinine =
+        ValidCreatinine.dirty(value: doubleValue, externalError: error);
+     
+      // print('--check ${error}');
     emit(
       state.copyWith(
-        validCreatinine: validCreatinine,
+        forceUpdate: !state.forceUpdate,
+        validCreatinine: creatinine,
       ),
     );
   }
@@ -459,7 +462,8 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
 // если выбрано определить GFR (клубочковую фильтрацию) то проверяем вилидацию
     final validCreatinine = state.validCkd.value.maybeMap(
       orElse: ValidCreatinine.pure,
-      calculate: () => ValidCreatinine.dirty(value: state.validCreatinine.value),
+      calculate: () =>
+          ValidCreatinine.dirty(value: state.validCreatinine.value),
     );
 
     final validUrineOutput =

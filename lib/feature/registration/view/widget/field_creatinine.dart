@@ -45,16 +45,25 @@ class _FieldCreatinineState extends State<FieldCreatinine> {
     final l = context.l10n;
 
     return BlocBuilder<RegistrationCubit, RegistrationState>(
-      buildWhen: (p, c) =>
-          p.validCreatinine.isPure != c.validCreatinine.isPure ||
-          p.validCreatinine.value != c.validCreatinine.value ||
-          p.validCkd.value != c.validCkd.value ||
-          p.isVisibleCreatinine != c.isVisibleCreatinine ||
-          p.inputTypeCreatinine != c.inputTypeCreatinine,
+      // убрал тк от многих зависит
+      // buildWhen: (p, c) =>
+      //     p.validCreatinine.isPure != c.validCreatinine.isPure ||
+      //     p.validCreatinine.value != c.validCreatinine.value ||
+      //     p.validCkd.value != c.validCkd.value ||
+          // зависим
+      //     p.genderSelected != c.genderSelected ||
+      //     p.validGender.isPure != c.validGender.isPure ||
+      //     p.validGender.value != c.validGender.value ||
+      //     p.validBirthday.isPure != c.validBirthday.isPure ||
+      //     p.validBirthday.value != c.validBirthday.value ||
+          // 
+      //     p.isVisibleCreatinine != c.isVisibleCreatinine ||
+      //     p.inputTypeCreatinine != c.inputTypeCreatinine,
       builder: (context, state) {
         final valid = state.validCreatinine;
 
         const maxLength = 6;
+  // print('--build ${valid.externalError}');
 
         return Visibility(
           visible: state.isVisibleCreatinine,
@@ -79,7 +88,7 @@ class _FieldCreatinineState extends State<FieldCreatinine> {
                         errorMaxLines: 5,
                       ),
                       keyboardType: TextInputType.number,
-                      onChanged: widget.cubit.checkCreatinine,
+                      onChanged: (v) => widget.cubit.checkCreatinine(v: v),
                       inputFormatters: [
                         LengthLimitingTextInputFormatter(maxLength),
                       ],
@@ -99,9 +108,8 @@ class _FieldCreatinineState extends State<FieldCreatinine> {
     required AppLocalizations l,
   }) {
     return type.map(
-      mgDl: () => 'Норма: от 0.5 до 1.5',
-      mmmolL: () => 'Норма: от 0.5 до 0.1',
-      mcmolL: () => 'Норма: от 44.2 до 132.6',
+      mgDl: () => 'Норма: 0.3 - 1.3',
+      mcmolL: () => 'Норма: 62 - 115',
     );
   }
 }

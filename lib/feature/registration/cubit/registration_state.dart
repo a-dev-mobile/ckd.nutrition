@@ -13,6 +13,8 @@ import 'package:nutrition/feature/registration/registration.dart';
 @immutable
 class RegistrationState { 
   /* init: false */
+  final bool forceUpdate;
+  /* init: false */
   final bool isLoadPage;
 /* init: false */
   final bool isLoadNextPage;
@@ -99,6 +101,15 @@ init: const ValidCkd.pure()
 */
   final ValidCkd validCkd;
 
+// values are filled in if manual calculation CKD
+/* 
+type: enum
+init:  EnumCkd.none
+*/
+  final EnumCkd ckdCalculated;
+/*  */
+final double? gfrValue;
+
 /* 
 type: data
 init: const ValidDailyDiuresis.pure()
@@ -118,10 +129,6 @@ init: const ValidCreatinine.pure()
 */
   final ValidCreatinine validCreatinine;
 
-/*  */
-
-  final double? gfrValue;
-
 /* 
 type: enum
 init:  EnumInputTypeCreatinine.mcmolL
@@ -137,6 +144,7 @@ init:  EnumInputTypeCreatinine.mcmolL
 //  *************************************
   
   const RegistrationState({
+    this.forceUpdate = false,
     this.isLoadPage = false,
     this.isLoadNextPage = false,
     this.isValid = false,
@@ -158,6 +166,7 @@ init:  EnumInputTypeCreatinine.mcmolL
     this.validHypertension = const ValidHypertension.pure(),
     this.validDiabetes = const ValidDiabetes.pure(),
     this.validCkd = const ValidCkd.pure(),
+    this.ckdCalculated = EnumCkd.none,
     this.validDailyDiuresis = const ValidDailyDiuresis.pure(),
     this.validUrineOutput = const ValidUrineOutput.pure(),
     this.isVisibleUrineOutput = false,
@@ -175,6 +184,7 @@ init:  EnumInputTypeCreatinine.mcmolL
   */
 Map<String, dynamic> toMap() {
   return <String, dynamic>{
+      'forceUpdate': forceUpdate, 
       'isLoadPage': isLoadPage, 
       'isLoadNextPage': isLoadNextPage, 
       'isValid': isValid, 
@@ -196,6 +206,7 @@ Map<String, dynamic> toMap() {
       'validHypertension': validHypertension.toMap(), 
       'validDiabetes': validDiabetes.toMap(), 
       'validCkd': validCkd.toMap(), 
+      'ckdCalculated': ckdCalculated.index, 
       'validDailyDiuresis': validDailyDiuresis.toMap(), 
       'validUrineOutput': validUrineOutput.toMap(), 
       'isVisibleUrineOutput': isVisibleUrineOutput, 
@@ -211,6 +222,7 @@ Map<String, dynamic> toMap() {
 
     factory RegistrationState.fromMap(Map<String, dynamic> map) {
     return RegistrationState(
+      forceUpdate: map['forceUpdate'] as bool? ?? false, 
       isLoadPage: map['isLoadPage'] as bool? ?? false, 
       isLoadNextPage: map['isLoadNextPage'] as bool? ?? false, 
       isValid: map['isValid'] as bool? ?? false, 
@@ -232,6 +244,7 @@ Map<String, dynamic> toMap() {
       validHypertension: ValidHypertension.fromMap(map['validHypertension'] as Map<String, dynamic>,), 
       validDiabetes: ValidDiabetes.fromMap(map['validDiabetes'] as Map<String, dynamic>,), 
       validCkd: ValidCkd.fromMap(map['validCkd'] as Map<String, dynamic>,), 
+      ckdCalculated: EnumCkd.values[map['ckdCalculated'] as int], 
       validDailyDiuresis: ValidDailyDiuresis.fromMap(map['validDailyDiuresis'] as Map<String, dynamic>,), 
       validUrineOutput: ValidUrineOutput.fromMap(map['validUrineOutput'] as Map<String, dynamic>,), 
       isVisibleUrineOutput: map['isVisibleUrineOutput'] as bool? ?? false, 
@@ -246,6 +259,7 @@ Map<String, dynamic> toMap() {
   }
 
   RegistrationState copyWith({
+    bool? forceUpdate,
     bool? isLoadPage,
     bool? isLoadNextPage,
     bool? isValid,
@@ -267,6 +281,7 @@ Map<String, dynamic> toMap() {
     ValidHypertension? validHypertension,
     ValidDiabetes? validDiabetes,
     ValidCkd? validCkd,
+    EnumCkd? ckdCalculated,
     ValidDailyDiuresis? validDailyDiuresis,
     ValidUrineOutput? validUrineOutput,
     bool? isVisibleUrineOutput,
@@ -279,6 +294,7 @@ Map<String, dynamic> toMap() {
     double? gfrValue,
   }) {
     return RegistrationState(
+      forceUpdate: forceUpdate ?? this.forceUpdate, 
       isLoadPage: isLoadPage ?? this.isLoadPage, 
       isLoadNextPage: isLoadNextPage ?? this.isLoadNextPage, 
       isValid: isValid ?? this.isValid, 
@@ -300,6 +316,7 @@ Map<String, dynamic> toMap() {
       validHypertension: validHypertension ?? this.validHypertension, 
       validDiabetes: validDiabetes ?? this.validDiabetes, 
       validCkd: validCkd ?? this.validCkd, 
+      ckdCalculated: ckdCalculated ?? this.ckdCalculated, 
       validDailyDiuresis: validDailyDiuresis ?? this.validDailyDiuresis, 
       validUrineOutput: validUrineOutput ?? this.validUrineOutput, 
       isVisibleUrineOutput: isVisibleUrineOutput ?? this.isVisibleUrineOutput, 
@@ -321,6 +338,7 @@ factory RegistrationState.fromJson(String source) => RegistrationState.fromMap(j
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is RegistrationState &&
+            (identical(other.forceUpdate, forceUpdate) || other.forceUpdate == forceUpdate)&& 
             (identical(other.isLoadPage, isLoadPage) || other.isLoadPage == isLoadPage)&& 
             (identical(other.isLoadNextPage, isLoadNextPage) || other.isLoadNextPage == isLoadNextPage)&& 
             (identical(other.isValid, isValid) || other.isValid == isValid)&& 
@@ -342,6 +360,7 @@ factory RegistrationState.fromJson(String source) => RegistrationState.fromMap(j
             (identical(other.validHypertension, validHypertension) || other.validHypertension == validHypertension)&& 
             (identical(other.validDiabetes, validDiabetes) || other.validDiabetes == validDiabetes)&& 
             (identical(other.validCkd, validCkd) || other.validCkd == validCkd)&& 
+            (identical(other.ckdCalculated, ckdCalculated) || other.ckdCalculated == ckdCalculated)&& 
             (identical(other.validDailyDiuresis, validDailyDiuresis) || other.validDailyDiuresis == validDailyDiuresis)&& 
             (identical(other.validUrineOutput, validUrineOutput) || other.validUrineOutput == validUrineOutput)&& 
             (identical(other.isVisibleUrineOutput, isVisibleUrineOutput) || other.isVisibleUrineOutput == isVisibleUrineOutput)&& 
@@ -357,6 +376,7 @@ factory RegistrationState.fromJson(String source) => RegistrationState.fromMap(j
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
+        forceUpdate,
         isLoadPage,
         isLoadNextPage,
         isValid,
@@ -378,6 +398,7 @@ factory RegistrationState.fromJson(String source) => RegistrationState.fromMap(j
         validHypertension,
         validDiabetes,
         validCkd,
+        ckdCalculated,
         validDailyDiuresis,
         validUrineOutput,
         isVisibleUrineOutput,
@@ -391,7 +412,7 @@ factory RegistrationState.fromJson(String source) => RegistrationState.fromMap(j
 ]);
       @override
   String toString() {
-    return 'RegistrationState(isLoadPage: $isLoadPage, isLoadNextPage: $isLoadNextPage, isValid: $isValid, activitySelected: $activitySelected, genderSelected: $genderSelected, hypertensionSelected: $hypertensionSelected, dailyDiuresisSelected: $dailyDiuresisSelected, status: $status, heightList: $heightList, ckdSelected: $ckdSelected, diabetesSelected: $diabetesSelected, dateRegModel: $dateRegModel, validName: $validName, validActivity: $validActivity, validGender: $validGender, validBirthday: $validBirthday, validHeight: $validHeight, validWeight: $validWeight, validHypertension: $validHypertension, validDiabetes: $validDiabetes, validCkd: $validCkd, validDailyDiuresis: $validDailyDiuresis, validUrineOutput: $validUrineOutput, isVisibleUrineOutput: $isVisibleUrineOutput, validCreatinine: $validCreatinine, inputTypeCreatinine: $inputTypeCreatinine, isVisibleCreatinine: $isVisibleCreatinine, daySelected: $daySelected, yearSelected: $yearSelected, monthSelected: $monthSelected, gfrValue: $gfrValue, )';
+    return 'RegistrationState(forceUpdate: $forceUpdate, isLoadPage: $isLoadPage, isLoadNextPage: $isLoadNextPage, isValid: $isValid, activitySelected: $activitySelected, genderSelected: $genderSelected, hypertensionSelected: $hypertensionSelected, dailyDiuresisSelected: $dailyDiuresisSelected, status: $status, heightList: $heightList, ckdSelected: $ckdSelected, diabetesSelected: $diabetesSelected, dateRegModel: $dateRegModel, validName: $validName, validActivity: $validActivity, validGender: $validGender, validBirthday: $validBirthday, validHeight: $validHeight, validWeight: $validWeight, validHypertension: $validHypertension, validDiabetes: $validDiabetes, validCkd: $validCkd, ckdCalculated: $ckdCalculated, validDailyDiuresis: $validDailyDiuresis, validUrineOutput: $validUrineOutput, isVisibleUrineOutput: $isVisibleUrineOutput, validCreatinine: $validCreatinine, inputTypeCreatinine: $inputTypeCreatinine, isVisibleCreatinine: $isVisibleCreatinine, daySelected: $daySelected, yearSelected: $yearSelected, monthSelected: $monthSelected, gfrValue: $gfrValue, )';
     }
 
 }

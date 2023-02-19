@@ -1,17 +1,18 @@
-// ignore_for_file: constant_identifier_names, non_constant_identifier_names, lines_longer_than_80_chars
-/*
-  enum EnumInputTypeCreatinine { mgDl, mmmolL, mcmolL }
+  // ignore_for_file: constant_identifier_names, non_constant_identifier_names, lines_longer_than_80_chars
+  /*
+  
+  enum EnumInputTypeCreatinine { mgDl, mcmolL }
 
   */
-
+  
 //          --TURN_GEN--
 //  *************************************
-//           GENERATED CODE
+//           GENERATED CODE 
 //  *************************************
+  
 
-enum EnumInputTypeCreatinine with Comparable<EnumInputTypeCreatinine> {
+enum EnumInputTypeCreatinine with Comparable<EnumInputTypeCreatinine> { 
   mgDl('mgDl'),
-  mmmolL('mmmolL'),
   mcmolL('mcmolL');
 
   const EnumInputTypeCreatinine(this.value);
@@ -25,8 +26,6 @@ enum EnumInputTypeCreatinine with Comparable<EnumInputTypeCreatinine> {
     switch (value) {
       case 'mgDl':
         return mgDl;
-      case 'mmmolL':
-        return mmmolL;
       case 'mcmolL':
         return mcmolL;
 
@@ -38,43 +37,42 @@ enum EnumInputTypeCreatinine with Comparable<EnumInputTypeCreatinine> {
   /// Pattern matching
   T map<T>({
     required T Function() mgDl,
-    required T Function() mmmolL,
     required T Function() mcmolL,
+
   }) {
     switch (this) {
       case EnumInputTypeCreatinine.mgDl:
-        return mgDl();
-      case EnumInputTypeCreatinine.mmmolL:
-        return mmmolL();
+        return mgDl();     
       case EnumInputTypeCreatinine.mcmolL:
-        return mcmolL();
+        return mcmolL();     
+
     }
   }
-
+  
   /// Pattern matching
   T maybeMap<T>({
     required T Function() orElse,
     T Function()? mgDl,
-    T Function()? mmmolL,
     T Function()? mcmolL,
+
   }) =>
       map<T>(
-        mgDl: mgDl ?? orElse,
-        mmmolL: mmmolL ?? orElse,
-        mcmolL: mcmolL ?? orElse,
+      mgDl: mgDl ?? orElse,     
+      mcmolL: mcmolL ?? orElse,     
+
       );
 
   /// Pattern matching
   T? maybeMapOrNull<T>({
     T Function()? mgDl,
-    T Function()? mmmolL,
     T Function()? mcmolL,
+
   }) =>
       maybeMap<T?>(
         orElse: () => null,
-        mgDl: mgDl,
-        mmmolL: mmmolL,
-        mcmolL: mcmolL,
+        mgDl: mgDl,  
+        mcmolL: mcmolL,  
+        
       );
 
   @override
@@ -82,4 +80,4 @@ enum EnumInputTypeCreatinine with Comparable<EnumInputTypeCreatinine> {
 
   @override
   String toString() => value;
-}
+   }
