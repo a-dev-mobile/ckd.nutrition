@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nutrition/core/config/theme/theme.dart';
-import 'package:nutrition/core/local/doiman/app_local_storage_service.dart';
+import 'package:nutrition/core/local_storage/doiman/app_local_storage_service.dart';
 
 class ThemeController extends StateNotifier<ThemeMode> {
   ThemeController({required AppLocalStorageService storage})

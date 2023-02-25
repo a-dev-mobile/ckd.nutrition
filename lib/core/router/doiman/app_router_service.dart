@@ -3,13 +3,14 @@
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nutrition/core/local/storage.dart';
+import 'package:nutrition/core/local_storage/local_storage.dart';
+
 import 'package:nutrition/feature/debug_menu/debug_menu.dart';
 import 'package:nutrition/feature/onboarding/vew/vew.dart';
 import 'package:nutrition/feature/overlay_widget/overlay_widget.dart';
 import 'package:nutrition/feature/registration/registration.dart';
 import 'package:nutrition/feature/setting/view/setting_page.dart';
-import 'package:nutrition/feature/splash/splash.dart';
+import 'package:nutrition/features/splash/splash.dart';
 
 import 'package:nutrition/feature/test_app/test_app.dart';
 import 'package:nutrition/dart_define.dart';
@@ -35,8 +36,11 @@ class AppRouterService {
     navigatorKey: _rootNavigatorKey,
 
     routes: [
-
-     
+      ShellRoute(
+        builder: (_, GoRouterState state, child) {
+          return OverlayWidget(goRouterState: state, child: child);
+        },
+        routes: [
           GoRoute(
             path: SplashScreen.path,
             name: SplashScreen.name,
@@ -45,55 +49,60 @@ class AppRouterService {
               child: const SplashScreen(),
             ),
           ),
-          // GoRoute(
-          //   path: SettingPage.path,
-          //   name: SettingPage.name,
-          //   pageBuilder: (context, state) => MaterialPage<void>(
-          //     key: state.pageKey,
-          //     child: const SettingPage(),
-          //   ),
-          // ),
-          // GoRoute(
-          //   path: RegistrationPage.path,
-          //   name: RegistrationPage.name,
-          //   pageBuilder: (context, state) => MaterialPage<void>(
-          //     key: state.pageKey,
-          //     child: const RegistrationPage(),
-          //   ),
-          // ),
-          // GoRoute(
-          //   path: DebugMenuPage.path,
-          //   name: DebugMenuPage.name,
-          //   pageBuilder: (context, state) => MaterialPage<void>(
-          //     key: state.pageKey,
-          //     child: const DebugMenuPage(),
-          //   ),
-          // ),
-          // GoRoute(
-          //   path: OnBoardingPage.path,
-          //   name: OnBoardingPage.name,
-          //   pageBuilder: (context, state) => MaterialPage<void>(
-          //     key: state.pageKey,
-          //     child: const OnBoardingPage(),
-          //   ),
-          // ),
-          // GoRoute(
-          //   path: TestAppPage.path,
-          //   name: TestAppPage.name,
-          //   pageBuilder: (context, state) => MaterialPage<void>(
-          //     key: state.pageKey,
-          //     child: const TestAppPage(),
-          //   ),
-          // ),
         ],
-      // ShellRoute(
-      //   // builder: (_, GoRouterState state, child) {
-      //     // return OverlayWidget(goRouterState: state, child: child);
-      //   // },
-      //   ,
-      //   navigatorKey: _pageNavigatorKey,
-      // ),
-   
+        navigatorKey: _pageNavigatorKey,
+      ),
+    ],
+
+    // ShellRoute(
+    //   // builder: (_, GoRouterState state, child) {
+    //     // return OverlayWidget(goRouterState: state, child: child);
+    //   // },
+    //   ,
+    //   navigatorKey: _pageNavigatorKey,
+    // ),
+
+    // GoRoute(
+    //   path: SettingPage.path,
+    //   name: SettingPage.name,
+    //   pageBuilder: (context, state) => MaterialPage<void>(
+    //     key: state.pageKey,
+    //     child: const SettingPage(),
+    //   ),
+    // ),
+    // GoRoute(
+    //   path: RegistrationPage.path,
+    //   name: RegistrationPage.name,
+    //   pageBuilder: (context, state) => MaterialPage<void>(
+    //     key: state.pageKey,
+    //     child: const RegistrationPage(),
+    //   ),
+    // ),
+    // GoRoute(
+    //   path: DebugMenuPage.path,
+    //   name: DebugMenuPage.name,
+    //   pageBuilder: (context, state) => MaterialPage<void>(
+    //     key: state.pageKey,
+    //     child: const DebugMenuPage(),
+    //   ),
+    // ),
+    // GoRoute(
+    //   path: OnBoardingPage.path,
+    //   name: OnBoardingPage.name,
+    //   pageBuilder: (context, state) => MaterialPage<void>(
+    //     key: state.pageKey,
+    //     child: const OnBoardingPage(),
+    //   ),
+    // ),
+    // GoRoute(
+    //   path: TestAppPage.path,
+    //   name: TestAppPage.name,
+    //   pageBuilder: (context, state) => MaterialPage<void>(
+    //     key: state.pageKey,
+    //     child: const TestAppPage(),
+    //   ),
+    // ),
+
     errorPageBuilder: (context, state) => NoTransitionPage<void>(
       key: state.pageKey,
       child: Center(child: Text(state.error.toString())),

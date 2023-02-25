@@ -2,9 +2,10 @@ import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:meta/meta.dart';
-import 'package:nutrition/core/local/storage.dart';
+import 'package:nutrition/core/local_storage/local_storage.dart';
+
 import 'package:nutrition/core/router/router.dart';
-import 'package:nutrition/feature/splash/splash.dart';
+import 'package:nutrition/features/splash/splash.dart';
 
 class SplashController extends StateNotifier<SplashState> {
   SplashController({
