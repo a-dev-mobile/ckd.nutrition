@@ -12,19 +12,18 @@ class DropInputTypeCreatinine extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<RegistrationCubit>();
+    final cubit = context.watch<CkdCubit>();
 
     final l = context.l10n;
 
-    return BlocBuilder<RegistrationCubit, RegistrationState>(
-      buildWhen: (p, c) => p.inputTypeCreatinine != c.inputTypeCreatinine,
-      builder: (context, state) {
-        return Row(
+
+
+    return Row(
           children: [
             const Expanded(child: Text('Выберите единицу измерения')),
             const SizedBox(width: 10),
             DropdownButton<EnumInputTypeCreatinine>(
-              value: state.inputTypeCreatinine,
+              value: cubit.state.inputTypeCreatinine,
               items: [
                 for (var v in EnumInputTypeCreatinine.values)
                   DropdownMenuItem(
@@ -47,8 +46,6 @@ class DropInputTypeCreatinine extends StatelessWidget {
             ),
           ],
         );
-      },
-    );
   }
 }
 

@@ -9,11 +9,8 @@ import 'package:nutrition/localization/localization.dart';
 
 class FieldCreatinine extends StatefulWidget {
   const FieldCreatinine({
-    required this.cubit,
     super.key,
   });
-
-  final RegistrationCubit cubit;
 
   @override
   State<FieldCreatinine> createState() => _FieldCreatinineState();
@@ -25,7 +22,8 @@ class _FieldCreatinineState extends State<FieldCreatinine> {
   @override
   void initState() {
     var initValue = '';
-    final initDouble = widget.cubit.state.validCreatinine.value;
+
+    final initDouble = context.read<CkdCubit>().state.validCreatinine.value;
     if (initDouble != null) {
       initValue = initDouble.toString();
     }
@@ -42,70 +40,66 @@ class _FieldCreatinineState extends State<FieldCreatinine> {
 
   @override
   Widget build(BuildContext context) {
+    final cubit = context.watch<CkdCubit>();
+
     final l = context.l10n;
+    final state = cubit.state;
+    final valid = state.validCreatinine;
 
-    return BlocBuilder<RegistrationCubit, RegistrationState>(
-      // убрал тк от многих зависит
-      // buildWhen: (p, c) =>
-      //     p.validCreatinine.isPure != c.validCreatinine.isPure ||
-      //     p.validCreatinine.value != c.validCreatinine.value ||
-      //     p.validCkd.value != c.validCkd.value ||
-          // зависим
-      //     p.genderSelected != c.genderSelected ||
-      //     p.validGender.isPure != c.validGender.isPure ||
-      //     p.validGender.value != c.validGender.value ||
-      //     p.validBirthday.isPure != c.validBirthday.isPure ||
-      //     p.validBirthday.value != c.validBirthday.value ||
-          // 
-      //     p.isVisibleCreatinine != c.isVisibleCreatinine ||
-      //     p.inputTypeCreatinine != c.inputTypeCreatinine,
-      builder: (context, state) {
-        final valid = state.validCreatinine;
+    const maxLength = 6;
+    // print('--build ${valid.externalError}');
 
-        const maxLength = 6;
-  // print('--build ${valid.externalError}');
-
-        return Visibility(
-          visible: state.isVisibleCreatinine,
-          child: AppCard(
-            child: Column(
+    return Visibility(
+      visible: state.isVisibleCreatinine,
+      child: AppCard(
+        child: Column(
+          children: [
+            const TitleSub(
+              text: 'Укажите свой креатинин',
+              dialogText:
+                  'Мы используем эти сведения для расчета клубочковой фильтрации',
+            ),
+            Column(
               children: [
-                const TitleSub(
-                  text: 'Укажите свой креатинин',
-                  dialogText:
-                      'Мы используем эти сведения для расчета клубочковой фильтрации',
-                ),
-                Column(
-                  children: [
-                    const DropInputTypeCreatinine(),
-                    const SizedBox(height: 10),
-                    TextField(
-                      controller: controller,
-                      decoration: InputDecoration(
-                        labelText:
-                            _getText(type: state.inputTypeCreatinine, l: l),
-                        errorText: valid.errorText(l: l),
-                        errorMaxLines: 5,
-                      ),
-                      keyboardType: TextInputType.number,
-                      onChanged: (v) => widget.cubit.checkCreatinine(v: v),
-                      inputFormatters: [
-                        LengthLimitingTextInputFormatter(maxLength),
-                      ],
+                const DropInputTypeCreatinine(),
+                const SizedBox(height: 10),
+                TextField(
+                  controller: controller,
+                  decoration: InputDecoration(
+                    labelText: _getText(
+                      type: state.inputTypeCreatinine,
                     ),
+                    errorText: valid.errorText(l: l),
+                    errorMaxLines: 5,
+                  ),
+                  keyboardType: TextInputType.number,
+                  onChanged: (v) => _changeCreatinine(context, v),
+                  inputFormatters: [
+                    LengthLimitingTextInputFormatter(maxLength),
                   ],
                 ),
               ],
             ),
-          ),
-        );
-      },
+          ],
+        ),
+      ),
+    );
+  }
+
+  void _changeCreatinine(BuildContext context, String v) {
+    final ckdCubit = context.read<CkdCubit>();
+    final regCubit = context.read<RegistrationCubit>();
+   final genderCubit = context.read<GenderCubit>();
+
+    ckdCubit.checkCreatinine(
+      v: v,
+      isValidBirthday: regCubit.state.validBirthday.isValid,
+      isValidGender: genderCubit.state.validGender.isValid,
     );
   }
 
   String _getText({
     required EnumInputTypeCreatinine type,
-    required AppLocalizations l,
   }) {
     return type.map(
       mgDl: () => 'Норма: 0.3 - 1.3',

@@ -15,39 +15,31 @@ class BtnCkd extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
-    final cubit = context.read<RegistrationCubit>();
+    final cubit = context.watch<CkdCubit>();
+    final booles = cubit.state.ckdSelected;
+    final valid = cubit.state.validCkd;
 
     return AppCard(
-      child: BlocBuilder<RegistrationCubit, RegistrationState>(
-        builder: (context, state) {
-          final booles = state.ckdSelected;
-          final valid = state.validCkd;
-
-          return Column(
-            children: [
-              BtnToggleText(
-                textList: const ['1', '2', '3a', '3b', '4', '5'],
-                isSelected: booles.sublist(0, booles.length - 1),
-                onPressed: cubit.checkCkd,
-                title: 'Укажите стадию ХБП',
-                dialogText:
-                    'Установив данное приложение. Вы скорее уже знаете свою стадию ХБП, если нет - выберите последнее значение и введите свой креатинин',
-              ),
-              BtnToggleText(
-                textList: const ['Определить'],
-                isSelected: booles.sublist(booles.length - 1, booles.length),
-                // ignore: prefer-extracting-callbacks
-                onPressed: (v) {
-                  cubit.checkCkd(v + booles.length - 1);
-                },
-                errorText: valid.errorText(l: l),
-              ),
-            ],
-          );
-        },
-        buildWhen: (p, c) =>
-            p.validCkd.isPure != c.validCkd.isPure ||
-            p.validCkd.value != c.validCkd.value,
+      child: Column(
+        children: [
+          BtnToggleText(
+            textList: const ['1', '2', '3a', '3b', '4', '5'],
+            isSelected: booles.sublist(0, booles.length - 1),
+            onPressed: cubit.checkCkd,
+            title: 'Укажите стадию ХБП',
+            dialogText:
+                'Установив данное приложение. Вы скорее уже знаете свою стадию ХБП, если нет - выберите последнее значение и введите свой креатинин',
+          ),
+          BtnToggleText(
+            textList: const ['Определить'],
+            isSelected: booles.sublist(booles.length - 1, booles.length),
+            // ignore: prefer-extracting-callbacks
+            onPressed: (v) {
+              cubit.checkCkd(v + booles.length - 1);
+            },
+            errorText: valid.errorText(l: l),
+          ),
+        ],
       ),
     );
   }

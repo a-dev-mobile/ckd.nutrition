@@ -12,12 +12,14 @@ import 'package:nutrition/core/utils/utils.dart';
 import 'package:nutrition/core/valid/valid.dart';
 import 'package:nutrition/feature/registration/registration.dart';
 import 'package:nutrition/feature/setting/setting.dart';
-import 'package:nutrition/localization/localization.dart';
+
 import 'package:nutrition/navigation/navigation.dart';
 
 part 'registration_state.dart';
+
 const _maxDayInMonth = 31;
 const _maxMonth = 12;
+
 class RegistrationCubit extends HydratedCubit<RegistrationState> {
   RegistrationCubit({
     required AppRouter router,
@@ -34,7 +36,8 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
               years: _initYears(),
             ),
             heightList: _initHeight(),
-            ckdSelected: _getListBoolByIndexTrue(indexTrue: null),
+            diabetesSelected:
+                List<bool>.filled(EnumDiabetes.values.length - 1, false),
           ),
         );
 
@@ -179,26 +182,6 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
     return '';
   }
 
-  void checkGender(int value) {
-    final gender = EnumGender.values[value];
-
-    final validGender = ValidGender.dirty(gender);
-
-    final genderSelected = gender.map(
-      male: () => [false, true],
-      female: () => [true, false],
-      none: () => [false, false],
-    );
-
-    emit(
-      state.copyWith(
-        genderSelected: genderSelected,
-        validGender: validGender,
-      ),
-    );
-    //
-    checkCreatinine(update: true);
-  }
 
   void checkHypertension(int index) {
     final value = EnumHypertension.values[index];
@@ -255,22 +238,6 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
     );
   }
 
-  void checkCkd(int value) {
-    final enumValue = EnumCkd.values[value];
-
-    final validCkd = ValidCkd.dirty(enumValue);
-
-    var ckdSelected = <bool>[];
-
-    ckdSelected = _getListBoolByIndexTrue(indexTrue: enumValue.index);
-    emit(
-      state.copyWith(
-        ckdSelected: ckdSelected,
-        validCkd: validCkd,
-        isVisibleCreatinine: enumValue == EnumCkd.calculate,
-      ),
-    );
-  }
 
   static List<bool> _getListBoolByIndexTrue({required int? indexTrue}) {
     final list = <bool>[];
@@ -324,8 +291,7 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
 
     emit(state.copyWith(validBirthday: validBirthday));
 
-       //
-    checkCreatinine(update: true);
+    //
   }
 
   void changeDay(String? value) {
@@ -401,37 +367,6 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
     );
   }
 
-  void changeTypeCreatinine(EnumInputTypeCreatinine? v) {
-    emit(state.copyWith(inputTypeCreatinine: v));
-  }
-
-  void checkCreatinine({String v = '', bool update = false}) {
-    final stateCreatinine = state.validCreatinine.value;
-
-    final oldValue = stateCreatinine == null ? '' : stateCreatinine.toString();
-
-    final value = update ? oldValue : v;
-
-    // подбираю ошибки
-    ValidCreatinineError? error;
-    if (!state.validBirthday.isValid) error = ValidCreatinineError.noBirthday;
-    if (!state.validGender.isValid) error = ValidCreatinineError.noGender;
-    if (value.isEmpty) error = ValidCreatinineError.isEmpty;
-
-    final doubleValue = double.tryParse(value);
-// если не получитьсь в double - ошибка
-    if (doubleValue == null) error = ValidCreatinineError.isNoValid;
-    final creatinine =
-        ValidCreatinine.dirty(value: doubleValue, externalError: error);
-     
-      // print('--check ${error}');
-    emit(
-      state.copyWith(
-        forceUpdate: !state.forceUpdate,
-        validCreatinine: creatinine,
-      ),
-    );
-  }
 
   @override
   RegistrationState? fromJson(Map<String, dynamic> json) {
@@ -443,10 +378,10 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
     return state.toMap();
   }
 
-  bool isValid(BuildContext context) {
+  bool isValid() {
     final validName = ValidName.dirty(state.validName.value);
     final validWeight = ValidWeight.dirty(value: state.validWeight.value);
-    final validGender = ValidGender.dirty(state.validGender.value);
+  
 
     final validHypertension =
         ValidHypertension.dirty(state.validHypertension.value);
@@ -457,16 +392,11 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
 
     final validBirthday = ValidBirthday.dirty(_getDateRaw());
     final validHeight = ValidHeight.dirty(state.validHeight.value);
-    final validCkd = ValidCkd.dirty(state.validCkd.value);
+  
     final validDailyDiuresis =
         ValidDailyDiuresis.dirty(state.validDailyDiuresis.value);
 
-// если выбрано определить GFR (клубочковую фильтрацию) то проверяем вилидацию
-    final validCreatinine = state.validCkd.value.maybeMap(
-      orElse: ValidCreatinine.pure,
-      calculate: () =>
-          ValidCreatinine.dirty(value: state.validCreatinine.value),
-    );
+
 
     final validUrineOutput =
         ValidUrineOutput.dirty(value: state.validUrineOutput.value);
@@ -475,14 +405,14 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
       validName,
       validHypertension,
       validDiabetes,
-      validGender,
+
       validActivity,
       validBirthday,
       validHeight,
       validWeight,
-      validCkd,
+
       validDailyDiuresis,
-      validCreatinine,
+
       if (state.isVisibleUrineOutput) validUrineOutput,
     ];
 
@@ -490,38 +420,19 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
       state.copyWith(
         validActivity: validActivity,
         validName: validName,
-        validGender: validGender,
+ 
         validDiabetes: validDiabetes,
         validHypertension: validHypertension,
         validBirthday: validBirthday,
         validHeight: validHeight,
         validWeight: validWeight,
-        validCkd: validCkd,
-        validCreatinine: validCreatinine,
+
         validDailyDiuresis: validDailyDiuresis,
         validUrineOutput: validUrineOutput,
         isValid: Formz.validate(listValidate),
       ),
     );
 //  error enumeration and display
-    final buffer = StringBuffer();
-    String? error;
-    for (final v in listValidate) {
-      error = v.errorText(l: context.l10n);
-      if (error != null) {
-        buffer
-          ..write(error)
-          ..write('\n');
-      }
-    }
-    if (!state.isValid) {
-      // MySnackBar.show(
-      //   context: context,
-      //   alertType: AlertType.error,
-      //   duration: const Duration(seconds: 5),
-      //   title: buffer.toString(),
-      // );
-    }
 
     return state.isValid;
   }

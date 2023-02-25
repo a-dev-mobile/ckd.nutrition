@@ -1,10 +1,12 @@
 // ignore_for_file: sort_constructors_first
 
+import 'package:equatable/equatable.dart';
 import 'package:nutrition/core/valid/valid.dart';
 import 'package:nutrition/localization/gen/app_localizations.dart';
 
 ///
-class ValidCreatinine extends FormzInput<double?, ValidCreatinineError> {
+class ValidCreatinine extends FormzInput<double?, ValidCreatinineError>
+    with EquatableMixin {
   const ValidCreatinine.pure({this.externalError, double? value})
       : super.pure(value);
 
@@ -21,7 +23,7 @@ class ValidCreatinine extends FormzInput<double?, ValidCreatinineError> {
   }
   @override
   ValidCreatinineError? validator(double? value) {
-      // print('--validator ${externalError}');
+    // print('--validator ${externalError}');
     if (externalError != null) {
       return externalError;
     }
@@ -56,6 +58,11 @@ class ValidCreatinine extends FormzInput<double?, ValidCreatinineError> {
                             : error == noGender
                                 ? 'Укажите ваш пол'
                                 : null;
+  }
+
+  @override
+  List<Object?> get props {
+    return [externalError, value];
   }
 }
 

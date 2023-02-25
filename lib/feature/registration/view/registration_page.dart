@@ -1,3 +1,5 @@
+// ignore_for_file: unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nutrition/app/style/style.dart';
@@ -21,6 +23,8 @@ class RegistrationPage extends StatelessWidget {
             storage: context.read<AppStorage>(),
           )..load(),
         ),
+        BlocProvider(create: (context) => CkdCubit()),
+        BlocProvider(create: (context) => GenderCubit()),
       ],
       child: const _RegistrationPage(),
     );
@@ -51,6 +55,8 @@ class _RegistrationPage extends StatelessWidget {
             builder: (context, state) {
               if (state.isLoadPage) return const AppPageLoad();
 
+              // print('main update');
+
               return LoadNextPage(
                 isLoad: state.isLoadNextPage,
                 child: Padding(
@@ -71,15 +77,22 @@ class _RegistrationPage extends StatelessWidget {
                       const BtnDailyDiuresis(),
                       FieldUrineOutput(cubit: cubit),
                       const BtnCkd(),
-                      FieldCreatinine(cubit: cubit),
+                      const FieldCreatinine(),
                       const SizedBox(height: 20),
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(
                           // ignore: prefer-extracting-callbacks
                           onPressed: () {
-                            if (cubit.isValid(context)) {
-                              cubit.nextPage();
+                            final mainIsValid =
+                                context.read<RegistrationCubit>().isValid();
+                            final ckdIsValid =
+                                context.read<CkdCubit>().checkValid();
+                            final genderIsValid =
+                                context.read<GenderCubit>().checkValid();
+
+                            if (cubit.isValid()) {
+                              // cubit.nextPage();
                             }
                           },
                           child: const Text('Начать'),
