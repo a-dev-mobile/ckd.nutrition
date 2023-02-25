@@ -3,7 +3,7 @@ import 'dart:developer';
 
 import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:nutrition/global.dart';
+import 'package:nutrition/dart_define.dart';
 
 class Analytics {
   factory Analytics() => _internalSingleton;

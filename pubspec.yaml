@@ -35,17 +35,17 @@ dependencies:
   # Data manipulation
   # stream_transform: ^2.1.0
 
-  # BLoC
-  bloc: ^8.1.1
+
 
   # Helper BLoC
   equatable: ^2.0.5
-  bloc_concurrency: ^0.2.1
-  hydrated_bloc: ^9.1.0
 
-  # Flutter integrations bloc
-  flutter_bloc: ^8.1.2
 
+  # di/state
+  flutter_riverpod: ^2.2.0
+  
+  fpdart: ^0.4.0
+  
   # Code generation
   freezed_annotation: ^2.2.0
   json_annotation: ^4.8.0
@@ -79,7 +79,7 @@ dependencies:
   # Helper for UI
   # flash: ^2.0.5
   lottie: ^2.2.0
-  flutter_native_splash: ^2.2.17
+  flutter_native_splash: ^2.2.18
   flutter_svg: ^2.0.1
   flex_color_scheme: ^6.1.2
   introduction_screen: ^3.1.6
@@ -92,8 +92,6 @@ dependencies:
   device_preview: ^1.1.0
   feedback: ^2.5.0
 
-  # Validation
-  crypto: ^3.0.2
   # firebase
   firebase_core: ^2.6.1
   firebase_crashlytics: ^3.0.14
@@ -107,10 +105,7 @@ dependencies:
   # ******************************
   dadata:
     path: packages/dadata
-  # turn_gen:
-  #   git:
-  #     url: https://github.com/a-dev-mobile/turn_gen.git
-  #     ref: master
+
 
 dev_dependencies:
   # Analyzer extensions
@@ -121,7 +116,8 @@ dev_dependencies:
   freezed: ^2.3.2
   build_runner: ^2.3.3
   json_serializable: ^6.6.1
-  turn_gen: ^0.0.6
+  turn_gen: 
+    path: F:/DEV/FLUTTER/project/MY_GITHUB/turn_gen
 
 # Tests
 #flutter_driver:

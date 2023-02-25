@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'package:nutrition/app/style/theme/theme.dart';
+
+import 'package:nutrition/core/config/config.dart';
 import 'package:nutrition/core/utils/utils.dart';
 
 class BtnToggleText extends StatelessWidget {
