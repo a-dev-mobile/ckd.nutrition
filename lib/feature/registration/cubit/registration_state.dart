@@ -1,15 +1,8 @@
 // ignore_for_file: sort_constructors_first
-import 'dart:convert';
 
-import 'package:collection/collection.dart';
-
-import 'package:meta/meta.dart';
-import 'package:nutrition/core/valid/valid.dart';
-
-import 'package:nutrition/feature/registration/registration.dart';
+part of 'registration_cubit.dart';
 
 /*  */
-
 @immutable
 class RegistrationState { 
   /* init: false */
@@ -108,7 +101,7 @@ init:  EnumCkd.none
 */
   final EnumCkd ckdCalculated;
 /*  */
-final double? gfrValue;
+  final double? gfrValue;
 
 /* 
 type: data
@@ -193,6 +186,9 @@ Map<String, dynamic> toMap() {
       'hypertensionSelected': hypertensionSelected, 
       'dailyDiuresisSelected': dailyDiuresisSelected, 
       'status': status.index, 
+      'daySelected': daySelected, 
+      'yearSelected': yearSelected, 
+      'monthSelected': monthSelected, 
       'heightList': heightList, 
       'ckdSelected': ckdSelected, 
       'diabetesSelected': diabetesSelected, 
@@ -207,16 +203,13 @@ Map<String, dynamic> toMap() {
       'validDiabetes': validDiabetes.toMap(), 
       'validCkd': validCkd.toMap(), 
       'ckdCalculated': ckdCalculated.index, 
+      'gfrValue': gfrValue, 
       'validDailyDiuresis': validDailyDiuresis.toMap(), 
       'validUrineOutput': validUrineOutput.toMap(), 
       'isVisibleUrineOutput': isVisibleUrineOutput, 
       'validCreatinine': validCreatinine.toMap(), 
       'inputTypeCreatinine': inputTypeCreatinine.index, 
       'isVisibleCreatinine': isVisibleCreatinine, 
-      'daySelected': daySelected, 
-      'yearSelected': yearSelected, 
-      'monthSelected': monthSelected, 
-      'gfrValue': gfrValue, 
     };
   }
 
@@ -231,6 +224,9 @@ Map<String, dynamic> toMap() {
       hypertensionSelected: (map['hypertensionSelected'] as List<dynamic>?)?.map((e) => e as bool).toList() ?? const [false, false], 
       dailyDiuresisSelected: (map['dailyDiuresisSelected'] as List<dynamic>?)?.map((e) => e as bool).toList() ?? const [false, false, false, false], 
       status: FormzSubmissionStatus.values[map['status'] as int], 
+      daySelected: map['daySelected'] as String?, 
+      yearSelected: map['yearSelected'] as String?, 
+      monthSelected: map['monthSelected'] as String?, 
       heightList: (map['heightList'] as List<dynamic>?)?.map((e) => e as String).toList() ?? const [], 
       ckdSelected: (map['ckdSelected'] as List<dynamic>?)?.map((e) => e as bool).toList() ?? const [], 
       diabetesSelected: (map['diabetesSelected'] as List<dynamic>?)?.map((e) => e as bool).toList() ?? const [false, false], 
@@ -245,16 +241,13 @@ Map<String, dynamic> toMap() {
       validDiabetes: ValidDiabetes.fromMap(map['validDiabetes'] as Map<String, dynamic>,), 
       validCkd: ValidCkd.fromMap(map['validCkd'] as Map<String, dynamic>,), 
       ckdCalculated: EnumCkd.values[map['ckdCalculated'] as int], 
+      gfrValue: (map['gfrValue'] as num?)?.toDouble(), 
       validDailyDiuresis: ValidDailyDiuresis.fromMap(map['validDailyDiuresis'] as Map<String, dynamic>,), 
       validUrineOutput: ValidUrineOutput.fromMap(map['validUrineOutput'] as Map<String, dynamic>,), 
       isVisibleUrineOutput: map['isVisibleUrineOutput'] as bool? ?? false, 
       validCreatinine: ValidCreatinine.fromMap(map['validCreatinine'] as Map<String, dynamic>,), 
       inputTypeCreatinine: EnumInputTypeCreatinine.values[map['inputTypeCreatinine'] as int], 
       isVisibleCreatinine: map['isVisibleCreatinine'] as bool? ?? false, 
-      daySelected: map['daySelected'] as String?, 
-      yearSelected: map['yearSelected'] as String?, 
-      monthSelected: map['monthSelected'] as String?, 
-      gfrValue: (map['gfrValue'] as num?)?.toDouble(), 
     );
   }
 
@@ -268,6 +261,9 @@ Map<String, dynamic> toMap() {
     List<bool>? hypertensionSelected,
     List<bool>? dailyDiuresisSelected,
     FormzSubmissionStatus? status,
+    String? daySelected,
+    String? yearSelected,
+    String? monthSelected,
     List<String>? heightList,
     List<bool>? ckdSelected,
     List<bool>? diabetesSelected,
@@ -282,16 +278,13 @@ Map<String, dynamic> toMap() {
     ValidDiabetes? validDiabetes,
     ValidCkd? validCkd,
     EnumCkd? ckdCalculated,
+    double? gfrValue,
     ValidDailyDiuresis? validDailyDiuresis,
     ValidUrineOutput? validUrineOutput,
     bool? isVisibleUrineOutput,
     ValidCreatinine? validCreatinine,
     EnumInputTypeCreatinine? inputTypeCreatinine,
     bool? isVisibleCreatinine,
-    String? daySelected,
-    String? yearSelected,
-    String? monthSelected,
-    double? gfrValue,
   }) {
     return RegistrationState(
       forceUpdate: forceUpdate ?? this.forceUpdate, 
@@ -303,6 +296,9 @@ Map<String, dynamic> toMap() {
       hypertensionSelected: hypertensionSelected ?? this.hypertensionSelected, 
       dailyDiuresisSelected: dailyDiuresisSelected ?? this.dailyDiuresisSelected, 
       status: status ?? this.status, 
+      daySelected: daySelected ?? this.daySelected, 
+      yearSelected: yearSelected ?? this.yearSelected, 
+      monthSelected: monthSelected ?? this.monthSelected, 
       heightList: heightList ?? this.heightList, 
       ckdSelected: ckdSelected ?? this.ckdSelected, 
       diabetesSelected: diabetesSelected ?? this.diabetesSelected, 
@@ -317,16 +313,13 @@ Map<String, dynamic> toMap() {
       validDiabetes: validDiabetes ?? this.validDiabetes, 
       validCkd: validCkd ?? this.validCkd, 
       ckdCalculated: ckdCalculated ?? this.ckdCalculated, 
+      gfrValue: gfrValue ?? this.gfrValue, 
       validDailyDiuresis: validDailyDiuresis ?? this.validDailyDiuresis, 
       validUrineOutput: validUrineOutput ?? this.validUrineOutput, 
       isVisibleUrineOutput: isVisibleUrineOutput ?? this.isVisibleUrineOutput, 
       validCreatinine: validCreatinine ?? this.validCreatinine, 
       inputTypeCreatinine: inputTypeCreatinine ?? this.inputTypeCreatinine, 
       isVisibleCreatinine: isVisibleCreatinine ?? this.isVisibleCreatinine, 
-      daySelected: daySelected ?? this.daySelected, 
-      yearSelected: yearSelected ?? this.yearSelected, 
-      monthSelected: monthSelected ?? this.monthSelected, 
-      gfrValue: gfrValue ?? this.gfrValue, 
     );
   }
 
@@ -338,39 +331,39 @@ factory RegistrationState.fromJson(String source) => RegistrationState.fromMap(j
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is RegistrationState &&
-            (identical(other.forceUpdate, forceUpdate) || other.forceUpdate == forceUpdate)&& 
-            (identical(other.isLoadPage, isLoadPage) || other.isLoadPage == isLoadPage)&& 
-            (identical(other.isLoadNextPage, isLoadNextPage) || other.isLoadNextPage == isLoadNextPage)&& 
-            (identical(other.isValid, isValid) || other.isValid == isValid)&& 
-            const DeepCollectionEquality().equals(other.activitySelected, activitySelected,)&& 
-            const DeepCollectionEquality().equals(other.genderSelected, genderSelected,)&& 
-            const DeepCollectionEquality().equals(other.hypertensionSelected, hypertensionSelected,)&& 
-            const DeepCollectionEquality().equals(other.dailyDiuresisSelected, dailyDiuresisSelected,)&& 
-            (identical(other.status, status) || other.status == status)&& 
-            const DeepCollectionEquality().equals(other.heightList, heightList,)&& 
-            const DeepCollectionEquality().equals(other.ckdSelected, ckdSelected,)&& 
-            const DeepCollectionEquality().equals(other.diabetesSelected, diabetesSelected,)&& 
-            (identical(other.dateRegModel, dateRegModel) || other.dateRegModel == dateRegModel)&& 
-            (identical(other.validName, validName) || other.validName == validName)&& 
-            (identical(other.validActivity, validActivity) || other.validActivity == validActivity)&& 
-            (identical(other.validGender, validGender) || other.validGender == validGender)&& 
-            (identical(other.validBirthday, validBirthday) || other.validBirthday == validBirthday)&& 
-            (identical(other.validHeight, validHeight) || other.validHeight == validHeight)&& 
-            (identical(other.validWeight, validWeight) || other.validWeight == validWeight)&& 
-            (identical(other.validHypertension, validHypertension) || other.validHypertension == validHypertension)&& 
-            (identical(other.validDiabetes, validDiabetes) || other.validDiabetes == validDiabetes)&& 
-            (identical(other.validCkd, validCkd) || other.validCkd == validCkd)&& 
-            (identical(other.ckdCalculated, ckdCalculated) || other.ckdCalculated == ckdCalculated)&& 
-            (identical(other.validDailyDiuresis, validDailyDiuresis) || other.validDailyDiuresis == validDailyDiuresis)&& 
-            (identical(other.validUrineOutput, validUrineOutput) || other.validUrineOutput == validUrineOutput)&& 
-            (identical(other.isVisibleUrineOutput, isVisibleUrineOutput) || other.isVisibleUrineOutput == isVisibleUrineOutput)&& 
-            (identical(other.validCreatinine, validCreatinine) || other.validCreatinine == validCreatinine)&& 
-            (identical(other.inputTypeCreatinine, inputTypeCreatinine) || other.inputTypeCreatinine == inputTypeCreatinine)&& 
-            (identical(other.isVisibleCreatinine, isVisibleCreatinine) || other.isVisibleCreatinine == isVisibleCreatinine)&& 
-            (identical(other.daySelected, daySelected) || other.daySelected == daySelected)&& 
-            (identical(other.yearSelected, yearSelected) || other.yearSelected == yearSelected)&& 
-            (identical(other.monthSelected, monthSelected) || other.monthSelected == monthSelected)&& 
-            (identical(other.gfrValue, gfrValue) || other.gfrValue == gfrValue));
+            (identical(other.forceUpdate, forceUpdate) || other.forceUpdate == forceUpdate) && 
+            (identical(other.isLoadPage, isLoadPage) || other.isLoadPage == isLoadPage) && 
+            (identical(other.isLoadNextPage, isLoadNextPage) || other.isLoadNextPage == isLoadNextPage) && 
+            (identical(other.isValid, isValid) || other.isValid == isValid) && 
+            const DeepCollectionEquality().equals(other.activitySelected, activitySelected,) && 
+            const DeepCollectionEquality().equals(other.genderSelected, genderSelected,) && 
+            const DeepCollectionEquality().equals(other.hypertensionSelected, hypertensionSelected,) && 
+            const DeepCollectionEquality().equals(other.dailyDiuresisSelected, dailyDiuresisSelected,) && 
+            (identical(other.status, status) || other.status == status) && 
+            (identical(other.daySelected, daySelected) || other.daySelected == daySelected) && 
+            (identical(other.yearSelected, yearSelected) || other.yearSelected == yearSelected) && 
+            (identical(other.monthSelected, monthSelected) || other.monthSelected == monthSelected) && 
+            const DeepCollectionEquality().equals(other.heightList, heightList,) && 
+            const DeepCollectionEquality().equals(other.ckdSelected, ckdSelected,) && 
+            const DeepCollectionEquality().equals(other.diabetesSelected, diabetesSelected,) && 
+            (identical(other.dateRegModel, dateRegModel) || other.dateRegModel == dateRegModel) && 
+            (identical(other.validName, validName) || other.validName == validName) && 
+            (identical(other.validActivity, validActivity) || other.validActivity == validActivity) && 
+            (identical(other.validGender, validGender) || other.validGender == validGender) && 
+            (identical(other.validBirthday, validBirthday) || other.validBirthday == validBirthday) && 
+            (identical(other.validHeight, validHeight) || other.validHeight == validHeight) && 
+            (identical(other.validWeight, validWeight) || other.validWeight == validWeight) && 
+            (identical(other.validHypertension, validHypertension) || other.validHypertension == validHypertension) && 
+            (identical(other.validDiabetes, validDiabetes) || other.validDiabetes == validDiabetes) && 
+            (identical(other.validCkd, validCkd) || other.validCkd == validCkd) && 
+            (identical(other.ckdCalculated, ckdCalculated) || other.ckdCalculated == ckdCalculated) && 
+            (identical(other.gfrValue, gfrValue) || other.gfrValue == gfrValue) && 
+            (identical(other.validDailyDiuresis, validDailyDiuresis) || other.validDailyDiuresis == validDailyDiuresis) && 
+            (identical(other.validUrineOutput, validUrineOutput) || other.validUrineOutput == validUrineOutput) && 
+            (identical(other.isVisibleUrineOutput, isVisibleUrineOutput) || other.isVisibleUrineOutput == isVisibleUrineOutput) && 
+            (identical(other.validCreatinine, validCreatinine) || other.validCreatinine == validCreatinine) && 
+            (identical(other.inputTypeCreatinine, inputTypeCreatinine) || other.inputTypeCreatinine == inputTypeCreatinine) && 
+            (identical(other.isVisibleCreatinine, isVisibleCreatinine) || other.isVisibleCreatinine == isVisibleCreatinine));
   }
   
   @override
@@ -385,6 +378,9 @@ factory RegistrationState.fromJson(String source) => RegistrationState.fromMap(j
         const DeepCollectionEquality().hash(hypertensionSelected,),
         const DeepCollectionEquality().hash(dailyDiuresisSelected,),
         status,
+        daySelected,
+        yearSelected,
+        monthSelected,
         const DeepCollectionEquality().hash(heightList,),
         const DeepCollectionEquality().hash(ckdSelected,),
         const DeepCollectionEquality().hash(diabetesSelected,),
@@ -399,20 +395,17 @@ factory RegistrationState.fromJson(String source) => RegistrationState.fromMap(j
         validDiabetes,
         validCkd,
         ckdCalculated,
+        gfrValue,
         validDailyDiuresis,
         validUrineOutput,
         isVisibleUrineOutput,
         validCreatinine,
         inputTypeCreatinine,
         isVisibleCreatinine,
-        daySelected,
-        yearSelected,
-        monthSelected,
-        gfrValue,
 ]);
       @override
   String toString() {
-    return 'RegistrationState(forceUpdate: $forceUpdate, isLoadPage: $isLoadPage, isLoadNextPage: $isLoadNextPage, isValid: $isValid, activitySelected: $activitySelected, genderSelected: $genderSelected, hypertensionSelected: $hypertensionSelected, dailyDiuresisSelected: $dailyDiuresisSelected, status: $status, heightList: $heightList, ckdSelected: $ckdSelected, diabetesSelected: $diabetesSelected, dateRegModel: $dateRegModel, validName: $validName, validActivity: $validActivity, validGender: $validGender, validBirthday: $validBirthday, validHeight: $validHeight, validWeight: $validWeight, validHypertension: $validHypertension, validDiabetes: $validDiabetes, validCkd: $validCkd, ckdCalculated: $ckdCalculated, validDailyDiuresis: $validDailyDiuresis, validUrineOutput: $validUrineOutput, isVisibleUrineOutput: $isVisibleUrineOutput, validCreatinine: $validCreatinine, inputTypeCreatinine: $inputTypeCreatinine, isVisibleCreatinine: $isVisibleCreatinine, daySelected: $daySelected, yearSelected: $yearSelected, monthSelected: $monthSelected, gfrValue: $gfrValue, )';
+    return 'RegistrationState(forceUpdate: $forceUpdate, isLoadPage: $isLoadPage, isLoadNextPage: $isLoadNextPage, isValid: $isValid, activitySelected: $activitySelected, genderSelected: $genderSelected, hypertensionSelected: $hypertensionSelected, dailyDiuresisSelected: $dailyDiuresisSelected, status: $status, daySelected: $daySelected, yearSelected: $yearSelected, monthSelected: $monthSelected, heightList: $heightList, ckdSelected: $ckdSelected, diabetesSelected: $diabetesSelected, dateRegModel: $dateRegModel, validName: $validName, validActivity: $validActivity, validGender: $validGender, validBirthday: $validBirthday, validHeight: $validHeight, validWeight: $validWeight, validHypertension: $validHypertension, validDiabetes: $validDiabetes, validCkd: $validCkd, ckdCalculated: $ckdCalculated, gfrValue: $gfrValue, validDailyDiuresis: $validDailyDiuresis, validUrineOutput: $validUrineOutput, isVisibleUrineOutput: $isVisibleUrineOutput, validCreatinine: $validCreatinine, inputTypeCreatinine: $inputTypeCreatinine, isVisibleCreatinine: $isVisibleCreatinine, )';
     }
 
 }

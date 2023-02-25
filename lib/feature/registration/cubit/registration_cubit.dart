@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, constant_identifier_names, lines_longer_than_80_chars
 import 'dart:async';
+import 'dart:convert';
 
+import 'package:collection/collection.dart';
 import 'package:dadata/dadata.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -13,9 +15,9 @@ import 'package:nutrition/feature/setting/setting.dart';
 import 'package:nutrition/localization/localization.dart';
 import 'package:nutrition/navigation/navigation.dart';
 
+part 'registration_state.dart';
 const _maxDayInMonth = 31;
 const _maxMonth = 12;
-
 class RegistrationCubit extends HydratedCubit<RegistrationState> {
   RegistrationCubit({
     required AppRouter router,

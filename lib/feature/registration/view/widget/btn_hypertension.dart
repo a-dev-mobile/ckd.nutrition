@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nutrition/core/widget/widget.dart';
 import 'package:nutrition/feature/registration/registration.dart';
+
 import 'package:nutrition/feature/widgets/widgets.dart';
 import 'package:nutrition/localization/localization.dart';
 

@@ -14,16 +14,16 @@ class LogBloc extends BlocObserver {
     super.onTransition(bloc, transition);
     log
       ..d(
-        '🙏 ${bloc.runtimeType}  on transition',
+        '🙏 ++ ${bloc.runtimeType}  on transition',
       )
-      ..v(transition);
+      ..v('++ $transition');
   }
 
   @override
   void onError(BlocBase<dynamic> bloc, Object error, StackTrace stackTrace) {
     super.onError(bloc, error, stackTrace);
 
-    log.e('🚑 bloc: error: ${bloc.runtimeType} on error', error, stackTrace);
+    log.e('🚑 ++ bloc: error: ${bloc.runtimeType} on error', error, stackTrace);
   }
 
   @override
@@ -32,9 +32,9 @@ class LogBloc extends BlocObserver {
 
     log
       ..d(
-        '🙌 ${bloc.runtimeType} on change',
+        '🙌 ++ ${bloc.runtimeType} on change',
       )
-      ..v(change);
+      ..v('++ $change');
   }
 
   @override
@@ -43,20 +43,20 @@ class LogBloc extends BlocObserver {
 
     log
       ..d(
-        '✍ ${bloc.runtimeType}',
+        '✍ ++ ${bloc.runtimeType}',
       )
-      ..v(event);
+      ..v('++ $event');
   }
 
   @override
   void onCreate(BlocBase<dynamic> bloc) {
     super.onCreate(bloc);
-    log.d('👍 ${bloc.runtimeType} on create');
+    log.d('👍 ++ ${bloc.runtimeType} on create');
   }
 
   @override
   void onClose(BlocBase<dynamic> bloc) {
     super.onClose(bloc);
-    log.d('👎 ${bloc.runtimeType}  on close');
+    log.d('👎 ++ ${bloc.runtimeType}  on close');
   }
 }
