@@ -4,7 +4,7 @@ part of 'ckd_cubit.dart';
 
 /*  */
 @immutable
-class CkdState {       
+class CkdState {        
   /* 
 type: enum
 init:  EnumCkd.none

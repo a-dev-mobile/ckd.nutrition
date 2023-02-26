@@ -37,7 +37,7 @@ class CkdCubit extends HydratedCubit<CkdState> {
       ),
     );
 
-    checkValid(validCkd: validCkd);
+    _checkValid(validCkd: validCkd);
   }
 
   void changeTypeCreatinine(EnumInputTypeCreatinine? v) {
@@ -45,8 +45,8 @@ class CkdCubit extends HydratedCubit<CkdState> {
   }
 
   void checkCreatinine({
-    bool isValidBirthday = false,
-    bool isValidGender = false,
+    required bool isValidBirthday,
+    required bool isValidGender,
     String? v,
   }) {
     v ??= state.validCreatinine.value.toString();
@@ -68,10 +68,10 @@ class CkdCubit extends HydratedCubit<CkdState> {
           ValidCreatinine.dirty(value: doubleValue, externalError: error),
     );
 
-    checkValid(validCreatinine: validCreatinine);
+    _checkValid(validCreatinine: validCreatinine);
   }
 
-  void checkValid({
+  void _checkValid({
     ValidCreatinine? validCreatinine,
     ValidCkd? validCkd,
   }) {

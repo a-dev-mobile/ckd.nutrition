@@ -17,8 +17,7 @@ import 'package:nutrition/navigation/navigation.dart';
 
 part 'registration_state.dart';
 
-const _maxDayInMonth = 31;
-const _maxMonth = 12;
+
 
 class RegistrationCubit extends HydratedCubit<RegistrationState> {
   RegistrationCubit({
@@ -30,11 +29,7 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
         _storage = storage,
         super(
           RegistrationState(
-            dateRegModel: DateRegModel(
-              days: _initDayMonth(start: 1, end: _maxDayInMonth),
-              months: _initDayMonth(start: 1, end: _maxMonth),
-              years: _initYears(),
-            ),
+         
             heightList: _initHeight(),
             diabetesSelected:
                 List<bool>.filled(EnumDiabetes.values.length - 1, false),
@@ -47,8 +42,8 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
 
   final AppStorage _storage;
 
-  static const _MIN_AGE = 13;
-  static const _MAX_AGE = 100;
+  
+  
 
   static const _MIN_HEIGHT = 50;
   static const _MAX_HEIGHT = 220;
@@ -69,30 +64,6 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
     _go.router.pushNamed(SettingPage.name);
   }
 
-  static List<String> _initYears() {
-    final listYear = <String>[];
-    final yearStart = DateTime.now().year - _MAX_AGE;
-    final yearEnd = DateTime.now().year - _MIN_AGE;
-    for (var i = yearEnd; i > yearStart; i--) {
-      listYear.add(i.toString());
-    }
-
-    return listYear;
-  }
-
-  static List<String> _initDayMonth({required int start, required int end}) {
-    final list = <String>[];
-    for (var i = start; i <= end; i++) {
-      if (i < 10) {
-        list.add('0$i');
-        continue;
-      }
-
-      list.add(i.toString());
-    }
-
-    return list;
-  }
 
   static List<String> _initHeight() {
     final list = <String>[];
@@ -170,17 +141,7 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
     // emit(state.copyWith(isLoadNextPage: false));
   }
 
-  String _getDateRaw() {
-    final day = state.daySelected;
-    final monthNumber = state.monthSelected;
-    final year = state.yearSelected;
 
-    if (day != null && monthNumber != null && year != null) {
-      return '$year-$monthNumber-$day';
-    }
-
-    return '';
-  }
 
 
   void checkHypertension(int index) {
@@ -286,28 +247,6 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
     return list;
   }
 
-  void _checkBridghday() {
-    final validBirthday = ValidBirthday.dirty(_getDateRaw());
-
-    emit(state.copyWith(validBirthday: validBirthday));
-
-    //
-  }
-
-  void changeDay(String? value) {
-    emit(state.copyWith(daySelected: value));
-    _checkBridghday();
-  }
-
-  void changeMonth(String? value) {
-    emit(state.copyWith(monthSelected: value));
-    _checkBridghday();
-  }
-
-  void changeYear(String? value) {
-    emit(state.copyWith(yearSelected: value));
-    _checkBridghday();
-  }
 
   void checkWeight(String value) {
     if (value.isEmpty) {
@@ -390,7 +329,7 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
 
     final validActivity = ValidActivity.dirty(state.validActivity.value);
 
-    final validBirthday = ValidBirthday.dirty(_getDateRaw());
+
     final validHeight = ValidHeight.dirty(state.validHeight.value);
   
     final validDailyDiuresis =
@@ -407,7 +346,7 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
       validDiabetes,
 
       validActivity,
-      validBirthday,
+
       validHeight,
       validWeight,
 
@@ -423,7 +362,7 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
  
         validDiabetes: validDiabetes,
         validHypertension: validHypertension,
-        validBirthday: validBirthday,
+
         validHeight: validHeight,
         validWeight: validWeight,
 

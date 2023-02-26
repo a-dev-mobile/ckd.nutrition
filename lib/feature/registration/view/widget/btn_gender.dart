@@ -38,7 +38,11 @@ class BtnGender extends StatelessWidget {
 
   void _checkCreatinine(GenderState state, BuildContext context) {
     if (state.isValid) {
-      context.read<CkdCubit>().checkCreatinine(isValidGender: state.isValid);
+      context.read<CkdCubit>().checkCreatinine(
+            isValidGender: state.isValid,
+            isValidBirthday:
+                context.read<BrithdayCubit>().state.validBirthday.isValid,
+          );
     }
   }
 }

@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 abstract class AppUtilsString {
   static String removeDecimalZeroFormat(double n) {
     return n.toStringAsFixed(n.truncateToDouble() == n ? 0 : 1);
@@ -38,7 +40,20 @@ abstract class AppUtilsString {
   }
 }
 
-class AppUtilsNumber {
+class UtilsNumber {
+  static String correctFormatInt(int? v) {
+    if (v == null || v < 0) return '0';
+
+    return NumberFormat('#,###').format(v).replaceAll(',', ' ');
+  }
+
+  static String correctFormatDouble(double? v) {
+    if (v == null || v < 0) return '0';
+    if (v % 1 == 0) return v.toStringAsFixed(0);
+
+    return v.toString();
+  }
+
   static String getFormatNumber({
     required double num,
     int numberDigitsAfterPoint = 2,

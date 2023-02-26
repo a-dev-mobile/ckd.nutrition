@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nutrition/core/utils/utils.dart';
 import 'package:nutrition/feature/registration/registration.dart';
 import 'package:nutrition/feature/widgets/widgets.dart';
 import 'package:nutrition/localization/localization.dart';
@@ -25,7 +26,7 @@ class _FieldCreatinineState extends State<FieldCreatinine> {
 
     final initDouble = context.read<CkdCubit>().state.validCreatinine.value;
     if (initDouble != null) {
-      initValue = initDouble.toString();
+      initValue = UtilsNumber.correctFormatDouble(initDouble);
     }
     controller = TextEditingController(text: initValue);
 
@@ -88,12 +89,12 @@ class _FieldCreatinineState extends State<FieldCreatinine> {
 
   void _changeCreatinine(BuildContext context, String v) {
     final ckdCubit = context.read<CkdCubit>();
-    final regCubit = context.read<RegistrationCubit>();
-   final genderCubit = context.read<GenderCubit>();
+    final brithdayCubit = context.read<BrithdayCubit>();
+    final genderCubit = context.read<GenderCubit>();
 
     ckdCubit.checkCreatinine(
       v: v,
-      isValidBirthday: regCubit.state.validBirthday.isValid,
+      isValidBirthday: brithdayCubit.state.validBirthday.isValid,
       isValidGender: genderCubit.state.validGender.isValid,
     );
   }

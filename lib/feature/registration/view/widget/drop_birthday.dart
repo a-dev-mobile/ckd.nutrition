@@ -12,54 +12,55 @@ class DropBirthday extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<RegistrationCubit>();
+    final l = context.l10n;
+    final cubit = context.watch<BrithdayCubit>();
+    final state = cubit.state;
+    final valid = cubit.state.validBirthday;
 
-    return AppCard(
-      child: BlocBuilder<RegistrationCubit, RegistrationState>(
-        buildWhen: (p, c) =>
-            p.daySelected != c.daySelected ||
-            p.monthSelected != c.monthSelected ||
-            p.yearSelected != c.yearSelected ||
-            p.validBirthday.isPure != c.validBirthday.isPure ||
-            p.validBirthday.value != c.validBirthday.value,
-        builder: (context, state) {
-          final valid = state.validBirthday;
-
-          return Column(
-            children: [
-              const TitleSub(text: 'Укажите дату своего рождения'),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  AppDropDown(
-                    hint: 'ДЕНЬ',
-                    value: state.daySelected,
-                    onChanged: cubit.changeDay,
-                    values: state.dateRegModel.days,
-                  ),
-                  _DropDownMonth(
-                    hint: 'MЕСЯЦ',
-                    onChanged: cubit.changeMonth,
-                    value: state.monthSelected,
-                    values: state.dateRegModel.months,
-                  ),
-                  AppDropDown(
-                    hint: 'ГОД',
-                    onChanged: cubit.changeYear,
-                    value: state.yearSelected,
-                    values: state.dateRegModel.years,
-                  ),
-                ],
-              ),
-              if (valid.error == valid.isNoValid && !valid.isPure)
-                const ErrorMsg(error: 'Дата рождения указана некорректно.'),
-              if (valid.error == valid.isEmpty && !valid.isPure)
-                const ErrorMsg(error: 'Дата рождения не выбрана'),
-            ],
-          );
-        },
+    return BlocListener<BrithdayCubit, BrithdayState>(
+      listener: (context, state) =>_checkCreatinine(state, context),
+      child: AppCard(
+        child: Column(
+          children: [
+            const TitleSub(text: 'Укажите дату своего рождения'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                AppDropDown(
+                  hint: 'ДЕНЬ',
+                  value: state.daySelected,
+                  onChanged: cubit.changeDay,
+                  values: state.dateRegModel.days,
+                ),
+                _DropDownMonth(
+                  hint: 'MЕСЯЦ',
+                  onChanged: cubit.changeMonth,
+                  value: state.monthSelected,
+                  values: state.dateRegModel.months,
+                ),
+                AppDropDown(
+                  hint: 'ГОД',
+                  onChanged: cubit.changeYear,
+                  value: state.yearSelected,
+                  values: state.dateRegModel.years,
+                ),
+              ],
+            ),
+            ErrorMsg(error: valid.errorText(l: l)),
+          ],
+        ),
       ),
     );
+  }
+
+  void _checkCreatinine(BrithdayState state, BuildContext context) {
+    if (state.isValid) {
+      context.read<CkdCubit>().checkCreatinine(
+            isValidGender:
+                context.read<GenderCubit>().state.isValid,
+            isValidBirthday: state.isValid,
+          );
+    }
   }
 }
 

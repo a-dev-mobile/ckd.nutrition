@@ -1,6 +1,8 @@
+export 'cubit/brithday/brithday_cubit.dart';
 export 'cubit/ckd/ckd_cubit.dart';
 export 'cubit/gender/gender_cubit.dart';
 export 'cubit/main/registration_cubit.dart';
+export 'cubit/weght/weght_cubit.dart';
 export 'enum/enum.dart';
 export 'enum/enum_actitvity.dart';
 export 'enum/enum_ckd.dart';

@@ -1236,9 +1236,10 @@ packages:
   turn_gen:
     dependency: "direct dev"
     description:
-      path: "F:/DEV/FLUTTER/project/MY_GITHUB/turn_gen"
-      relative: false
-    source: path
+      name: turn_gen
+      sha256: "24bde7b4554e0b6236692c90375ae7114d79ef47f73eec7fa45937c39ceb98fe"
+      url: "https://pub.dev"
+    source: hosted
     version: "0.0.8"
   typed_data:
     dependency: transitive

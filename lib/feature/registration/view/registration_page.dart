@@ -25,6 +25,8 @@ class RegistrationPage extends StatelessWidget {
         ),
         BlocProvider(create: (context) => CkdCubit()),
         BlocProvider(create: (context) => GenderCubit()),
+        BlocProvider(create: (context) => BrithdayCubit()),
+        BlocProvider(create: (context) => WeghtCubit()),
       ],
       child: const _RegistrationPage(),
     );
@@ -70,7 +72,7 @@ class _RegistrationPage extends StatelessWidget {
                       const BtnGender(),
                       const DropBirthday(),
                       const DropHeight(),
-                      FieldWeight(cubit: cubit),
+                      const FieldWeight(),
                       const BtnActivity(),
                       const BtnHypertension(),
                       const BtnDiabetes(),
@@ -84,16 +86,26 @@ class _RegistrationPage extends StatelessWidget {
                         child: ElevatedButton(
                           // ignore: prefer-extracting-callbacks
                           onPressed: () {
-                            final mainIsValid =
-                                context.read<RegistrationCubit>().isValid();
-                            final ckdIsValid =
-                                context.read<CkdCubit>().checkValid();
-                            final genderIsValid =
-                                context.read<GenderCubit>().checkValid();
+                            final genderCubit = context.read<GenderCubit>()
+                              ..checkValid();
+                            final weightCubit = context.read<WeghtCubit>()
+                              ..checkWeight(isCheckFromPage: true);
+                            final brithdayCubit = context.read<BrithdayCubit>()
+                              ..checkValid();
 
-                            if (cubit.isValid()) {
-                              // cubit.nextPage();
-                            }
+                            final regCubit = context.read<RegistrationCubit>();
+
+                            final ckdIsValid =
+                                context.read<CkdCubit>().checkCreatinine(
+                                      isValidBirthday: brithdayCubit
+                                          .state.validBirthday.isValid,
+                                      isValidGender:
+                                          genderCubit.state.validGender.isValid,
+                                    );
+
+                            // if (cubit.isValid()) {
+                            //   // cubit.nextPage();
+                            // }
                           },
                           child: const Text('Начать'),
                         ),
