@@ -24,9 +24,14 @@ class RegistrationPage extends StatelessWidget {
           )..load(),
         ),
         BlocProvider(create: (context) => CkdCubit()),
-        BlocProvider(create: (context) => GenderCubit()),
-        BlocProvider(create: (context) => BrithdayCubit()),
         BlocProvider(create: (context) => WeghtCubit()),
+        BlocProvider(create: (context) => HeightCubit()),
+        BlocProvider(create: (context) => GenderCubit()),
+        BlocProvider(create: (context) => ActivityCubit()),
+        BlocProvider(create: (context) => BrithdayCubit()),
+        BlocProvider(create: (context) => DiabetesCubit()),
+        BlocProvider(create: (context) => DiuresisCubit()),
+        BlocProvider(create: (context) => HypertensionCubit()),
       ],
       child: const _RegistrationPage(),
     );
@@ -77,7 +82,7 @@ class _RegistrationPage extends StatelessWidget {
                       const BtnHypertension(),
                       const BtnDiabetes(),
                       const BtnDailyDiuresis(),
-                      FieldUrineOutput(cubit: cubit),
+                      const FieldUrineOutput(),
                       const BtnCkd(),
                       const FieldCreatinine(),
                       const SizedBox(height: 20),
@@ -92,6 +97,16 @@ class _RegistrationPage extends StatelessWidget {
                               ..checkWeight(isCheckFromPage: true);
                             final brithdayCubit = context.read<BrithdayCubit>()
                               ..checkValid();
+                            final height = context.read<HeightCubit>()
+                              ..checkHeight(isCheckFromPage: true);
+
+                            final activity = context.read<ActivityCubit>()
+                              ..checkActivity(isCheckFromPage: true);
+                            final hypertension = context
+                                .read<HypertensionCubit>()
+                              ..checkHypertension(isCheckFromPage: true);
+                            final diabetes = context.read<DiabetesCubit>()
+                              ..checkDiabetes(isCheckFromPage: true);
 
                             final regCubit = context.read<RegistrationCubit>();
 

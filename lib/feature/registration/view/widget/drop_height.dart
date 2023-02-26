@@ -12,40 +12,33 @@ class DropHeight extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cubit = context.read<RegistrationCubit>();
+    final cubit = context.watch<HeightCubit>();
+    final state = cubit.state;
+    final valid = state.validheight;
 
     return AppCard(
-      child: BlocBuilder<RegistrationCubit, RegistrationState>(
-        buildWhen: (p, c) =>
-            p.validHeight.isPure != c.validHeight.isPure ||
-            p.validHeight.value != c.validHeight.value,
-        builder: (context, state) {
-          final valid = state.validHeight;
-
-          return Column(
+      child: Column(
+        children: [
+          const TitleSub(text: 'Укажите свой рост'),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const TitleSub(text: 'Укажите свой рост'),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  AppDropDown(
-                    hint: 'Рост',
-                    value: state.validHeight.value,
-                    onChanged: cubit.checkHeight,
-                    values: state.heightList,
-                  ),
-                  const SizedBox(width: 10),
-                  Text(
-                    'см',
-                    style: AppTextStyles.caption(),
-                  ),
-                ],
+              AppDropDown(
+                hint: 'Рост',
+                value: valid.value,
+                onChanged: (v) => cubit.checkHeight(v: v),
+                values: state.heightList,
               ),
-              if (valid.error == valid.notSelected && !valid.isPure)
-                const ErrorMsg(error: 'Рост не выбран'),
+              const SizedBox(width: 10),
+              Text(
+                'см',
+                style: AppTextStyles.caption(),
+              ),
             ],
-          );
-        },
+          ),
+          if (valid.error == valid.notSelected && !valid.isPure)
+            const ErrorMsg(error: 'Рост не выбран'),
+        ],
       ),
     );
   }

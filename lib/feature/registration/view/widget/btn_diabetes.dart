@@ -15,29 +15,18 @@ class BtnDiabetes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
-    final cubit = context.read<RegistrationCubit>();
+    final cubit = context.watch<DiabetesCubit>();
+    final state = cubit.state;
+    final valid = state.validDiabetes;
 
     return AppCard(
-      child: BlocBuilder<RegistrationCubit, RegistrationState>(
-        buildWhen: (p, c) =>
-            p.validDiabetes.isPure != c.validDiabetes.isPure ||
-            p.validDiabetes.value != c.validDiabetes.value,
-        builder: (context, state) {
-          final valid = state.validDiabetes;
-
-          return BtnToggleText(
-            textList: [l.yes_caps, l.no_caps],
-            isSelected: state.diabetesSelected,
-            onPressed: cubit.checkDiabetes,
-            dialogText: l.info_diabets,
-            errorText: valid.isPure
-                ? null
-                : valid.error == valid.notSelected
-                    ? 'Подтвердите отсутствие или наличие диабета'
-                    : null,
-            title: 'Наличие диабета',
-          );
-        },
+      child: BtnToggleText(
+        textList: [l.yes_caps, l.no_caps],
+        isSelected: state.diabetesSelected,
+        onPressed: (v) => cubit.checkDiabetes(v: v),
+        dialogText: l.info_diabets,
+        errorText: valid.errorText(l: l),
+        title: 'Наличие диабета',
       ),
     );
   }

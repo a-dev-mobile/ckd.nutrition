@@ -122,9 +122,9 @@ dev_dependencies:
   build_runner: ^2.3.3
   json_serializable: ^6.6.1
 
-  turn_gen: ^0.0.8
-  # turn_gen: 
-    # path: F:/DEV/FLUTTER/project/MY_GITHUB/turn_gen
+  # turn_gen: ^0.0.8
+  turn_gen: 
+    path: F:/DEV/FLUTTER/project/MY_GITHUB/turn_gen
 
 # Tests
 #flutter_driver:

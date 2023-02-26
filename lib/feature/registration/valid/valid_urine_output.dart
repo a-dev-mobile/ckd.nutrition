@@ -36,7 +36,17 @@ class ValidUrineOutput extends FormzInput<double?, ValidUrineOutputError> {
 
   @override
   String? errorText({required AppLocalizations l}) {
-    return null;
+    return isPure
+        ? null
+        : error == isEmpty
+            ? 'Не указано количестов выделяемой мочи '
+            : error == isMax
+                ? 'Указанное значение мочи не поддерживается приложением'
+                : error == isMin
+                    ? 'Указанное значение мочи не поддерживается приложением'
+                    : error == isNoValid
+                        ? 'Неправильное значение'
+                        : null;
   }
 }
 

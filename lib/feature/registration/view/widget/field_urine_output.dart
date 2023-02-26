@@ -3,16 +3,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nutrition/core/utils/utils.dart';
 import 'package:nutrition/feature/registration/registration.dart';
 import 'package:nutrition/feature/widgets/widgets.dart';
+import 'package:nutrition/localization/localization.dart';
 
 class FieldUrineOutput extends StatefulWidget {
   const FieldUrineOutput({
-    required this.cubit,
     super.key,
   });
-
-  final RegistrationCubit cubit;
 
   @override
   State<FieldUrineOutput> createState() => _FieldUrineOutputState();
@@ -24,9 +23,11 @@ class _FieldUrineOutputState extends State<FieldUrineOutput> {
   @override
   void initState() {
     var initValue = '';
-    final initDouble = widget.cubit.state.validUrineOutput.value;
+    final initDouble =
+        context.read<DiuresisCubit>().state.validUrineOutput.value;
+
     if (initDouble != null) {
-      initValue = initDouble.toString();
+      initValue = UtilsNumber.correctFormatDouble(initDouble);
     }
     controller = TextEditingController(text: initValue);
 
@@ -41,59 +42,41 @@ class _FieldUrineOutputState extends State<FieldUrineOutput> {
 
   @override
   Widget build(BuildContext context) {
-    // final l = context.l10n;
+    final l = context.l10n;
+    final cubit = context.watch<DiuresisCubit>();
+    final state = cubit.state;
+    final valid = state.validUrineOutput;
 
-    return BlocBuilder<RegistrationCubit, RegistrationState>(
-      buildWhen: (p, c) =>
-          p.validUrineOutput.isPure != c.validUrineOutput.isPure ||
-          p.validUrineOutput.value != c.validUrineOutput.value ||
-          p.validDailyDiuresis.value != c.validDailyDiuresis.value ||
-          p.isVisibleUrineOutput != c.isVisibleUrineOutput,
-      builder: (context, state) {
-        final valid = state.validUrineOutput;
+    const errorMaxLines2 = 2;
+    const maxLength = 6;
 
-        const errorMaxLines2 = 2;
-        const maxLength = 6;
-
-        return Visibility(
-          visible: state.isVisibleUrineOutput,
-          child: AppCard(
-            child: Column(
-              children: [
-                const TitleSub(
-                  text: 'Укажите количество выделяемой мочи',
-                  dialogText:
-                      'Мы используем эти сведения для расчета суточной нормы потребления воды',
-                ),
-                TextField(
-                  controller: controller,
-                  decoration: InputDecoration(
-                    // labelText: 'Моча',
-                    errorText: valid.isPure
-                        ? null
-                        : valid.error == valid.isEmpty
-                            ? 'Не указано количестов выделяемой мочи '
-                            : valid.error == valid.isMax
-                                ? 'Указанное значение мочи не поддерживается приложением'
-                                : valid.error == valid.isMin
-                                    ? 'Указанное значение мочи не поддерживается приложением'
-                                    : valid.error == valid.isNoValid
-                                        ? 'Неправильное значение'
-                                        : null,
-                    errorMaxLines: errorMaxLines2,
-                    suffixText: 'мл',
-                  ),
-                  keyboardType: TextInputType.number,
-                  onChanged: widget.cubit.checkUrineOutput,
-                  inputFormatters: [
-                    LengthLimitingTextInputFormatter(maxLength),
-                  ],
-                ),
+    return Visibility(
+      visible: state.isVisibleUrineOutput,
+      child: AppCard(
+        child: Column(
+          children: [
+            const TitleSub(
+              text: 'Укажите количество выделяемой мочи',
+              dialogText:
+                  'Мы используем эти сведения для расчета суточной нормы потребления воды',
+            ),
+            TextField(
+              controller: controller,
+              decoration: InputDecoration(
+                // labelText: 'Моча',
+                errorText: valid.errorText(l: l),
+                errorMaxLines: errorMaxLines2,
+                suffixText: 'мл',
+              ),
+              keyboardType: TextInputType.number,
+              onChanged: cubit.checkUrineOutput,
+              inputFormatters: [
+                LengthLimitingTextInputFormatter(maxLength),
               ],
             ),
-          ),
-        );
-      },
+          ],
+        ),
+      ),
     );
   }
 }

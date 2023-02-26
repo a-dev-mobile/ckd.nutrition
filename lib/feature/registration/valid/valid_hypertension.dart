@@ -31,7 +31,11 @@ class ValidHypertension
 
   @override
   String? errorText({required AppLocalizations l}) {
-    return null;
+    return isPure
+            ? null
+            : error == notSelected
+                ? 'Подтвердите отсутствие или наличие гипертензии'
+                : null;
   }
 }
 

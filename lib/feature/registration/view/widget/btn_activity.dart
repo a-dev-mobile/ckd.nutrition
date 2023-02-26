@@ -15,27 +15,20 @@ class BtnActivity extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
-    final cubit = context.read<RegistrationCubit>();
+    final cubit = context.watch<ActivityCubit>();
+    final state = cubit.state;
+    final valid = state.validActivity;
 
     return AppCard(
-      child: BlocBuilder<RegistrationCubit, RegistrationState>(
-        builder: (context, state) {
-          final valid = state.validActivity;
-
-          return BtnToggleText(
+      child: BtnToggleText(
             textList: [l.normal, l.light],
             isSelected: state.activitySelected,
-            onPressed: cubit.checkActivity,
+            onPressed:(v)=> cubit.checkActivity(v: v),
             title: 'Укажите свою физическую активность',
             errorText: valid.errorText(l: l),
             dialogText:
                 'Физическая активность влияет для расчета суточной нормы нутриентов.',
-          );
-        },
-        buildWhen: (p, c) =>
-            p.validActivity.isPure != c.validActivity.isPure ||
-            p.validActivity.value != c.validActivity.value,
-      ),
+          ),
     );
   }
 }

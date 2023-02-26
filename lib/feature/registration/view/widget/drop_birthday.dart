@@ -15,7 +15,7 @@ class DropBirthday extends StatelessWidget {
     final l = context.l10n;
     final cubit = context.watch<BrithdayCubit>();
     final state = cubit.state;
-    final valid = cubit.state.validBirthday;
+    final valid = state.validBirthday;
 
     return BlocListener<BrithdayCubit, BrithdayState>(
       listener: (context, state) =>_checkCreatinine(state, context),

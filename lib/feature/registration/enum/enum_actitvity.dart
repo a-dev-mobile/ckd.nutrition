@@ -1,13 +1,17 @@
-// ignore_for_file: constant_identifier_names, non_constant_identifier_names, lines_longer_than_80_chars
-/*
+  // ignore_for_file: constant_identifier_names, non_constant_identifier_names, lines_longer_than_80_chars
+  /*
   
-enum ActivityEnum { normal, light, none }
+enum EnumActivity { normal, light, none,  }
 
   */
+  
+//          --TURN_GEN--
+//  *************************************
+//           GENERATED CODE 
+//  *************************************
+  
 
-// GENERATED CODE - DO NOT MODIFY BY HAND
-
-enum EnumActivity with Comparable<EnumActivity> {
+enum EnumActivity with Comparable<EnumActivity> { 
   normal('normal'),
   light('light'),
   none('none');
@@ -33,46 +37,67 @@ enum EnumActivity with Comparable<EnumActivity> {
     }
   }
 
-  /// Pattern matching
+
   T map<T>({
     required T Function() normal,
     required T Function() light,
     required T Function() none,
+
   }) {
     switch (this) {
       case EnumActivity.normal:
-        return normal();
+        return normal();     
       case EnumActivity.light:
-        return light();
+        return light();     
       case EnumActivity.none:
-        return none();
+        return none();     
+
     }
   }
 
-  /// Pattern matching
+  T mapConst<T>({
+    required T normal,
+    required T light,
+    required T none,
+
+  }) {
+    switch (this) {
+      case EnumActivity.normal:
+        return normal;     
+      case EnumActivity.light:
+        return light;     
+      case EnumActivity.none:
+        return none;     
+
+    }
+  }
+
   T maybeMap<T>({
     required T Function() orElse,
     T Function()? normal,
     T Function()? light,
     T Function()? none,
+
   }) =>
       map<T>(
-        normal: normal ?? orElse,
-        light: light ?? orElse,
-        none: none ?? orElse,
+      normal: normal ?? orElse,     
+      light: light ?? orElse,     
+      none: none ?? orElse,     
+
       );
 
-  /// Pattern matching
   T? maybeMapOrNull<T>({
     T Function()? normal,
     T Function()? light,
     T Function()? none,
+
   }) =>
       maybeMap<T?>(
         orElse: () => null,
-        normal: normal,
-        light: light,
-        none: none,
+        normal: normal,  
+        light: light,  
+        none: none,  
+        
       );
 
   @override
@@ -80,4 +105,4 @@ enum EnumActivity with Comparable<EnumActivity> {
 
   @override
   String toString() => value;
-}
+   }

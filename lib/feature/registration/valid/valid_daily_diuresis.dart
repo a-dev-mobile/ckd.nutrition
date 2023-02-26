@@ -31,7 +31,11 @@ class ValidDailyDiuresis
 
   @override
   String? errorText({required AppLocalizations l}) {
-    return null;
+    return isPure
+        ? null
+        : error == notSelected
+            ? 'Не указан уровень суточного диуреза'
+            : null;
   }
 }
 

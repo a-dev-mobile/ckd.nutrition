@@ -16,29 +16,19 @@ class BtnHypertension extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = context.l10n;
-    final cubit = context.read<RegistrationCubit>();
+
+    final cubit = context.watch<HypertensionCubit>();
+    final state = cubit.state;
+    final valid = state.validHypertension;
 
     return AppCard(
-      child: BlocBuilder<RegistrationCubit, RegistrationState>(
-        buildWhen: (p, c) =>
-            p.validHypertension.isPure != c.validHypertension.isPure ||
-            p.validHypertension.value != c.validHypertension.value,
-        builder: (context, state) {
-          final valid = state.validHypertension;
-
-          return BtnToggleText(
-            textList: [l.yes_caps, l.no_caps],
-            isSelected: state.hypertensionSelected,
-            onPressed: cubit.checkHypertension,
-            dialogText: l.info_hypertension,
-            errorText: valid.isPure
-                ? null
-                : valid.error == valid.notSelected
-                    ? 'Подтвердите отсутствие или наличие гипертензии'
-                    : null,
-            title: 'Наличие гипертензии (высокое кровяное давление)',
-          );
-        },
+      child: BtnToggleText(
+        textList: [l.yes_caps, l.no_caps],
+        isSelected: state.hypertensionSelected,
+        onPressed: (v) => cubit.checkHypertension(v: v),
+        dialogText: l.info_hypertension,
+        errorText: valid.errorText(l: l),
+        title: 'Наличие гипертензии (высокое кровяное давление)',
       ),
     );
   }

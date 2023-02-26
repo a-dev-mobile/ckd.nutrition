@@ -27,7 +27,11 @@ class ValidDiabetes extends FormzInput<EnumDiabetes, ValidDiabetesError> {
 
   @override
   String? errorText({required AppLocalizations l}) {
-    return null;
+    return isPure
+        ? null
+        : error == notSelected
+            ? 'Подтвердите отсутствие или наличие диабета'
+            : null;
   }
 }
 
