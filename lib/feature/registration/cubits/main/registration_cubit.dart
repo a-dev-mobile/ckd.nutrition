@@ -2,7 +2,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-
 import 'package:dadata/dadata.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
@@ -10,6 +9,7 @@ import 'package:nutrition/app/app.dart';
 import 'package:nutrition/core/storage/storage.dart';
 import 'package:nutrition/core/utils/utils.dart';
 import 'package:nutrition/core/valid/valid.dart';
+import 'package:nutrition/feature/markdown/view/markdown_page.dart';
 import 'package:nutrition/feature/registration/registration.dart';
 import 'package:nutrition/feature/setting/setting.dart';
 
@@ -20,27 +20,23 @@ part 'registration_state.dart';
 class RegistrationCubit extends HydratedCubit<RegistrationState> {
   RegistrationCubit({
     required AppRouter router,
-    required DaDataClient clienTips,
     required AppStorage storage,
   })  : _go = router,
-        _clienTips = clienTips,
         _storage = storage,
         super(
           const RegistrationState(),
         );
-
-  final DaDataClient _clienTips;
 
   final AppRouter _go;
 
   final AppStorage _storage;
 
   LocaleEnum _locale = LocaleEnum.en;
-  Future<void> load() async {
+  void load() {
     emit(state.copyWith(isLoadPage: true));
 
     _locale = LocaleEnum.fromValue(
-      await _storage.getLocale(),
+      _storage.getLocale(),
       fallback: LocaleEnum.en,
     );
 
@@ -49,18 +45,6 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
 
   void pushSetting() {
     _go.router.pushNamed(SettingPage.name);
-  }
-
-  Future<List<String>> getSuggestionsName(String value) async {
-    FioTooltip result;
-
-    if (_locale == LocaleEnum.ru) {
-      result = await _clienTips.fetchFioTooltip(value, DaDataEnum.name);
-
-      return _getTips(result);
-    }
-
-    return [];
   }
 
   void openPolicy() {
@@ -74,16 +58,6 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
       _locale.map(
         ru: () => LaunchLinks.urlExternal(ru),
         en: () => LaunchLinks.urlInternal(en),
-      ),
-    );
-  }
-
-  void checkName(String value) {
-    final validName = ValidName.dirty(value);
-    emit(
-      state.copyWith(
-        validName: validName,
-        // isValid: .validate([validName, state.validName,state.]),
       ),
     );
   }
@@ -109,10 +83,6 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
     // emit(state.copyWith(isLoadNextPage: false));
   }
 
- 
-
-  
-
   List<String> _getTips(FioTooltip result) {
     final list = <String>[];
     final length = result.suggestions.length;
@@ -127,7 +97,6 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
     return list;
   }
 
-
   @override
   RegistrationState? fromJson(Map<String, dynamic> json) {
     return RegistrationState.fromMap(json);
@@ -138,28 +107,10 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
     return state.toMap();
   }
 
-  bool isValid() {
-    final validName = ValidName.dirty(state.validName.value);
-
- 
-
-    final listValidate = <FormzInput<dynamic, dynamic>>[
-      validName,
-
-    
-    ];
-
-    emit(
-      state.copyWith(
-        validName: validName,
-     
-     
-     
-        isValid: Formz.validate(listValidate),
-      ),
-    );
-//  error enumeration and display
-
-    return state.isValid;
+  void goMarkdownPage() {
+    _go.router.pushNamed(MarkdownPage.name, queryParams: {
+      'url':
+          'https://drive.google.com/file/d/1Cl4YeeTYMFPIaz5NL1A29zF6jS6pgKpo/view?usp=share_link',
+    });
   }
 }

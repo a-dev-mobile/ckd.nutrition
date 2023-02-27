@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nutrition/core/storage/storage.dart';
 import 'package:nutrition/feature/debug_menu/debug_menu.dart';
+import 'package:nutrition/feature/markdown/view/markdown_page.dart';
 import 'package:nutrition/feature/onboarding/vew/vew.dart';
 import 'package:nutrition/feature/overlay_widget/overlay_widget.dart';
 import 'package:nutrition/feature/registration/registration.dart';
@@ -23,8 +24,8 @@ class AppRouter {
   final AppStorage _storage;
 
   final GoRouter router = GoRouter(
-    // initialLocation: DashBoardPage.path,
-    initialLocation: SplashPage.path,
+    initialLocation: RegistrationPage.path,
+    // initialLocation: SplashPage.path,
     observers: <NavigatorObserver>[
       FirebaseAnalyticsObserver(analytics: FirebaseAnalytics.instance),
     ],
@@ -63,6 +64,14 @@ class AppRouter {
             ),
           ),
           GoRoute(
+            path: MarkdownPage.path,
+            name: MarkdownPage.name,
+            pageBuilder: (context, state) => MaterialPage<void>(
+              key: state.pageKey,
+              child: MarkdownPage(url: state.queryParams['url'] ),
+            ),
+          ),
+          GoRoute(
             path: DebugMenuPage.path,
             name: DebugMenuPage.name,
             pageBuilder: (context, state) => MaterialPage<void>(
@@ -96,10 +105,10 @@ class AppRouter {
     ),
   );
 
-  Future<void> nextPage() async {
-    final isFirstTime = await _storage.isFirstStart();
+  void nextPage() {
+    final isFirstTime = _storage.isFirstStart();
 
-    final isOnboardingCompleted = await _storage.isOnboardingCompleted();
+    final isOnboardingCompleted = _storage.isOnboardingCompleted();
 
     if (isOnboardingCompleted && !isFirstTime) {
       router.goNamed(RegistrationPage.name);
@@ -108,14 +117,14 @@ class AppRouter {
     }
 
     if (isFirstTime) {
-      final _ = await _storage.completeFirstStart();
+      final _ = _storage.completeFirstStart();
       router.goNamed(SplashPage.name);
 
       return;
     }
 
     if (!isOnboardingCompleted) {
-      final _ = await _storage.completeFirstStart();
+      final _ = _storage.completeFirstStart();
       router.goNamed(OnBoardingPage.name);
 
       return;

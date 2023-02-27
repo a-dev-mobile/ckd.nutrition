@@ -56,7 +56,8 @@ dependencies:
     sdk: flutter
 
   # Logging
-  logger: ^1.1.0
+  logger: ^1.2.2
+  # logging: ^1.1.1
   # sentry_flutter: ^6.18.1
   # stack_trace: ^1.11.0
   appmetrica_plugin: ^1.1.0
@@ -107,6 +108,7 @@ dependencies:
   # ******************************
   dadata:
     path: packages/dadata
+  flutter_markdown: ^0.6.14
   # turn_gen:
   #   git:
   #     url: https://github.com/a-dev-mobile/turn_gen.git

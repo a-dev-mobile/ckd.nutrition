@@ -18,10 +18,10 @@ class SplashCubit extends Cubit<SplashState> {
   final AppRouter _go;
   final AppStorage _storage;
 
-  Future<void> load() async {
-    final _ = await _storage.completeFirstStart();
+  void load()  {
+    final _ =  _storage.completeFirstStart();
 
-    await _go.nextPage();
+     _go.nextPage();
   }
 }
 

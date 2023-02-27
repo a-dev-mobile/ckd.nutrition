@@ -2,7 +2,7 @@
 
 import 'dart:async';
 import 'dart:convert';
-
+import 'dart:developer' as developer;
 import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
 import 'package:crypto/crypto.dart';
@@ -17,14 +17,19 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
 import 'package:hydrated_bloc/hydrated_bloc.dart';
+
+
+
 import 'package:nutrition/core/device/device.dart';
 import 'package:nutrition/core/log/log.dart';
+import 'package:nutrition/core/network/network_client.dart';
 
 import 'package:nutrition/core/storage/storage.dart';
 import 'package:nutrition/firebase_options.dart';
 import 'package:nutrition/global.dart';
 import 'package:nutrition/navigation/navigation.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: prefer-static-class
 Future<void> bootstrap(FutureOr<Widget> Function() app) async {
@@ -33,53 +38,33 @@ Future<void> bootstrap(FutureOr<Widget> Function() app) async {
       final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
 
       // Orientation app
-      await SystemChrome.setPreferredOrientations(
-        [DeviceOrientation.portraitUp],
-      );
+      await _setOrientationDevice();
 
-      FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+      _startSplash(widgetsBinding);
 
-      FlutterError.onError = (FlutterErrorDetails details) {
-        FlutterError.presentError(details);
-        FlutterError.dumpErrorToConsole(details);
-        log.e(details.exceptionAsString(), '🚑', details.stack);
-      };
+      _initFlutterError();
 
-      Bloc.observer = LogBloc();
-      Bloc.transformer = bloc_concurrency.sequential<Object?>();
+      _initSettingBloc();
+
       PlatformDispatcher.instance.onError = _onPlatformDispatcherError;
 
-      unawaited(
-        AppMetrica.activate(
-          const AppMetricaConfig(DartDefine.API_KEY_APP_METRIC),
-        ),
-      );
-      final _ = await Firebase.initializeApp(
-        options: DefaultFirebaseOptions.currentPlatform,
-      );
-      if (kDebugMode && !kIsWeb) {
-        await FirebaseCrashlytics.instance
-            .setCrashlyticsCollectionEnabled(false);
-      } else if (!kIsWeb) {
-        await FirebaseCrashlytics.instance
-            .setCrashlyticsCollectionEnabled(true);
-        // Passing all uncaught errors from the framework to Crashlytics
-        FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
-      }
+      _initAppMetric();
 
-      // App Info Output
-      final userAgent = await DeviceInfo.getUserAgent();
-      final packageName = await DeviceInfo.getPackageName();
-      log.i(
-        'IS_DEBUG = ${DartDefine.IS_DEBUG} | IS_PROD = ${DartDefine.IS_ANALYTICS}\n$packageName\n$userAgent',
-      );
+      await _initFirebaseAndCrashlytic();
+
+
+      await _showLogAboutApp();
 
       HydratedBloc.storage = await _hydratedStorageBuild();
+      final sp = await SharedPreferences.getInstance();
       runApp(
         MultiRepositoryProvider(
           providers: [
+              RepositoryProvider(
+              create: (context) => NetworkClient(),
+            ),
             RepositoryProvider(
-              create: (context) => AppStorage(isShowLog: true),
+              create: (context) => AppStorage(isShowLog: true, pref: sp),
             ),
             RepositoryProvider(
               create: (context) => AppRouter(storage: context.read()),
@@ -88,6 +73,7 @@ Future<void> bootstrap(FutureOr<Widget> Function() app) async {
               create: (context) =>
                   DaDataClient(apiKey: DartDefine.API_KEY_DADATA),
             ),
+          
           ],
           child: await app(),
         ),
@@ -97,13 +83,65 @@ Future<void> bootstrap(FutureOr<Widget> Function() app) async {
       if (DartDefine.IS_ANALYTICS) {
         FirebaseCrashlytics.instance.recordError(error, stackTrace);
       } else {
-        logger.e('App Zone Stack Trace', error.toString(), stackTrace);
+        log.e('App Zone Stack Trace', error.toString(), stackTrace);
       }
     },
   );
 
   FlutterNativeSplash.remove();
-  log.v('** close NATIVE splash**');
+  log.i('** close NATIVE splash**');
+}
+
+Future<void> _showLogAboutApp() async {
+  final userAgent = await DeviceInfo.getUserAgent();
+  final packageName = await DeviceInfo.getPackageName();
+  log.i(
+    'IS_DEBUG = ${DartDefine.IS_DEBUG} | IS_PROD = ${DartDefine.IS_ANALYTICS}\n$packageName\n$userAgent',
+  );
+}
+
+Future<void> _initFirebaseAndCrashlytic() async {
+  final _ = await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  if (kDebugMode && !kIsWeb) {
+    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(false);
+  } else if (!kIsWeb) {
+    await FirebaseCrashlytics.instance.setCrashlyticsCollectionEnabled(true);
+    // Passing all uncaught errors from the framework to Crashlytics
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+  }
+}
+
+void _initAppMetric() {
+  unawaited(
+    AppMetrica.activate(
+      const AppMetricaConfig(DartDefine.API_KEY_APP_METRIC),
+    ),
+  );
+}
+
+void _initSettingBloc() {
+  Bloc.observer = LogBloc();
+  Bloc.transformer = bloc_concurrency.sequential<Object?>();
+}
+
+void _initFlutterError() {
+  FlutterError.onError = (FlutterErrorDetails details) {
+    FlutterError.presentError(details);
+    FlutterError.dumpErrorToConsole(details);
+    log.e(details.exceptionAsString(), '🚑', details.stack);
+  };
+}
+
+void _startSplash(WidgetsBinding widgetsBinding) {
+  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+}
+
+Future<void> _setOrientationDevice() async {
+  await SystemChrome.setPreferredOrientations(
+    [DeviceOrientation.portraitUp],
+  );
 }
 
 // ignore: prefer-static-class, unused_element
@@ -114,7 +152,6 @@ HydratedAesCipher _encryptionCipher() {
   return HydratedAesCipher(byteskey);
 }
 
-// ignore: prefer-static-class, unused_element
 Future<Storage> _hydratedStorageBuild() async {
   return HydratedStorage.build(
     encryptionCipher: _encryptionCipher(),
@@ -124,9 +161,8 @@ Future<Storage> _hydratedStorageBuild() async {
   );
 }
 
-// ignore: prefer-static-class, unused_element
 bool _onPlatformDispatcherError(Object error, StackTrace stack) {
-  logger.e('error: FlutterError', error, stack);
+  log.e('error: FlutterError', error, stack);
 
   return true;
 }

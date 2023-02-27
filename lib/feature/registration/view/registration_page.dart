@@ -1,5 +1,6 @@
 // ignore_for_file: unused_local_variable
 
+import 'package:dadata/dadata.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nutrition/app/style/style.dart';
@@ -19,7 +20,6 @@ class RegistrationPage extends StatelessWidget {
         BlocProvider(
           create: (context) => RegistrationCubit(
             router: context.read<AppRouter>(),
-            clienTips: context.read(),
             storage: context.read<AppStorage>(),
           )..load(),
         ),
@@ -32,6 +32,11 @@ class RegistrationPage extends StatelessWidget {
         BlocProvider(create: (context) => DiabetesCubit()),
         BlocProvider(create: (context) => DiuresisCubit()),
         BlocProvider(create: (context) => HypertensionCubit()),
+        BlocProvider(
+          create: (context) => NameCubit(
+              clienTips: context.read<DaDataClient>(),
+              storage: context.read<AppStorage>()),
+        ),
       ],
       child: const _RegistrationPage(),
     );
@@ -51,6 +56,10 @@ class _RegistrationPage extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Заполните данные'),
           actions: [
+            IconButton(
+              onPressed: cubit.goMarkdownPage,
+              icon: const Icon(Icons.info),
+            ),
             IconButton(
               onPressed: cubit.pushSetting,
               icon: const Icon(Icons.settings),
@@ -73,7 +82,7 @@ class _RegistrationPage extends StatelessWidget {
                       const SizedBox(height: 10),
                       const _TitleMain(),
                       const SizedBox(height: 20),
-                      FieldName(cubit: cubit),
+                      const FieldName(),
                       const BtnGender(),
                       const DropBirthday(),
                       const DropHeight(),

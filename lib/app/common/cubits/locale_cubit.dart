@@ -11,12 +11,12 @@ class LocaleCubit extends Cubit<LocaleEnum> {
         super(LocaleEnum.fromValue(Platform.localeName));
   final AppStorage _storage;
 
-  Future<void> load() async {
-    final selectedLocale = await _storage.getLocale();
+  void load()  {
+    final selectedLocale =  _storage.getLocale();
     if (selectedLocale.isNotEmpty) {
       setLocale(LocaleEnum.fromValue(selectedLocale));
     } else {
-      unawaited(_storage.setLocale(state.value));
+      _storage.setLocale(state.value);
       setLocale(state);
     }
   }

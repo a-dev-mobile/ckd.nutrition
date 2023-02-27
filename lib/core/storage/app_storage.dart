@@ -1,14 +1,19 @@
-// ignore_for_file: constant_identifier_names
+
 
 import 'dart:convert';
-import 'dart:developer';
 
+
+import 'package:logging/logging.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
+final _log = Logger('AppStorage');
 class AppStorage {
   AppStorage({
+    required SharedPreferences pref,
     bool isShowLog = false,
-  }) : _isShowLog = isShowLog;
+  })  : _isShowLog = isShowLog,
+        _pref = pref;
+
+  final SharedPreferences _pref;
 
   final bool _isShowLog;
 
@@ -19,44 +24,55 @@ class AppStorage {
 
 // ******************************
   static const _firstStart = '_first_start';
-  Future<bool> isFirstStart() {
+  bool isFirstStart() {
     return getBool(key: _firstStart, defValue: true);
   }
 
-  Future<void> completeFirstStart() {
+  void completeFirstStart() {
     return setBool(key: _firstStart, value: false);
   }
 // ******************************
 
   static const _completeOnboarding = 'completed_onboarding';
 
-  Future<bool> isOnboardingCompleted() {
+  bool isOnboardingCompleted() {
     return getBool(key: _completeOnboarding);
   }
 
-  Future<void> completeOnboarding() {
+  void completeOnboarding() {
     return setBool(key: _completeOnboarding, value: true);
   }
 
 // ******************************
   static const _locale = 'locale';
 
-  Future<String> getLocale() {
+  String getLocale() {
     return getString(key: _locale);
   }
 
-  Future<void> setLocale(String locale) {
+  void setLocale(String locale) {
     return setString(key: _locale, value: locale);
+  }
+
+// ******************************
+  static const _theme = 'theme';
+
+  String getTheme() {
+    return getString(key: _theme);
+  }
+
+  void setTheme(String value) {
+    return setString(key: _theme, value: value);
   }
 
 // ******************************
   static const _db_patch = '_db_patch';
 
-  Future<String> getDbPatch() {
+  String getDbPatch() {
     return getString(key: _db_patch);
   }
 
-  Future<void> setDbPatch(String path) {
+  void setDbPatch(String path) {
     return setString(key: _db_patch, value: path);
   }
 
@@ -67,7 +83,7 @@ class AppStorage {
   //   return getString(key: _db_zip_patch);
   // }
 
-  // Future<void> setDbZipPatch(String path) {
+  // void setDbZipPatch(String path) {
   //   return setString(key: _db_zip_patch, value: path);
   // }
 
@@ -75,11 +91,11 @@ class AppStorage {
 // ******************************
   static const _db_version = '_db_version';
 
-  Future<int> getDbUpdateVersion() {
+  int getDbUpdateVersion() {
     return getInt(key: _db_version);
   }
 
-  Future<void> setDbVersion(int value) {
+  void setDbVersion(int value) {
     return setInt(key: _db_version, value: value);
   }
 
@@ -87,13 +103,13 @@ class AppStorage {
 
   static const _lastSearchList = 'saved_list';
 
-  Future<List<String>> getListSearch() {
+  List<String> getListSearch() {
     return getStringList(key: _lastSearchList);
   }
 
-  Future<void> setLastSearch(String v) async {
+  void setLastSearch(String v) {
     final value = v.trim();
-    final list = await getStringList(key: _lastSearchList);
+    final list = getStringList(key: _lastSearchList);
 
     final growableList = List<String>.empty(growable: true)..addAll(list);
 
@@ -101,47 +117,29 @@ class AppStorage {
 
     growableList.add(value);
 
-    await setStringList(key: _lastSearchList, value: growableList);
+    setStringList(key: _lastSearchList, value: growableList);
   }
 // ******************************
 
   static const _favoriteList = '_favoriteList';
 
-  Future<List<String>> getFavorite() {
+  List<String> getFavorite() {
     return getStringList(key: _favoriteList);
   }
 
-  Future<void> addFavorite(List<String> value) async {
-    // final list = await getFavorite();
-
-    /*  //  -1 if [element] is not found.
-    final foundIndex = list.indexWhere(
-      (i) => i.idProduct == value.idProduct,
-    );
-    // если такой продукт есть
-    if (!foundIndex.isNegative) {
-      final _ = list.removeAt(foundIndex);
-    }
-    // добавляем только активные
-    if (value.isFavorite) list.add(value);
-
-    final listString = <String>[];
-
-    for (final i in list) {
-      listString.add(i.toJson());
-    } */
-    await setStringList(key: _favoriteList, value: value);
+  void addFavorite(List<String> value) {
+    setStringList(key: _favoriteList, value: value);
   }
 // ******************************
 
   static const _path_db_update = '_path_db_update';
 
-  Future<List<String>> getPathUpdateFilesDb() {
+  List<String> getPathUpdateFilesDb() {
     return getStringList(key: _path_db_update);
   }
 
-  Future<List<String>> getNameUpdateFilesDb() async {
-    final list = await getPathUpdateFilesDb();
+  List<String> getNameUpdateFilesDb() {
+    final list = getPathUpdateFilesDb();
 
     final names = <String>[];
     for (final i in list) {
@@ -151,7 +149,7 @@ class AppStorage {
     return getStringList(key: _path_db_update);
   }
 
-  Future<void> setPathUpdateFilesDb(List<String> value) {
+  void setPathUpdateFilesDb(List<String> value) {
     return setStringList(key: _path_db_update, value: value);
   }
 // ******************************
@@ -161,11 +159,11 @@ class AppStorage {
 
   static const _categories = 'categories';
 
-  Future<List<String>> getSelectedCategories() {
+  List<String> getSelectedCategories() {
     return getStringList(key: _categories);
   }
 
-  Future<void> setSelectedCategories(List<String> value) {
+  void setSelectedCategories(List<String> value) {
     return setStringList(key: _categories, value: value);
   }
 
@@ -174,148 +172,135 @@ class AppStorage {
 // ******************************
 // ******************************
   /// SaveString.
-  Future<void> setString({required String key, required String value}) async {
-    final pref = await SharedPreferences.getInstance();
-    final result = await pref.setString(key, value);
+  void setString({required String key, required String value}) {
+    final result = _pref.setString(key, value);
     if (_isShowLog) {
-      log('$_set $_info > $key\nvalue = $value\nresult = $result');
+      _log.info('$_set $_info > $key\nvalue = $value\nresult = $result');
     }
   }
 
-  Future<void> setStringList({
+  void setStringList({
     required String key,
     required List<String> value,
-  }) async {
-    final pref = await SharedPreferences.getInstance();
-    final _ = await pref.setStringList(key, value);
+  }) {
+    final _ = _pref.setStringList(key, value);
     if (_isShowLog) {
-      log('$_set $_info > $key\nvalue = $value');
+      _log.info('$_set $_info > $key\nvalue = $value');
     }
   }
 
-  Future<void> setJson({
+  void setJson({
     required String key,
     required Map<String, dynamic> value,
-  }) async {
-    final pref = await SharedPreferences.getInstance();
-    final _ = await pref.setString(key, jsonEncode(value));
+  }) {
+    final _ = _pref.setString(key, jsonEncode(value));
     if (_isShowLog) {
-      log('$_set $_info > $key\nvalue = $value');
+      _log.info('$_set $_info > $key\nvalue = $value');
     }
   }
 
   /// SaveBool.
-  Future<void> setBool({required String key, required bool value}) async {
-    final pref = await SharedPreferences.getInstance();
-    final _ = await pref.setBool(key, value);
+  void setBool({required String key, required bool value}) {
+    final _ = _pref.setBool(key, value);
     if (_isShowLog) {
-      log('$_set $_info > $key\nvalue = $value');
+      _log.info('$_set $_info > $key\nvalue = $value');
     }
   }
 
   /// SaveDouble.
-  Future<void> setDouble({required String key, required double value}) async {
-    final pref = await SharedPreferences.getInstance();
-    final _ = await pref.setDouble(key, value);
+  void setDouble({required String key, required double value}) {
+    final _ = _pref.setDouble(key, value);
     if (_isShowLog) {
-      log('$_set $_info > $key\nvalue = $value');
+      _log.info('$_set $_info > $key\nvalue = $value');
     }
   }
 
   /// SaveInt.
-  Future<void> setInt({required String key, required int value}) async {
-    final pref = await SharedPreferences.getInstance();
-    final _ = await pref.setInt(key, value);
+  void setInt({required String key, required int value}) {
+    final _ = _pref.setInt(key, value);
     if (_isShowLog) {
-      log('$_set $_info > $key\nvalue = $value');
+      _log.info('$_set $_info > $key\nvalue = $value');
     }
   }
 
-  Future<Map<String, dynamic>> getJson({
+  Map<String, dynamic> getJson({
     required String key,
-  }) async {
-    final pref = await SharedPreferences.getInstance();
+  }) {
     final result =
-        jsonDecode(pref.getString(key) ?? '{}') as Map<String, dynamic>;
+        jsonDecode(_pref.getString(key) ?? '{}') as Map<String, dynamic>;
 
     if (_isShowLog) {
-      log('$_get $_info > $key\nvalue = $result');
+      _log.info('$_get $_info > $key\nvalue = $result');
     }
 
     return result;
   }
 
   /// GetString.
-  Future<String> getString({
+  String getString({
     required String key,
     String defaultValue = '',
-  }) async {
-    final pref = await SharedPreferences.getInstance();
-    final result = pref.getString(key) ?? defaultValue;
+  }) {
+    final result = _pref.getString(key) ?? defaultValue;
     if (_isShowLog) {
-      log('$_get $_info > $key\nvalue = $result');
+      _log.info('$_get $_info > $key\nvalue = $result');
     }
 
     return result;
   }
 
   /// GetListString.
-  Future<List<String>> getStringList({required String key}) async {
-    final pref = await SharedPreferences.getInstance();
-    final result = pref.getStringList(key) ?? List.empty();
+  List<String> getStringList({required String key}) {
+    final result = _pref.getStringList(key) ?? List.empty();
     if (_isShowLog) {
-      log('$_get $_info > $key\nvalue = $result');
+      _log.info('$_get $_info > $key\nvalue = $result');
     }
 
     return result;
   }
 
   /// GetInt.
-  Future<int> getInt({required String key, int defaultValue = 0}) async {
-    final pref = await SharedPreferences.getInstance();
-    final result = pref.getInt(key) ?? defaultValue;
+  int getInt({required String key, int defaultValue = 0}) {
+    final result = _pref.getInt(key) ?? defaultValue;
     if (_isShowLog) {
-      log('$_get $_info > $key\nvalue = $result');
+      _log.info('$_get $_info > $key\nvalue = $result');
     }
 
     return result;
   }
 
   /// GetDouble.
-  Future<double> getDouble({
+  double getDouble({
     required String key,
     double defaultValue = 0,
-  }) async {
-    final pref = await SharedPreferences.getInstance();
-    final result = pref.getDouble(key) ?? defaultValue;
+  }) {
+    final result = _pref.getDouble(key) ?? defaultValue;
     if (_isShowLog) {
-      log('$_get $_info > $key\nvalue = $result');
+      _log.info('$_get $_info > $key\nvalue = $result');
     }
 
     return result;
   }
 
   /// GetBoolData.
-  Future<bool> getBool({required String key, bool defValue = false}) async {
-    final pref = await SharedPreferences.getInstance();
-    final result = pref.getBool(key) ?? defValue;
+  bool getBool({required String key, bool defValue = false}) {
+    final result = _pref.getBool(key) ?? defValue;
     if (_isShowLog) {
-      log('$_get $_info > $key\nvalue = $result');
+      _log.info('$_get $_info > $key\nvalue = $result');
     }
 
     return result;
   }
 
   /// IsNull.
-  Future<bool> isNull(String key) async {
-    final pref = await SharedPreferences.getInstance();
-    final val = pref.get(key);
+  bool isNull(String key) {
+    final val = _pref.get(key);
     bool result;
 
     // ignore: avoid_bool_literals_in_conditional_expressions
     result = val == null ? true : false;
     if (_isShowLog) {
-      log(
+      _log.info(
         '$_get  $_info | isNull \nresult = $result \nkey = $key \nvalue = $val',
       );
     }
@@ -325,9 +310,8 @@ class AppStorage {
 
   /// ClearAll.
   Future<void> clearAll() async {
-    final pref = await SharedPreferences.getInstance();
-    final result = await pref.clear();
+    final result = await _pref.clear();
 
-    if (_isShowLog) log('CLEAR $_info > result = $result');
+    if (_isShowLog) _log.info('CLEAR $_info > result = $result');
   }
 }

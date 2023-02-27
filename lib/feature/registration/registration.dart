@@ -7,6 +7,7 @@ export 'cubits/gender/gender_cubit.dart';
 export 'cubits/height/height_cubit.dart';
 export 'cubits/hypertension/hypertension_cubit.dart';
 export 'cubits/main/registration_cubit.dart';
+export 'cubits/name/name_cubit.dart';
 export 'cubits/weght/weght_cubit.dart';
 export 'enum/enum.dart';
 export 'enum/enum_actitvity.dart';
