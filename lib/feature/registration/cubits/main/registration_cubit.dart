@@ -2,15 +2,17 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:dadata/dadata.dart';
+
 import 'package:flutter/widgets.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:nutrition/app/app.dart';
+
+import 'package:nutrition/app/common/common.dart';
 import 'package:nutrition/core/storage/storage.dart';
 import 'package:nutrition/core/utils/utils.dart';
-import 'package:nutrition/core/valid/valid.dart';
+
+import 'package:nutrition/feature/markdown/markdown.dart';
 import 'package:nutrition/feature/markdown/view/markdown_page.dart';
-import 'package:nutrition/feature/registration/registration.dart';
+
 import 'package:nutrition/feature/setting/setting.dart';
 
 import 'package:nutrition/navigation/navigation.dart';
@@ -31,13 +33,13 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
 
   final AppStorage _storage;
 
-  LocaleEnum _locale = LocaleEnum.en;
+  EnumLang _locale = EnumLang.en;
   void load() {
     emit(state.copyWith(isLoadPage: true));
 
-    _locale = LocaleEnum.fromValue(
+    _locale = EnumLang.fromValue(
       _storage.getLocale(),
-      fallback: LocaleEnum.en,
+      fallback: EnumLang.en,
     );
 
     emit(state.copyWith(isLoadPage: false, isLoadNextPage: false));
@@ -83,19 +85,6 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
     // emit(state.copyWith(isLoadNextPage: false));
   }
 
-  List<String> _getTips(FioTooltip result) {
-    final list = <String>[];
-    final length = result.suggestions.length;
-    if (length == 0) return list;
-
-    for (var i = 0; i < length; i++) {
-      list.add(
-        result.suggestions[i].value,
-      );
-    }
-
-    return list;
-  }
 
   @override
   RegistrationState? fromJson(Map<String, dynamic> json) {
@@ -107,10 +96,17 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
     return state.toMap();
   }
 
-  void goMarkdownPage() {
-    _go.router.pushNamed(MarkdownPage.name, queryParams: {
-      'url':
-          'https://drive.google.com/file/d/1Cl4YeeTYMFPIaz5NL1A29zF6jS6pgKpo/view?usp=share_link',
-    });
+  void goAboutGender() {
+    final url = _locale.map(
+      ru: () =>
+          'https://drive.google.com/uc?export=view&id=1Cl4YeeTYMFPIaz5NL1A29zF6jS6pgKpo',
+      en: () =>
+          'https://drive.google.com/uc?export=view&id=1Dj2pK8TetkIqxLQp_J8lLGspaEMpeJgB',
+    );
+
+    _go.router.pushNamed(
+      MarkdownPage.name,
+      queryParams: {'url': url},
+    );
   }
 }

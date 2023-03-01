@@ -99,4 +99,7 @@ class DiuresisCubit extends HydratedCubit<DiuresisState> {
   Map<String, dynamic>? toJson(DiuresisState state) {
     return state.toMap();
   }
+
+  void goAboutDiuresis() {
+  }
 }

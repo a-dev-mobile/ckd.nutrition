@@ -5,12 +5,12 @@ import 'dart:convert';
 import 'package:dadata/dadata.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:nutrition/app/app.dart';
+import 'package:nutrition/app/common/common.dart';
+
 import 'package:nutrition/core/storage/storage.dart';
 
 import 'package:nutrition/core/valid/valid.dart';
 import 'package:nutrition/feature/registration/registration.dart';
-
 
 part 'name_state.dart';
 
@@ -28,20 +28,18 @@ class NameCubit extends HydratedCubit<NameState> {
 
   final AppStorage _storage;
 
-  LocaleEnum _locale = LocaleEnum.en;
+  EnumLang _locale = EnumLang.en;
   void load() {
-    _locale = LocaleEnum.fromValue(
+    _locale = EnumLang.fromValue(
       _storage.getLocale(),
-      fallback: LocaleEnum.en,
+      fallback: EnumLang.en,
     );
   }
-
-
 
   Future<List<String>> getSuggestionsName(String value) async {
     FioTooltip result;
 
-    if (_locale == LocaleEnum.ru) {
+    if (_locale == EnumLang.ru) {
       result = await _clienTips.fetchFioTooltip(value, DaDataEnum.name);
 
       return _getTips(result);
@@ -49,7 +47,6 @@ class NameCubit extends HydratedCubit<NameState> {
 
     return [];
   }
-
 
   void checkName(String value) {
     final validName = ValidName.dirty(value);
@@ -84,5 +81,4 @@ class NameCubit extends HydratedCubit<NameState> {
   Map<String, dynamic>? toJson(NameState state) {
     return state.toMap();
   }
-
 }

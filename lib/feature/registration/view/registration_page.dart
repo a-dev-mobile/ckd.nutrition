@@ -26,7 +26,12 @@ class RegistrationPage extends StatelessWidget {
         BlocProvider(create: (context) => CkdCubit()),
         BlocProvider(create: (context) => WeghtCubit()),
         BlocProvider(create: (context) => HeightCubit()),
-        BlocProvider(create: (context) => GenderCubit()),
+        BlocProvider(
+          create: (context) => GenderCubit(
+            router: context.read<AppRouter>(),
+            storage: context.read<AppStorage>(),
+          ),
+        ),
         BlocProvider(create: (context) => ActivityCubit()),
         BlocProvider(create: (context) => BrithdayCubit()),
         BlocProvider(create: (context) => DiabetesCubit()),
@@ -34,8 +39,9 @@ class RegistrationPage extends StatelessWidget {
         BlocProvider(create: (context) => HypertensionCubit()),
         BlocProvider(
           create: (context) => NameCubit(
-              clienTips: context.read<DaDataClient>(),
-              storage: context.read<AppStorage>()),
+            clienTips: context.read<DaDataClient>(),
+            storage: context.read<AppStorage>(),
+          ),
         ),
       ],
       child: const _RegistrationPage(),
@@ -57,7 +63,7 @@ class _RegistrationPage extends StatelessWidget {
           title: const Text('Заполните данные'),
           actions: [
             IconButton(
-              onPressed: cubit.goMarkdownPage,
+              onPressed: cubit.goAboutGender,
               icon: const Icon(Icons.info),
             ),
             IconButton(

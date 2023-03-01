@@ -10,7 +10,7 @@ class SettingState {
   /* init: const[] */
   final List<bool> boolsTheme;
   /* type:enum */
-  final LocaleEnum localeActive;
+  final EnumLang localeActive;
   /* type:enum */
   final ThemeMode themeActive;
 
@@ -42,7 +42,7 @@ class SettingState {
 
   factory SettingState.fromMap(Map<String, dynamic> map) {
     return SettingState(
-      localeActive: LocaleEnum.values[map['localeActive'] as int],
+      localeActive: EnumLang.values[map['localeActive'] as int],
       themeActive: ThemeMode.values[map['themeActive'] as int],
       boolsLocale: (map['boolsLocale'] as List<dynamic>?)
               ?.map((e) => e as bool)
@@ -56,7 +56,7 @@ class SettingState {
   }
 
   SettingState copyWith({
-    LocaleEnum? localeActive,
+    EnumLang? localeActive,
     ThemeMode? themeActive,
     List<bool>? boolsLocale,
     List<bool>? boolsTheme,

@@ -2,7 +2,7 @@
 
 import 'dart:async';
 import 'dart:convert';
-import 'dart:developer' as developer;
+
 import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:bloc_concurrency/bloc_concurrency.dart' as bloc_concurrency;
 import 'package:crypto/crypto.dart';
@@ -20,6 +20,7 @@ import 'package:hydrated_bloc/hydrated_bloc.dart';
 
 
 
+
 import 'package:nutrition/core/device/device.dart';
 import 'package:nutrition/core/log/log.dart';
 import 'package:nutrition/core/network/network_client.dart';
@@ -30,6 +31,8 @@ import 'package:nutrition/global.dart';
 import 'package:nutrition/navigation/navigation.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+// ignore: prefer-static-class
 
 // ignore: prefer-static-class
 Future<void> bootstrap(FutureOr<Widget> Function() app) async {
@@ -89,13 +92,13 @@ Future<void> bootstrap(FutureOr<Widget> Function() app) async {
   );
 
   FlutterNativeSplash.remove();
-  log.i('** close NATIVE splash**');
+  log.v('** close NATIVE splash **');
 }
 
 Future<void> _showLogAboutApp() async {
   final userAgent = await DeviceInfo.getUserAgent();
   final packageName = await DeviceInfo.getPackageName();
-  log.i(
+  log.wtf(
     'IS_DEBUG = ${DartDefine.IS_DEBUG} | IS_PROD = ${DartDefine.IS_ANALYTICS}\n$packageName\n$userAgent',
   );
 }

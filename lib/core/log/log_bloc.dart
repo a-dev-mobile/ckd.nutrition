@@ -2,39 +2,44 @@
 
 import 'package:bloc/bloc.dart';
 
-import 'logger.dart';
 
-// ignore_for_file:avoid-non-ascii-symbols, avoid-dynamic
+import 'package:nutrition/core/log/log.dart';
+
+
 class LogBloc extends BlocObserver {
+  
+
   @override
   void onTransition(
     Bloc<dynamic, dynamic> bloc,
     Transition<dynamic, dynamic> transition,
   ) {
     super.onTransition(bloc, transition);
-    log
-      ..d(
-        '🙏 ++ ${bloc.runtimeType}  on transition',
-      )
-      ..v('++ $transition');
+    log.v({
+        '🙏${bloc.runtimeType}':'transition',
+        '🙏prev': '${transition.currentState}',
+        '🙏curr': '${transition.nextState}',
+      });
   }
 
   @override
   void onError(BlocBase<dynamic> bloc, Object error, StackTrace stackTrace) {
     super.onError(bloc, error, stackTrace);
 
-    log.e('🚑 ++ bloc: error: ${bloc.runtimeType} on error', error, stackTrace);
+    log.e('🚑 bloc: error: ${bloc.runtimeType} on error', error, stackTrace);
   }
 
   @override
   void onChange(BlocBase<dynamic> bloc, Change<dynamic> change) {
     super.onChange(bloc, change);
 
-    log
-      ..d(
-        '🙌 ++ ${bloc.runtimeType} on change',
-      )
-      ..v('++ $change');
+    log.v({
+      '🙌${bloc.runtimeType}': 'change',
+      '🙌prev': '${change.currentState}',
+      '🙌curr': '${change.nextState}'
+    });
+
+    // ..v('++ ${prettyPrintJson(change.toString())}');
   }
 
   @override
@@ -43,7 +48,7 @@ class LogBloc extends BlocObserver {
 
     log
       ..d(
-        '✍ ++ ${bloc.runtimeType}',
+        '✍ ${bloc.runtimeType}',
       )
       ..v('++ $event');
   }
@@ -51,12 +56,12 @@ class LogBloc extends BlocObserver {
   @override
   void onCreate(BlocBase<dynamic> bloc) {
     super.onCreate(bloc);
-    log.d('👍 ++ ${bloc.runtimeType} on create');
+    log.d('👍 ${bloc.runtimeType} on create');
   }
 
   @override
   void onClose(BlocBase<dynamic> bloc) {
     super.onClose(bloc);
-    log.d('👎 ++ ${bloc.runtimeType}  on close');
+    log.d('👎 ${bloc.runtimeType}  on close');
   }
 }

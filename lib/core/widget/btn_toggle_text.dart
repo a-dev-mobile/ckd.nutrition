@@ -8,19 +8,19 @@ class BtnToggleText extends StatelessWidget {
     required this.textList,
     required this.isSelected,
     required this.onPressed,
+    this.onPressedAbout,
     super.key,
     this.title = '',
     this.errorText,
     this.infoBottom = '',
-    this.dialogText = '',
   });
   final List<String> textList;
   final String title;
   final String? errorText;
-  final String dialogText;
   final String infoBottom;
   final List<bool> isSelected;
   final void Function(int)? onPressed;
+  final void Function()? onPressedAbout;
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -38,20 +38,16 @@ class BtnToggleText extends StatelessWidget {
                       style: AppTextStyles.h6(),
                     ),
                   ),
-                if (dialogText.isNotEmpty)
-                  IconButton(
-                    onPressed: () => _showInfoDialog(
-                      context: context,
-                      text: dialogText,
-                    ),
-                    icon: Icon(
-                      Icons.info_outline,
-                      color: context.theme.colorScheme.primary,
-                    ),
+                IconButton(
+                  onPressed: onPressedAbout,
+                  icon: Icon(
+                    Icons.info_outline,
+                    color: context.theme.colorScheme.primary,
                   ),
+                ),
               ],
             ),
-            if (dialogText.isEmpty) const SizedBox(height: 10),
+            const SizedBox(height: 10),
             ToggleButtons(
               constraints: BoxConstraints.expand(
                 // number 3 = becouse if less - ovverflow
@@ -88,18 +84,4 @@ class BtnToggleText extends StatelessWidget {
     );
   }
 
-  Future<void> _showInfoDialog({
-    required BuildContext context,
-    required String text,
-  }) async {
-    return showDialog<void>(
-      context: context,
-      useRootNavigator: false,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          content: Text(text),
-        );
-      },
-    );
-  }
 }

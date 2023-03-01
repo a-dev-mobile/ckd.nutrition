@@ -50,4 +50,7 @@ class HypertensionCubit extends HydratedCubit<HypertensionState> {
   Map<String, dynamic>? toJson(HypertensionState state) {
     return state.toMap();
   }
+
+  void goAboutHypertension() {
+  }
 }

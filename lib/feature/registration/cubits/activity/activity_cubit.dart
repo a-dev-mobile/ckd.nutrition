@@ -50,4 +50,7 @@ class ActivityCubit extends HydratedCubit<ActivityState> {
   Map<String, dynamic>? toJson(ActivityState state) {
     return state.toMap();
   }
+
+  void goAboutActivity() {
+  }
 }

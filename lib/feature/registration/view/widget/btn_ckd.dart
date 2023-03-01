@@ -27,8 +27,8 @@ class BtnCkd extends StatelessWidget {
             isSelected: booles.sublist(0, booles.length - 1),
             onPressed: cubit.checkCkd,
             title: 'Укажите стадию ХБП',
-            dialogText:
-                'Установив данное приложение. Вы скорее уже знаете свою стадию ХБП, если нет - выберите последнее значение и введите свой креатинин',
+              onPressedAbout: cubit.goAbouCkd,
+         
           ),
           BtnToggleText(
             textList: const ['Определить'],

@@ -27,9 +27,8 @@ class BtnGender extends StatelessWidget {
           textList: [l.female, l.male],
           isSelected: state.genderSelected,
           onPressed: cubit.checkGender,
-          dialogText:
-              'Пол влияет на скорость метаболизма. Вот почему эта информация нужна для расчета суточной нормы.',
-          errorText: valid.errorText(l: l),
+                    onPressedAbout: cubit.goAboutGender,
+           errorText: valid.errorText(l: l),
           title: 'Для человека какого пола следует рассчитывать рекомендации?',
         ),
       ),

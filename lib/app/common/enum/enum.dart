@@ -1,1 +1,1 @@
-export 'locale_enum.dart';
+export 'enum_lang.dart';

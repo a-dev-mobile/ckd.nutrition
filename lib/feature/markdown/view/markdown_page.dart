@@ -1,22 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:nutrition/core/storage/storage.dart';
 import 'package:nutrition/core/widget/progress_indicator/app_page_load.dart';
 import 'package:nutrition/feature/markdown/markdown.dart';
-import 'package:nutrition/localization/localization.dart';
+
 
 class MarkdownPage extends StatelessWidget {
-  const MarkdownPage({required this.url, super.key});
+  const MarkdownPage({super.key});
   static const path = '/Markdown';
   static const name = 'Markdown';
-
-  final String? url;
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-          create: (context) => MarkdownCubit()..load(url: url),
+          create: (context) => MarkdownCubit(
+              client: context.read(), storage: context.read<AppStorage>(),)
+            ..load(),
         ),
       ],
       child: const _MarkdownPage(),
@@ -29,22 +31,55 @@ class _MarkdownPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final l = context.l10n;
+
 
     final cubit = context.watch<MarkdownCubit>();
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('TITLE'),
-      ),
       body: SafeArea(
         child: cubit.state.map(
-          initial: (v) => Center(child: Text(v.msg)),
           load: (v) => const AppPageLoad(),
-          success: (v) =>  Center(child: Text(v.text)),
-          error: (v) =>  Center(child: Text(v.msg)),
+          success: (v) => _MyMarkDownPage(
+            text: v.textMarkdown,
+          ),
+          error: (v) => Center(child: Text(v.msg)),
         ),
       ),
+    );
+  }
+}
+
+class _MyMarkDownPage extends StatelessWidget {
+  const _MyMarkDownPage({
+    required this.text,
+  });
+  final String text;
+  @override
+  Widget build(BuildContext context) {
+    const defPading = 10.0;
+
+    return Stack(
+      children: [
+        Markdown(
+          data: text,
+          onTapLink: (text, href, title) {
+            // print('1 $text');
+            // print('2 $href');
+            // print('3 $title');
+ 
+          },
+
+        ),
+        Positioned(
+          left: defPading,
+          right: defPading,
+          bottom: defPading,
+          child: ElevatedButton(
+            onPressed: Navigator.of(context).pop,
+            child: const Text('Закрыть'),
+          ),
+        ),
+      ],
     );
   }
 }

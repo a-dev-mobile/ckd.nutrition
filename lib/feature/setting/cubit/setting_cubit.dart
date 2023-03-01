@@ -6,7 +6,8 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
-import 'package:nutrition/app/app.dart';
+
+import 'package:nutrition/app/common/common.dart';
 import 'package:nutrition/feature/registration/registration.dart';
 import 'package:nutrition/navigation/navigation.dart';
 part 'setting_state.dart';
@@ -14,7 +15,7 @@ part 'setting_state.dart';
 class SettingCubit extends Cubit<SettingState> {
   SettingCubit({
     required ThemeCubit cubitTheme,
-    required LocaleCubit cubitLocale,
+    required LangCubit cubitLocale,
     required AppRouter router,
   })  : _cubitTheme = cubitTheme,
         _go = router,
@@ -27,7 +28,7 @@ class SettingCubit extends Cubit<SettingState> {
         );
 
   final ThemeCubit _cubitTheme;
-  final LocaleCubit _cubitLocale;
+  final LangCubit _cubitLocale;
   // ignore: unused_field
   final AppRouter _go;
 
@@ -39,13 +40,13 @@ class SettingCubit extends Cubit<SettingState> {
 
     boolsTheme = theme == ThemeMode.light ? [true, false] : [false, true];
 
-    boolsLocale = locale == LocaleEnum.ru ? [false, true] : [true, false];
+    boolsLocale = locale == EnumLang.ru ? [false, true] : [true, false];
 
     emit(state.copyWith(boolsLocale: boolsLocale, boolsTheme: boolsTheme));
   }
 
   void changeLocale(int index) {
-    final localeActive = index == 0 ? LocaleEnum.en : LocaleEnum.ru;
+    final localeActive = index == 0 ? EnumLang.en : EnumLang.ru;
 
     final boolsLocale = state.boolsLocale;
     final result = _forEachResult(boolsLocale, index);

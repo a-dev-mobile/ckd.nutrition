@@ -1,8 +1,9 @@
 import 'package:dio/dio.dart';
 import 'package:dio_log/interceptor/dio_log_interceptor.dart';
-import 'package:logging/logging.dart';
+import 'package:nutrition/core/log/log.dart';
 
-final _log = Logger('NetworkClient');
+
+
 
 class NetworkClient {
   NetworkClient()
@@ -53,7 +54,7 @@ class NetworkClient {
         );
       }
     } on DioError catch (e) {
-      _log.warning(e.message, e.error, e.stackTrace);
+      logger.e(e.message, e.error, e.stackTrace);
 
       return e.response!;
     } on Object catch (e, stackTrace) {

@@ -8,7 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:nutrition/app/app.dart';
+import 'package:nutrition/app/common/common.dart';
+import 'package:nutrition/app/style/style.dart';
+
 import 'package:nutrition/core/storage/app_storage.dart';
 import 'package:nutrition/feature/onboarding/onboarding.dart';
 import 'package:nutrition/feature/registration/registration.dart';

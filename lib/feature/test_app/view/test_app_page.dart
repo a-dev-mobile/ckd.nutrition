@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nutrition/app/common/common.dart';
 
-import 'package:nutrition/app/app.dart';
+
 import 'package:nutrition/core/widget/widget.dart';
 import 'package:nutrition/feature/test_app/test_app.dart';
 import 'package:nutrition/localization/localization.dart';
@@ -44,7 +45,7 @@ class _TestFlashLibPage extends StatelessWidget {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      context.read<LocaleCubit>().changeLocale();
+                      context.read<LangCubit>().changeLocale();
                     },
                     child: const Text('change locale'),
                   ),

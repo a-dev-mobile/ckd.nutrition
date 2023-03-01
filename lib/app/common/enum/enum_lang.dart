@@ -1,29 +1,31 @@
-// ignore_for_file: constant_identifier_names, non_constant_identifier_names, lines_longer_than_80_chars
-/*
+  // ignore_for_file: constant_identifier_names, non_constant_identifier_names, lines_longer_than_80_chars
+  /*
   
-  enum Locale {
+  
+  enum EnumLang {
   en('en_US'),
   ru('ru_RU'),
     
 }
   */
-
+  
 //          --TURN_GEN--
 //  *************************************
-//           GENERATED CODE
+//           GENERATED CODE 
 //  *************************************
+  
 
-enum Locale with Comparable<Locale> {
+enum EnumLang with Comparable<EnumLang> { 
   en('en_US'),
   ru('ru_RU');
 
-  const Locale(this.value);
+  const EnumLang(this.value);
 
   final String value;
 
-  static Locale fromValue(
+  static EnumLang fromValue(
     String? value, {
-    Locale? fallback,
+    EnumLang? fallback,
   }) {
     switch (value) {
       case 'en_US':
@@ -36,44 +38,47 @@ enum Locale with Comparable<Locale> {
     }
   }
 
-  /// Pattern matching
   T map<T>({
     required T Function() en,
     required T Function() ru,
+
   }) {
     switch (this) {
-      case Locale.en:
-        return en();
-      case Locale.ru:
-        return ru();
+      case EnumLang.en:
+        return en();     
+      case EnumLang.ru:
+        return ru();     
+
     }
   }
-
-  /// Pattern matching
+  
   T maybeMap<T>({
     required T Function() orElse,
     T Function()? en,
     T Function()? ru,
+
   }) =>
       map<T>(
-        en: en ?? orElse,
-        ru: ru ?? orElse,
+      en: en ?? orElse,     
+      ru: ru ?? orElse,     
+
       );
 
-  /// Pattern matching
   T? maybeMapOrNull<T>({
     T Function()? en,
     T Function()? ru,
+
   }) =>
       maybeMap<T?>(
         orElse: () => null,
-        en: en,
-        ru: ru,
+        en: en,  
+        ru: ru,  
+        
       );
 
   @override
-  int compareTo(Locale other) => index.compareTo(other.index);
+  int compareTo(EnumLang other) => index.compareTo(other.index);
 
   @override
   String toString() => value;
-}
+   }

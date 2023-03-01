@@ -24,7 +24,7 @@ class BtnDiabetes extends StatelessWidget {
         textList: [l.yes_caps, l.no_caps],
         isSelected: state.diabetesSelected,
         onPressed: (v) => cubit.checkDiabetes(v: v),
-        dialogText: l.info_diabets,
+               onPressedAbout: cubit.goAboutDiabetes,
         errorText: valid.errorText(l: l),
         title: 'Наличие диабета',
       ),

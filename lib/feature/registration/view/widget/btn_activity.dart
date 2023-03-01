@@ -26,8 +26,7 @@ class BtnActivity extends StatelessWidget {
             onPressed:(v)=> cubit.checkActivity(v: v),
             title: 'Укажите свою физическую активность',
             errorText: valid.errorText(l: l),
-            dialogText:
-                'Физическая активность влияет для расчета суточной нормы нутриентов.',
+          onPressedAbout: cubit.goAboutActivity,
           ),
     );
   }

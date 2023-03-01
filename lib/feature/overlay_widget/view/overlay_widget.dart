@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nutrition/app/app.dart';
+import 'package:nutrition/app/common/common.dart';
+import 'package:nutrition/app/style/style.dart';
+
 import 'package:nutrition/core/widget/widget.dart';
 import 'package:nutrition/feature/debug_menu/debug_menu.dart';
 import 'package:nutrition/feature/overlay_widget/overlay_widget.dart';

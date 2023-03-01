@@ -68,7 +68,7 @@ class AppRouter {
             name: MarkdownPage.name,
             pageBuilder: (context, state) => MaterialPage<void>(
               key: state.pageKey,
-              child: MarkdownPage(url: state.queryParams['url'] ),
+              child: const MarkdownPage(),
             ),
           ),
           GoRoute(

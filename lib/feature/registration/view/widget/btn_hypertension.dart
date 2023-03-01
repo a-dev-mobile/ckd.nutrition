@@ -26,7 +26,7 @@ class BtnHypertension extends StatelessWidget {
         textList: [l.yes_caps, l.no_caps],
         isSelected: state.hypertensionSelected,
         onPressed: (v) => cubit.checkHypertension(v: v),
-        dialogText: l.info_hypertension,
+        onPressedAbout: cubit.goAboutHypertension,
         errorText: valid.errorText(l: l),
         title: 'Наличие гипертензии (высокое кровяное давление)',
       ),

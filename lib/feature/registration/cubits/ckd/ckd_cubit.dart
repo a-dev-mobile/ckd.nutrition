@@ -97,4 +97,7 @@ class CkdCubit extends HydratedCubit<CkdState> {
   Map<String, dynamic>? toJson(CkdState state) {
     return state.toMap();
   }
+
+  void goAbouCkd() {
+  }
 }

@@ -32,8 +32,7 @@ class BtnDailyDiuresis extends StatelessWidget {
             isSelected: [boolValues.first, boolValues[1]],
             onPressed: cubit.checkDailyDiuresis,
             title: 'Укажите уровень суточного диуреза (обьем выделяемой мочи)',
-            dialogText:
-                'Суточный диурез – количество выделенной мочи за сутки (сумма показателей дневного и ночного диуреза), в норме составляет 1000-2000 мл для мужчин, 1000–1600 мл для женщин',
+                    onPressedAbout: cubit.goAboutDiuresis,
           ),
           BtnToggleText(
             textList: const [

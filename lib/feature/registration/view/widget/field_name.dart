@@ -20,7 +20,7 @@ class _FieldNameState extends State<FieldName> {
   @override
   void initState() {
     controller = TextEditingController(
-        text: context.read<NameCubit>().state.validName.value);
+        text: context.read<NameCubit>().state.validName.value,);
     super.initState();
   }
 

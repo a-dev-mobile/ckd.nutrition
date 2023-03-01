@@ -2,7 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nutrition/app/app.dart';
+import 'package:nutrition/app/common/common.dart';
+
 import 'package:nutrition/core/widget/widget.dart';
 import 'package:nutrition/feature/setting/setting.dart';
 
@@ -22,7 +23,7 @@ class SettingPage extends StatelessWidget {
           create: (context) => SettingCubit(
             router: context.read<AppRouter>(),
             cubitTheme: context.read<ThemeCubit>(),
-            cubitLocale: context.read<LocaleCubit>(),
+            cubitLocale: context.read<LangCubit>(),
           )..load(),
         ),
       ],

@@ -49,4 +49,7 @@ class DiabetesCubit extends HydratedCubit<DiabetesState> {
   Map<String, dynamic>? toJson(DiabetesState state) {
     return state.toMap();
   }
+
+  void goAboutDiabetes() {
+  }
 }

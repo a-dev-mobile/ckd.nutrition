@@ -7,7 +7,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:intl/intl.dart';
-import 'package:nutrition/app/app.dart';
+import 'package:nutrition/app/common/common.dart';
+import 'package:nutrition/app/style/style.dart';
+
 import 'package:nutrition/localization/gen/app_localizations.dart';
 
 import 'package:nutrition/navigation/navigation.dart';
@@ -21,7 +23,7 @@ class App extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => ThemeCubit()),
         BlocProvider(
-          create: (context) => LocaleCubit(storage: context.read())..load(),
+          create: (context) => LangCubit(storage: context.read())..load(),
         ),
         BlocProvider(create: (context) => InternetCubit()),
         BlocProvider(create: (context) => DebugCubit()),
@@ -54,7 +56,7 @@ class _MobileApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final go = context.read<AppRouter>();
     final cubitDebugWatch = context.watch<DebugCubit>();
-    final cubitLocaleWatch = context.watch<LocaleCubit>();
+    final cubitLocaleWatch = context.watch<LangCubit>();
     final cubitTheme = context.watch<ThemeCubit>();
     debugRepaintRainbowEnabled = cubitDebugWatch.state.isShowRepaintRainbow;
 
@@ -74,7 +76,7 @@ class _MobileApp extends StatelessWidget {
           // routerConfig: go.router,
           builder: (context, widget) {
             final child = widget ?? const SizedBox.shrink();
-     
+
             return DevicePreview.appBuilder(context, child);
           },
           onGenerateTitle: (context) => AppLocalizations.of(context).app_name,

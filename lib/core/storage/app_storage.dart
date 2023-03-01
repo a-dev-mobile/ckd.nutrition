@@ -1,11 +1,11 @@
-
+// ignore_for_file: constant_identifier_names
 
 import 'dart:convert';
 
-
-import 'package:logging/logging.dart';
+import 'package:nutrition/core/log/log.dart';
+import 'package:nutrition/feature/markdown/markdown.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-final _log = Logger('AppStorage');
+
 class AppStorage {
   AppStorage({
     required SharedPreferences pref,
@@ -17,19 +17,27 @@ class AppStorage {
 
   final bool _isShowLog;
 
-  static const String _info = '';
+  static const String _info = '💾';
 
-  static const String _set = '💾 👇🏻SET';
-  static const String _get = '💾 ☝🏻 GET';
+  static const String _set = '👇🏻 SET';
+  static const String _get = '☝🏻 GET';
+// ******************************
+  static const _markdown = '_markdown';
 
+  MarkdownModel getMarkdownModel()  {
+    return MarkdownModel.fromMap(getJson(key: _markdown));
+  }
+  Future<void> setMarkdownModel(MarkdownModel value) {
+    return setJson(key: _markdown, value: value.toMap());
+  }
 // ******************************
   static const _firstStart = '_first_start';
   bool isFirstStart() {
     return getBool(key: _firstStart, defValue: true);
   }
 
-  void completeFirstStart() {
-    return setBool(key: _firstStart, value: false);
+  Future<void> completeFirstStart()  {
+    return  setBool(key: _firstStart, value: false);
   }
 // ******************************
 
@@ -39,7 +47,7 @@ class AppStorage {
     return getBool(key: _completeOnboarding);
   }
 
-  void completeOnboarding() {
+  Future<void> completeOnboarding() {
     return setBool(key: _completeOnboarding, value: true);
   }
 
@@ -50,7 +58,7 @@ class AppStorage {
     return getString(key: _locale);
   }
 
-  void setLocale(String locale) {
+  Future<void> setLocale(String locale) {
     return setString(key: _locale, value: locale);
   }
 
@@ -61,7 +69,7 @@ class AppStorage {
     return getString(key: _theme);
   }
 
-  void setTheme(String value) {
+  Future<void> setTheme(String value) {
     return setString(key: _theme, value: value);
   }
 
@@ -72,7 +80,7 @@ class AppStorage {
     return getString(key: _db_patch);
   }
 
-  void setDbPatch(String path) {
+  Future<void> setDbPatch(String path) {
     return setString(key: _db_patch, value: path);
   }
 
@@ -95,7 +103,7 @@ class AppStorage {
     return getInt(key: _db_version);
   }
 
-  void setDbVersion(int value) {
+  Future<void> setDbVersion(int value) {
     return setInt(key: _db_version, value: value);
   }
 
@@ -132,26 +140,8 @@ class AppStorage {
   }
 // ******************************
 
-  static const _path_db_update = '_path_db_update';
 
-  List<String> getPathUpdateFilesDb() {
-    return getStringList(key: _path_db_update);
-  }
 
-  List<String> getNameUpdateFilesDb() {
-    final list = getPathUpdateFilesDb();
-
-    final names = <String>[];
-    for (final i in list) {
-      names.add(i.split('/').last.split('.').first);
-    }
-
-    return getStringList(key: _path_db_update);
-  }
-
-  void setPathUpdateFilesDb(List<String> value) {
-    return setStringList(key: _path_db_update, value: value);
-  }
 // ******************************
 
 // ******************************
@@ -163,7 +153,7 @@ class AppStorage {
     return getStringList(key: _categories);
   }
 
-  void setSelectedCategories(List<String> value) {
+  Future<void> setSelectedCategories(List<String> value) {
     return setStringList(key: _categories, value: value);
   }
 
@@ -172,54 +162,62 @@ class AppStorage {
 // ******************************
 // ******************************
   /// SaveString.
-  void setString({required String key, required String value}) {
-    final result = _pref.setString(key, value);
+  Future<void> setString({required String key, required String value}) async {
+    final _ = await _pref.setString(key, value);
     if (_isShowLog) {
-      _log.info('$_set $_info > $key\nvalue = $value\nresult = $result');
+      _logSetValue(key, value);
     }
   }
 
-  void setStringList({
+  Future<void> setStringList({
     required String key,
     required List<String> value,
-  }) {
-    final _ = _pref.setStringList(key, value);
+  }) async {
+    final _ = await _pref.setStringList(key, value);
     if (_isShowLog) {
-      _log.info('$_set $_info > $key\nvalue = $value');
+      _logSetValue(key, value);
     }
   }
 
-  void setJson({
+  void _logGetValue(String key, dynamic value) {
+    log.i({_info: _get, '$_info $key': '$value'});
+  }
+
+  void _logSetValue(String key, dynamic value) {
+    log.i({_info: _set, '$_info $key': '$value'});
+  }
+
+  Future<void> setJson({
     required String key,
     required Map<String, dynamic> value,
-  }) {
-    final _ = _pref.setString(key, jsonEncode(value));
+  }) async {
+    final _ = await  _pref.setString(key, jsonEncode(value));
     if (_isShowLog) {
-      _log.info('$_set $_info > $key\nvalue = $value');
+      _logSetValue(key, value);
     }
   }
 
   /// SaveBool.
-  void setBool({required String key, required bool value}) {
-    final _ = _pref.setBool(key, value);
+  Future<void> setBool({required String key, required bool value}) async {
+    final _ = await  _pref.setBool(key, value);
     if (_isShowLog) {
-      _log.info('$_set $_info > $key\nvalue = $value');
+      _logSetValue(key, value);
     }
   }
 
   /// SaveDouble.
-  void setDouble({required String key, required double value}) {
-    final _ = _pref.setDouble(key, value);
+  Future<void> setDouble({required String key, required double value}) async {
+    final _ = await _pref.setDouble(key, value);
     if (_isShowLog) {
-      _log.info('$_set $_info > $key\nvalue = $value');
+      _logSetValue(key, value);
     }
   }
 
   /// SaveInt.
-  void setInt({required String key, required int value}) {
-    final _ = _pref.setInt(key, value);
+  Future<void> setInt({required String key, required int value}) async {
+    final _ = await _pref.setInt(key, value);
     if (_isShowLog) {
-      _log.info('$_set $_info > $key\nvalue = $value');
+      _logSetValue(key, value);
     }
   }
 
@@ -230,7 +228,7 @@ class AppStorage {
         jsonDecode(_pref.getString(key) ?? '{}') as Map<String, dynamic>;
 
     if (_isShowLog) {
-      _log.info('$_get $_info > $key\nvalue = $result');
+      _logGetValue(key, result);
     }
 
     return result;
@@ -243,7 +241,7 @@ class AppStorage {
   }) {
     final result = _pref.getString(key) ?? defaultValue;
     if (_isShowLog) {
-      _log.info('$_get $_info > $key\nvalue = $result');
+      _logGetValue(key, result);
     }
 
     return result;
@@ -253,7 +251,7 @@ class AppStorage {
   List<String> getStringList({required String key}) {
     final result = _pref.getStringList(key) ?? List.empty();
     if (_isShowLog) {
-      _log.info('$_get $_info > $key\nvalue = $result');
+      _logGetValue(key, result);
     }
 
     return result;
@@ -263,7 +261,7 @@ class AppStorage {
   int getInt({required String key, int defaultValue = 0}) {
     final result = _pref.getInt(key) ?? defaultValue;
     if (_isShowLog) {
-      _log.info('$_get $_info > $key\nvalue = $result');
+      _logGetValue(key, result);
     }
 
     return result;
@@ -276,7 +274,7 @@ class AppStorage {
   }) {
     final result = _pref.getDouble(key) ?? defaultValue;
     if (_isShowLog) {
-      _log.info('$_get $_info > $key\nvalue = $result');
+      _logGetValue(key, result);
     }
 
     return result;
@@ -286,7 +284,7 @@ class AppStorage {
   bool getBool({required String key, bool defValue = false}) {
     final result = _pref.getBool(key) ?? defValue;
     if (_isShowLog) {
-      _log.info('$_get $_info > $key\nvalue = $result');
+      _logGetValue(key, result);
     }
 
     return result;
@@ -300,7 +298,7 @@ class AppStorage {
     // ignore: avoid_bool_literals_in_conditional_expressions
     result = val == null ? true : false;
     if (_isShowLog) {
-      _log.info(
+      log.i(
         '$_get  $_info | isNull \nresult = $result \nkey = $key \nvalue = $val',
       );
     }
@@ -312,6 +310,6 @@ class AppStorage {
   Future<void> clearAll() async {
     final result = await _pref.clear();
 
-    if (_isShowLog) _log.info('CLEAR $_info > result = $result');
+    if (_isShowLog) log.i('CLEAR $_info > result = $result');
   }
 }
