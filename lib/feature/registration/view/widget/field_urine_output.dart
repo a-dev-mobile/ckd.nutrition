@@ -27,7 +27,7 @@ class _FieldUrineOutputState extends State<FieldUrineOutput> {
         context.read<DiuresisCubit>().state.validUrineOutput.value;
 
     if (initDouble != null) {
-      initValue = UtilsNumber.correctFormatDouble(initDouble);
+      initValue = AppUtilsNumber.correctFormatDouble(initDouble);
     }
     controller = TextEditingController(text: initValue);
 

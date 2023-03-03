@@ -26,7 +26,7 @@ class _FieldCreatinineState extends State<FieldCreatinine> {
 
     final initDouble = context.read<CkdCubit>().state.validCreatinine.value;
     if (initDouble != null) {
-      initValue = UtilsNumber.correctFormatDouble(initDouble);
+      initValue = AppUtilsNumber.correctFormatDouble(initDouble);
     }
     controller = TextEditingController(text: initValue);
 

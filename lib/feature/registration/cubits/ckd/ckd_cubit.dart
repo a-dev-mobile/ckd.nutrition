@@ -98,6 +98,5 @@ class CkdCubit extends HydratedCubit<CkdState> {
     return state.toMap();
   }
 
-  void goAbouCkd() {
-  }
+  void goAbouCkd() {}
 }

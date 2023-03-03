@@ -2,7 +2,8 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nutrition/app/common/common.dart';
+import 'package:nutrition/core/cubits/cubits.dart';
+import 'package:nutrition/core/enum/enum.dart';
 
 import 'package:nutrition/core/widget/widget.dart';
 import 'package:nutrition/feature/setting/setting.dart';

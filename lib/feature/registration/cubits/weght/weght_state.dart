@@ -4,13 +4,12 @@ part of 'weght_cubit.dart';
 
 /*  */
 @immutable
-class WeghtState { 
+class WeghtState {  
  
 /* init: false */
   final bool isValid;
 
 /* 
-type: data
 init: const ValidWeight.pure()
 */
   final ValidWeight validWeight;

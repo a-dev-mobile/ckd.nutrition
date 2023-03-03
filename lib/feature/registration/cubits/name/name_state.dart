@@ -4,11 +4,10 @@ part of 'name_cubit.dart';
 
 /*  */
 @immutable
-class NameState {  
+class NameState {   
 /* init: false */
   final bool isValid;
 /* 
-type: data
 init: const ValidName.pure()
 */
 final ValidName validName;

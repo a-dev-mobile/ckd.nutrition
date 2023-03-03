@@ -1,7 +1,9 @@
+import 'package:dio_log/dio_log.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nutrition/app/common/common.dart';
+import 'package:nutrition/core/cubits/cubits.dart';
+import 'package:nutrition/core/enum/enum.dart';
 import 'package:nutrition/app/style/style.dart';
 
 import 'package:nutrition/core/widget/widget.dart';
@@ -48,6 +50,17 @@ class _OverlayWidgetState extends State<OverlayWidget> {
                 isDismissible: false,
                 enableDrag: false,
               );
+            }
+          },
+        ),
+        BlocListener<DebugCubit, DebugState>(
+          listenWhen: (p, c) => p.isShowBtnHttpLog != c.isShowBtnHttpLog,
+          // ignore: prefer-extracting-callbacks
+          listener: (context, state) {
+            if (state.isShowBtnHttpLog) {
+              final _ = showDebugBtn(context);
+            } else {
+              final _ = dismissDebugBtn();
             }
           },
         ),

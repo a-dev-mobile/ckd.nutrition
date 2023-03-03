@@ -8,7 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:nutrition/app/common/common.dart';
+import 'package:nutrition/core/cubits/debug/debug.dart';
+import 'package:nutrition/core/enum/enum.dart';
 import 'package:nutrition/app/style/style.dart';
 
 import 'package:nutrition/core/storage/app_storage.dart';
@@ -57,22 +58,24 @@ class DebugMenuPage extends StatelessWidget {
                     dense: true,
                     visualDensity: const VisualDensity(vertical: -3),
                   ),
-                  SwitchListTile(
-                    value: state.isShowRepaintRainbow,
-                    onChanged: (v) =>
-                        cubitDebug.setShowDebugRepaintRainbow(isShow: v),
-                    title: const Text('debugRepaintRainbowEnabled'),
-                    dense: true,
-                    visualDensity: const VisualDensity(vertical: -3),
-                  ),
-                  SwitchListTile(
-                    value: state.isShowPaintSizeEnabled,
-                    onChanged: (v) =>
-                        cubitDebug.setShowPaintSizeEnabled(isShow: v),
-                    title: const Text('debugPaintSizeEnabled'),
-                    dense: true,
-                    visualDensity: const VisualDensity(vertical: -3),
-                  ),
+                  if (kDebugMode)
+                    SwitchListTile(
+                      value: state.isShowRepaintRainbow,
+                      onChanged: (v) =>
+                          cubitDebug.setShowDebugRepaintRainbow(isShow: v),
+                      title: const Text('debugRepaintRainbowEnabled'),
+                      dense: true,
+                      visualDensity: const VisualDensity(vertical: -3),
+                    ),
+                  if (kDebugMode)
+                    SwitchListTile(
+                      value: state.isShowPaintSizeEnabled,
+                      onChanged: (v) =>
+                          cubitDebug.setShowPaintSizeEnabled(isShow: v),
+                      title: const Text('debugPaintSizeEnabled'),
+                      dense: true,
+                      visualDensity: const VisualDensity(vertical: -3),
+                    ),
                   const Center(child: Text('---Начало---')),
                   Wrap(
                     children: const [

@@ -58,7 +58,6 @@ class DiuresisCubit extends HydratedCubit<DiuresisState> {
         dailyDiuresisSelected: listBoolSelected,
         validDailyDiuresis: valid,
         isVisibleUrineOutput: valueEnum == EnumDailyDiuresis.unknown,
-        
       ),
     );
   }
@@ -100,6 +99,5 @@ class DiuresisCubit extends HydratedCubit<DiuresisState> {
     return state.toMap();
   }
 
-  void goAboutDiuresis() {
-  }
+  void goAboutDiuresis() {}
 }

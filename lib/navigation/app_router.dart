@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:nutrition/core/storage/storage.dart';
 import 'package:nutrition/feature/debug_menu/debug_menu.dart';
+import 'package:nutrition/feature/markdown/markdown.dart';
 import 'package:nutrition/feature/markdown/view/markdown_page.dart';
 import 'package:nutrition/feature/onboarding/vew/vew.dart';
 import 'package:nutrition/feature/overlay_widget/overlay_widget.dart';
@@ -66,10 +67,20 @@ class AppRouter {
           GoRoute(
             path: MarkdownPage.path,
             name: MarkdownPage.name,
-            pageBuilder: (context, state) => MaterialPage<void>(
-              key: state.pageKey,
-              child: const MarkdownPage(),
-            ),
+            pageBuilder: (context, state) {
+              var markdownModel = const MarkdownModel();
+              if (state.extra != null) {
+                markdownModel = state.extra! as MarkdownModel;
+              }
+
+              return MaterialPage<void>(
+                fullscreenDialog: true,
+                key: state.pageKey,
+                child: MarkdownPage(
+                  model: markdownModel,
+                ),
+              );
+            },
           ),
           GoRoute(
             path: DebugMenuPage.path,

@@ -26,7 +26,7 @@ class _FieldWeightState extends State<FieldWeight> {
     var initValue = '';
     final initDouble = context.read<WeghtCubit>().state.validWeight.value;
     if (initDouble != null) {
-      initValue = UtilsNumber.correctFormatDouble(initDouble);
+      initValue = AppUtilsNumber.correctFormatDouble(initDouble);
     }
     controller = TextEditingController(text: initValue);
 

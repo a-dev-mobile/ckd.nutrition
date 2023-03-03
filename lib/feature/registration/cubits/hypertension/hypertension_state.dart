@@ -2,14 +2,13 @@
 
 part of 'hypertension_cubit.dart';
 
-/*  */
+
 @immutable
-class HypertensionState { 
+class HypertensionState {    
   /* init: false */
   final bool isValid;
 
 /* 
-type: data
 init: const ValidHypertension.pure()
 */
   final ValidHypertension validHypertension;

@@ -2,11 +2,10 @@
 import 'dart:async';
 import 'dart:convert';
 
-
 import 'package:flutter/widgets.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 
-import 'package:nutrition/app/common/common.dart';
+import 'package:nutrition/core/enum/enum.dart';
 import 'package:nutrition/core/storage/storage.dart';
 import 'package:nutrition/core/utils/utils.dart';
 
@@ -84,7 +83,6 @@ class RegistrationCubit extends HydratedCubit<RegistrationState> {
     // _go.router.goNamed(DashBoardPage.name);
     // emit(state.copyWith(isLoadNextPage: false));
   }
-
 
   @override
   RegistrationState? fromJson(Map<String, dynamic> json) {

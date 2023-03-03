@@ -4,7 +4,7 @@ part of 'height_cubit.dart';
 
 /*  */
 @immutable
-class HeightState {  
+class HeightState {   
   /* init: false */
   final bool isValid;
 
@@ -12,7 +12,6 @@ class HeightState {
   final List<String> heightList;
 
 /* 
-type: data
 init: const ValidHeight.pure()
 */
   final ValidHeight validheight;

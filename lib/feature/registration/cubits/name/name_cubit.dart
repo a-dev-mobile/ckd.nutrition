@@ -5,7 +5,7 @@ import 'dart:convert';
 import 'package:dadata/dadata.dart';
 import 'package:flutter/widgets.dart';
 import 'package:hydrated_bloc/hydrated_bloc.dart';
-import 'package:nutrition/app/common/common.dart';
+import 'package:nutrition/core/enum/enum.dart';
 
 import 'package:nutrition/core/storage/storage.dart';
 

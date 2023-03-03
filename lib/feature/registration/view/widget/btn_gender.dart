@@ -20,15 +20,24 @@ class BtnGender extends StatelessWidget {
     final state = cubit.state;
     final valid = state.validGender;
 
-    return BlocListener<GenderCubit, GenderState>(
-      listener: (context, state) => _checkCreatinine(state, context),
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<GenderCubit, GenderState>(
+          listener: (context, state) => _checkCreatinine(state, context),
+        ),
+       BlocListener<GenderCubit, GenderState>(
+          listener: (context, state) {
+ 
+          },
+        ),
+      ],
       child: AppCard(
         child: BtnToggleText(
           textList: [l.female, l.male],
           isSelected: state.genderSelected,
           onPressed: cubit.checkGender,
-                    onPressedAbout: cubit.goAboutGender,
-           errorText: valid.errorText(l: l),
+          onPressedAbout: cubit.goAboutGender,
+          errorText: valid.errorText(l: l),
           title: 'Для человека какого пола следует рассчитывать рекомендации?',
         ),
       ),

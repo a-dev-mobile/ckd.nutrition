@@ -29,7 +29,6 @@ class RegistrationPage extends StatelessWidget {
         BlocProvider(
           create: (context) => GenderCubit(
             router: context.read<AppRouter>(),
-            storage: context.read<AppStorage>(),
           ),
         ),
         BlocProvider(create: (context) => ActivityCubit()),
@@ -41,7 +40,7 @@ class RegistrationPage extends StatelessWidget {
           create: (context) => NameCubit(
             clienTips: context.read<DaDataClient>(),
             storage: context.read<AppStorage>(),
-          ),
+          )..load(),
         ),
       ],
       child: const _RegistrationPage(),

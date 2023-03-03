@@ -4,6 +4,7 @@ import 'package:collection/collection.dart';
 
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:meta/meta.dart';
+import 'package:nutrition/core/enum/enum.dart';
 import 'package:nutrition/core/storage/storage.dart';
 
 import 'package:nutrition/core/valid/valid.dart';
@@ -14,22 +15,15 @@ import 'package:nutrition/navigation/navigation.dart';
 part 'gender_state.dart';
 
 class GenderCubit extends HydratedCubit<GenderState> {
-  GenderCubit({
-    required AppRouter router,
-    required AppStorage storage,
-  })  : _go = router,
-        _storage = storage,
+  GenderCubit({required AppRouter router})
+      : _go = router,
         super(
           GenderState(
             genderSelected:
                 List<bool>.filled(EnumGender.values.length - 1, false),
           ),
         );
-
   final AppRouter _go;
-
-  final AppStorage _storage;
-
   void checkGender(int value) {
     final gender = EnumGender.values[value];
 
@@ -61,14 +55,17 @@ class GenderCubit extends HydratedCubit<GenderState> {
     );
   }
 
-  Future<void> goAboutGender() async {
+  void goAboutGender() {
     const ru =
-        'https://drive.google.com/uc?export=view&id=1Cl4YeeTYMFPIaz5NL1A29zF6jS6pgKpo';
+        'https://drive.google.com/file/d/1E8B220l34fryDWM8UgoKEHJ22T673r3S/view?usp=sharing';
     const en =
-        'https://drive.google.com/uc?export=view&id=1Dj2pK8TetkIqxLQp_J8lLGspaEMpeJgB';
+        'https://drive.google.com/file/d/1Dj2pK8TetkIqxLQp_J8lLGspaEMpeJgB/view?usp=share_link';
+    const whatOpen = EnumWhatOpen.dialog;
 
-    await _storage.setMarkdownModel(const MarkdownModel(urlEN: en, urlRU: ru));
-    _go.router.pushNamed(MarkdownPage.name);
+    const markdownModel =
+        MarkdownModel(urlEN: en, urlRU: ru, whatOpen: whatOpen);
+
+    _go.router.pushNamed(MarkdownPage.name, extra: markdownModel);
   }
 
   @override
