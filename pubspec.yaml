@@ -24,7 +24,7 @@ dependencies:
   # stream_transform: ^2.1.0
   # rxdart: ^0.27.7
   # System
-  path_provider: ^2.0.12
+  path_provider: ^2.0.13
   # flutter_localizations from sdk depends on path 1.8.2
   path: ^1.8.2
   platform_info: ^3.2.0
@@ -37,14 +37,14 @@ dependencies:
 
 
 
-  # Helper BLoC
+  # Helper 
   equatable: ^2.0.5
 
 
   # di/state
-  flutter_riverpod: ^2.2.0
+  flutter_riverpod: ^2.3.0
   
-  fpdart: ^0.4.0
+  fpdart: ^0.4.1
   
   # Code generation
   freezed_annotation: ^2.2.0
@@ -56,13 +56,13 @@ dependencies:
     sdk: flutter
 
   # Logging
-  logger: ^1.1.0
+  logger: ^1.2.2
   # sentry_flutter: ^6.18.1
   # stack_trace: ^1.11.0
   appmetrica_plugin: ^1.1.0
 
   # Persistance
-  shared_preferences: ^2.0.17
+  shared_preferences: ^2.0.18
   # sqflite_sqlcipher: ^2.1.1+1
 
   # HTTP
@@ -70,10 +70,10 @@ dependencies:
   dio_log: ^2.0.4
 
   # Navigation
-  go_router: ^6.0.9
+  go_router: ^6.2.0
 
   # Native
-  url_launcher: ^6.1.9
+  url_launcher: ^6.1.10
   share_plus: ^6.3.1
 
   # Helper for UI
@@ -87,18 +87,18 @@ dependencies:
   # syncfusion_flutter_charts: ^20.4.44
   # syncfusion_flutter_calendar: ^20.4.44
   google_fonts: ^4.0.3
-  flutter_typeahead: ^4.3.6
+  flutter_typeahead: ^4.3.7
   # TEST
   device_preview: ^1.1.0
   feedback: ^2.5.0
 
   # firebase
-  firebase_core: ^2.6.1
-  firebase_crashlytics: ^3.0.14
+  firebase_core: ^2.7.0
+  firebase_crashlytics: ^3.0.15
   firebase_remote_config: ^3.0.12
 
-  firebase_analytics: ^10.1.3
-  firebase_performance: ^0.9.0+13
+  firebase_analytics: ^10.1.4
+  firebase_performance: ^0.9.0+14
 
   # ******************************
   #  local packages

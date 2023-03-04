@@ -4,7 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'logger.dart';
 
-class LogRiverpod extends ProviderObserver {
+class LogRiverpod extends ProviderObserver
+ {
   @override
   void didUpdateProvider(
     ProviderBase<dynamic> provider,
@@ -12,11 +13,11 @@ class LogRiverpod extends ProviderObserver {
     Object? newValue,
     ProviderContainer container,
   ) {
-    log
-      ..d(
-        '🙌 ++ CHANGE ${provider.name ?? provider.runtimeType}',
-      )
-      ..v(' ++ $newValue');
+    log.v({
+      '🙌 didUpdateProvider': '${provider.name ?? provider.runtimeType}',
+      '🙌 prev': '$previousValue',
+      '🙌 curr': '$newValue',
+    });
   }
 
   @override
@@ -25,7 +26,11 @@ class LogRiverpod extends ProviderObserver {
     Object? value,
     ProviderContainer container,
   ) {
-    log.d('👍 ++ ADD ${provider.name ?? provider.runtimeType}');
+    log.d({
+      '👍 didAddProvider ${provider.name ?? provider.runtimeType}':
+          '${provider.name ?? provider.runtimeType}',
+      '👍 value': value,
+    });
   }
 
   @override
@@ -35,8 +40,11 @@ class LogRiverpod extends ProviderObserver {
     StackTrace stackTrace,
     ProviderContainer container,
   ) {
-    log.e('🚑 ++ ERROR ${provider.name ?? provider.runtimeType}', error,
-        stackTrace);
+    logger.e(
+      '🚑 ERROR ${provider.name ?? provider.runtimeType}',
+      error,
+      stackTrace,
+    );
   }
 
   @override
@@ -44,6 +52,9 @@ class LogRiverpod extends ProviderObserver {
     ProviderBase<Object?> provider,
     ProviderContainer container,
   ) {
-    log.d('👎 ++ CLOSE ${provider.name ?? provider.runtimeType}');
+    log.d({
+      '👎 didDisposeProvider ${provider.name ?? provider.runtimeType}':
+          '${provider.name ?? provider.runtimeType}',
+    });
   }
 }

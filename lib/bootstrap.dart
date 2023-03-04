@@ -3,22 +3,20 @@
 import 'dart:async';
 
 import 'package:appmetrica_plugin/appmetrica_plugin.dart';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nutrition/core/info/device_info.dart';
+import 'package:nutrition/core/providers/override_providers.dart';
 
-import 'package:nutrition/core/config/providers.dart';
-import 'package:nutrition/core/device/device.dart';
 import 'package:nutrition/core/log/log.dart';
 
 import 'package:nutrition/firebase_options.dart';
-import 'package:nutrition/dart_define.dart';
+import 'package:nutrition/global.dart';
 
 // ignore: prefer-static-class
 Future<void> bootstrap(FutureOr<Widget> Function() app) async {

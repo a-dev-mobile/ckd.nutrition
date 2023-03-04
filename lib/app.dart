@@ -2,16 +2,18 @@ import 'package:device_preview/device_preview.dart';
 import 'package:feedback/feedback.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nutrition/app/app.dart';
-import 'package:nutrition/core/config/theme/theme.dart';
-import 'package:nutrition/core/router/router.dart';
+
+import 'package:nutrition/core/providers/navigation/app_router_provider.dart';
+import 'package:nutrition/core/providers/theme/theme_providers.dart';
+import 'package:nutrition/core/style/flex_theme.dart';
+import 'package:nutrition/features/debug_menu/debug_menu.dart';
+
 import 'package:nutrition/localization/gen/app_localizations.dart';
-
-
 
 class App extends StatelessWidget {
   const App({super.key});
@@ -19,22 +21,6 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const _MobileApp();
-
-    /* MultiBlocProvider(
-      providers: [
-        BlocProvider(create: (context) => ThemeCubit()),
-        BlocProvider(
-          create: (context) => LocaleCubit(storage: context.read())..load(),
-        ),
-        BlocProvider(create: (context) => InternetCubit()),
-        BlocProvider(create: (context) => DebugCubit()),
-        BlocProvider(
-          create: (context) => RemoteConfigCubit()..load(),
-          lazy: false,
-        ),
-      ],
-      child: const _MobileApp(),
-    ); */
   }
 }
 
@@ -56,23 +42,31 @@ class _MobileApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // final go = context.read<AppRouterService>();
-    final themeMode = ref.watch(themeProvider);
-    final go = ref.watch(appRouterProvider);
-    // final cubitDebugWatch = context.watch<DebugCubit>();
+    final themeModeWatch = ref.watch(themeProvider);
+    final providerNavigator = ref.read(appRouterProvider);
+    final providerDebugWatch = ref.watch(debugProvider);
     // final cubitLocaleWatch = context.watch<LocaleCubit>();
 
-    // debugRepaintRainbowEnabled = cubitDebugWatch.state.isShowRepaintRainbow;
+    debugRepaintRainbowEnabled = providerDebugWatch.isShowRepaintRainbow;
 
-    // debugPaintSizeEnabled = cubitDebugWatch.state.isShowPaintSizeEnabled;
+    debugPaintSizeEnabled = providerDebugWatch.isShowPaintSizeEnabled;
 
     //  global
     // Intl.defaultLocale = cubitLocaleWatch.state.name;
-    initStatusBar(themeMode: themeMode);
+    initStatusBar(themeMode: themeModeWatch);
+    print('main build');
 
-    return MaterialApp.router(
-          routeInformationProvider: go.router.routeInformationProvider,
-          routeInformationParser: go.router.routeInformationParser,
-          routerDelegate: go.router.routerDelegate,
+    return BetterFeedback(
+      child: DevicePreview(
+        enabled: providerDebugWatch.isShowDevice,
+        builder: (context) => MaterialApp.router(
+          useInheritedMediaQuery: true,
+          routeInformationProvider:
+              providerNavigator.router.routeInformationProvider,
+          routeInformationParser:
+              providerNavigator.router.routeInformationParser,
+          routerDelegate: providerNavigator.router.routerDelegate,
+
           // routerConfig: go.router,
           builder: (context, widget) {
             final child = widget ?? const SizedBox.shrink();
@@ -82,7 +76,7 @@ class _MobileApp extends ConsumerWidget {
           onGenerateTitle: (context) => AppLocalizations.of(context).app_name,
           theme: FlexTheme.lightThemeData(),
           darkTheme: FlexTheme.darkThemeData(),
-          themeMode: themeMode,
+          themeMode: themeModeWatch,
           // locale: Locale(cubitLocaleWatch.state.name),
           localizationsDelegates: const [
             AppLocalizations.delegate,
@@ -92,6 +86,8 @@ class _MobileApp extends ConsumerWidget {
           ],
           supportedLocales: AppLocalizations.supportedLocales,
           debugShowCheckedModeBanner: false,
-        );
+        ),
+      ),
+    );
   }
 }

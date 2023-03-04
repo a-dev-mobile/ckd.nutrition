@@ -1,3 +1,2 @@
-export 'application/application.dart';
-export 'presetation/presetation.dart';
-export 'providers.dart';
+export 'provider/splash_provider.dart';
+export 'view/splash_page.dart';
