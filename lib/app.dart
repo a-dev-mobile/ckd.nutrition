@@ -8,8 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:nutrition/core/providers/navigation/app_router_provider.dart';
-import 'package:nutrition/core/providers/theme/theme_providers.dart';
+import 'package:nutrition/core/services/navigation/app_router_service.dart';
+import 'package:nutrition/core/services/theme/theme_providers.dart';
 import 'package:nutrition/core/style/flex_theme.dart';
 import 'package:nutrition/features/debug_menu/debug_menu.dart';
 
@@ -42,8 +42,8 @@ class _MobileApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // final go = context.read<AppRouterService>();
-    final themeModeWatch = ref.watch(themeProvider);
-    final providerNavigator = ref.read(appRouterProvider);
+    final themeModeWatch = ref.watch(themeProvider).themeMode;
+    final providerNavigator = ref.watch(appRouterServiceProvider);
     final providerDebugWatch = ref.watch(debugProvider);
     // final cubitLocaleWatch = context.watch<LocaleCubit>();
 

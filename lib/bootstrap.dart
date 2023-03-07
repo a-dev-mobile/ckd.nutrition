@@ -11,12 +11,11 @@ import 'package:flutter/services.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nutrition/core/info/device_info.dart';
-import 'package:nutrition/core/providers/override_providers.dart';
-
 import 'package:nutrition/core/log/log.dart';
-
+import 'package:nutrition/core/services/storage/app_storage_service.dart';
 import 'package:nutrition/firebase_options.dart';
 import 'package:nutrition/global.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: prefer-static-class
 Future<void> bootstrap(FutureOr<Widget> Function() app) async {
@@ -107,4 +106,11 @@ bool _onPlatformDispatcherError(Object error, StackTrace stack) {
   logger.e('error: FlutterError', error, stack);
 
   return true;
+}
+
+/// Triggered from bootstrap() to complete futures
+Future<List<Override>> overrideProviders() async {
+  final sp = await SharedPreferences.getInstance();
+
+  return <Override>[sharedPreferencesProvider.overrideWithValue(sp)];
 }

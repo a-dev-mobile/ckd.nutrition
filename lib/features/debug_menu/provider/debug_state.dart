@@ -1,11 +1,12 @@
-// ignore_for_file: sort_constructors_first
+// ignore_for_file: sort_constructors_first, avoid_bool_literals_in_conditional_expressions
 
 import 'dart:convert';
 
 import 'package:meta/meta.dart';
 
 @immutable
-class DebugState { 
+class 
+DebugState {         
   /* init: false */
   final bool isShowDevice;
   /* init: false */
@@ -42,10 +43,10 @@ Map<String, dynamic> toMap() {
 
     factory DebugState.fromMap(Map<String, dynamic> map) {
     return DebugState(
-      isShowDevice: map['isShowDevice'] as bool? ?? false, 
-      isShowBtnHttpLog: map['isShowBtnHttpLog'] as bool? ?? false, 
-      isShowRepaintRainbow: map['isShowRepaintRainbow'] as bool? ?? false, 
-      isShowPaintSizeEnabled: map['isShowPaintSizeEnabled'] as bool? ?? false, 
+      isShowDevice: map['isShowDevice'] != null ? map['isShowDevice'] as bool : false, 
+      isShowBtnHttpLog: map['isShowBtnHttpLog'] != null ? map['isShowBtnHttpLog'] as bool : false, 
+      isShowRepaintRainbow: map['isShowRepaintRainbow'] != null ? map['isShowRepaintRainbow'] as bool : false, 
+      isShowPaintSizeEnabled: map['isShowPaintSizeEnabled'] != null ? map['isShowPaintSizeEnabled'] as bool : false, 
     );
   }
 

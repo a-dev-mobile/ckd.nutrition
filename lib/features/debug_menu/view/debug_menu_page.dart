@@ -8,8 +8,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:go_router/go_router.dart';
-import 'package:nutrition/core/providers/navigation/app_router_provider.dart';
-import 'package:nutrition/core/providers/storage/app_storage_provider.dart';
+import 'package:nutrition/core/services/navigation/app_router_service.dart';
+import 'package:nutrition/core/services/storage/app_storage_service.dart';
 import 'package:nutrition/core/style/app_text_style.dart';
 import 'package:nutrition/features/debug_menu/debug_menu.dart';
 
@@ -48,7 +48,7 @@ class DebugMenuPage extends ConsumerWidget {
                 visualDensity: const VisualDensity(vertical: -3),
               ),
               SwitchListTile(
-                value: providerDebug.isShowBtnHttpLog,
+                value: providerDebug.isShowBtnHttpLog!,
                 onChanged: (v) => ref
                     .read(debugProvider.notifier)
                     .setShowBtnHttpLog(isShow: v),
@@ -118,7 +118,7 @@ class DebugMenuPage extends ConsumerWidget {
                   OutlinedButton(
                     // ignore: prefer-extracting-callbacks
                     onPressed: () {
-                      final router = ref.read(appRouterProvider).router;
+                      final router = ref.read(appRouterServiceProvider).router;
                       if (router.canPop()) {
                         router.pop();
                       }
@@ -136,9 +136,9 @@ class DebugMenuPage extends ConsumerWidget {
                   OutlinedButton(
                     // ignore: prefer-extracting-callbacks
                     onPressed: () {
-                      ref.read(appStorageProvider).clearAll();
+                      ref.read(appStorageServiceProvider).clearAll();
                       ref
-                          .read(appRouterProvider)
+                          .read(appRouterServiceProvider)
                           .router
                           .goNamed(SplashPage.name);
                     },

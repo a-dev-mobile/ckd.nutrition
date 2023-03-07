@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:nutrition/core/providers/navigation/app_router_provider.dart';
+import 'package:nutrition/core/services/navigation/app_router_service.dart';
 import 'package:nutrition/core/style/app_text_style.dart';
 import 'package:nutrition/features/debug_menu/debug_menu.dart';
 import 'package:nutrition/global.dart';
@@ -47,7 +47,7 @@ class OverlayWidget extends ConsumerWidget {
               bottom: 2,
               child: OutlinedButton(
                 onPressed: () => ref
-                    .read(appRouterProvider)
+                    .read(appRouterServiceProvider)
                     .router
                     .pushNamed(DebugMenuPage.name),
                 style: TextButton.styleFrom(
