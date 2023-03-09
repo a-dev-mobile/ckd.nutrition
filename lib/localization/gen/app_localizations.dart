@@ -507,6 +507,12 @@ abstract class AppLocalizations {
   /// **'мкмоль/л'**
   String get mcmolL;
 
+  /// No description provided for @skip.
+  ///
+  /// In ru, this message translates to:
+  /// **'Пропустить'**
+  String get skip;
+
   /// No description provided for @g.
   ///
   /// In ru, this message translates to:

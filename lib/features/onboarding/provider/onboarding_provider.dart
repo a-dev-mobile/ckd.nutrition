@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nutrition/core/services/navigation/app_router_service.dart';
 import 'package:nutrition/core/services/storage/app_storage_service.dart';
@@ -7,7 +5,8 @@ import 'package:nutrition/features/onboarding/provider/onboarding_state.dart';
 import 'package:nutrition/features/registration/name/name.dart';
 
 final onboardingProvider =
-    StateNotifierProvider.autoDispose<OnboardingNotifier, OnboardingState>((ref) {
+    StateNotifierProvider.autoDispose<OnboardingNotifier, OnboardingState>(
+        (ref) {
   return OnboardingNotifier(
     router: ref.watch(appRouterServiceProvider),
     storage: ref.watch(appStorageServiceProvider),

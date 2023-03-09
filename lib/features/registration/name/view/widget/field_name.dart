@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:flutter_typeahead/flutter_typeahead.dart';
-import 'package:nutrition/core/widget/app_card.dart';
 import 'package:nutrition/core/widget/widget.dart';
 import 'package:nutrition/features/registration/name/name.dart';
 

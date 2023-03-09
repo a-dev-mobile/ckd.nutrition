@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nutrition/core/style/app_text_style.dart';
 
-
 import 'package:nutrition/core/utils/utils.dart';
 import 'package:nutrition/localization/localization.dart';
 

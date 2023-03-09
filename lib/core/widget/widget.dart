@@ -11,4 +11,5 @@ export 'load_next_page.dart';
 export 'progress_indicator/app_page_load.dart';
 export 'progress_indicator/app_part_load.dart';
 export 'progress_indicator/progress_indicator.dart';
+export 'text_title_main.dart';
 export 'text_title_sub.dart';

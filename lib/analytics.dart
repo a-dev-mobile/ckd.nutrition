@@ -5,7 +5,6 @@ import 'package:appmetrica_plugin/appmetrica_plugin.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:nutrition/global.dart';
 
-
 class Analytics {
   factory Analytics() => _internalSingleton;
   Analytics._internal();

@@ -11,19 +11,19 @@ class _ConnectivityState {
 
 //          --TURN_GEN--
 //  *************************************
-//           GENERATED CODE 
+//           GENERATED CODE
 //  *************************************
-  
+
 // coverage:ignore-file
 // ignore_for_file: avoid_unused_constructor_parameters, unused_element, avoid-non-null-assertion,  library_private_types_in_public_api,non_constant_identifier_names, always_put_required_named_parameters_first,  avoid_positional_boolean_parameters, strict_raw_type, curly_braces_in_flow_control_structures
 @immutable
 class ConnectivityState {
-  const ConnectivityState.isDisonnected():
-        _tag = _ConnectivityStateTag.isDisonnected;
-  const ConnectivityState.isConnected():
-        _tag = _ConnectivityStateTag.isConnected;
-  const ConnectivityState.notDetermined():
-        _tag = _ConnectivityStateTag.notDetermined;
+  const ConnectivityState.isDisonnected()
+      : _tag = _ConnectivityStateTag.isDisonnected;
+  const ConnectivityState.isConnected()
+      : _tag = _ConnectivityStateTag.isConnected;
+  const ConnectivityState.notDetermined()
+      : _tag = _ConnectivityStateTag.notDetermined;
 
   T? mapOrNull<T>({
     T? Function(_ConnectivityStateIsdisonnected v)? isDisonnected,
@@ -59,26 +59,29 @@ class ConnectivityState {
     T Function(_ConnectivityStateIsdisonnected v)? isDisonnected,
     T Function(_ConnectivityStateIsconnected v)? isConnected,
     T Function(_ConnectivityStateNotdetermined v)? notDetermined,
-      required T Function() orElse,
+    required T Function() orElse,
   }) {
     switch (_tag) {
       case _ConnectivityStateTag.isDisonnected:
-        if(isDisonnected != null) return isDisonnected(const _ConnectivityStateIsdisonnected());
+        if (isDisonnected != null)
+          return isDisonnected(const _ConnectivityStateIsdisonnected());
         return orElse();
       case _ConnectivityStateTag.isConnected:
-        if(isConnected != null) return isConnected(const _ConnectivityStateIsconnected());
+        if (isConnected != null)
+          return isConnected(const _ConnectivityStateIsconnected());
         return orElse();
       case _ConnectivityStateTag.notDetermined:
-        if(notDetermined != null) return notDetermined(const _ConnectivityStateNotdetermined());
+        if (notDetermined != null)
+          return notDetermined(const _ConnectivityStateNotdetermined());
         return orElse();
     }
   }
 
   T when<T>({
-    required T Function () isDisonnected,
-    required T Function () isConnected,
-    required T Function () notDetermined,
-}) {
+    required T Function() isDisonnected,
+    required T Function() isConnected,
+    required T Function() notDetermined,
+  }) {
     switch (_tag) {
       case _ConnectivityStateTag.isDisonnected:
         return isDisonnected();
@@ -92,50 +95,45 @@ class ConnectivityState {
   @override
   bool operator ==(dynamic other) {
     switch (_tag) {
-
       case _ConnectivityStateTag.isDisonnected:
         return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is ConnectivityState ); 
+            (other.runtimeType == runtimeType && other is ConnectivityState);
 
       case _ConnectivityStateTag.isConnected:
         return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is ConnectivityState ); 
+            (other.runtimeType == runtimeType && other is ConnectivityState);
 
       case _ConnectivityStateTag.notDetermined:
         return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is ConnectivityState ); 
-  
+            (other.runtimeType == runtimeType && other is ConnectivityState);
+    }
   }
-}
+
   @override
   int get hashCode {
     switch (_tag) {
-
       case _ConnectivityStateTag.isDisonnected:
         return Object.hashAll([runtimeType]);
       case _ConnectivityStateTag.isConnected:
         return Object.hashAll([runtimeType]);
       case _ConnectivityStateTag.notDetermined:
-        return Object.hashAll([runtimeType]);  
+        return Object.hashAll([runtimeType]);
+    }
   }
-}
+
   @override
   String toString() {
     switch (_tag) {
-
       case _ConnectivityStateTag.isDisonnected:
         return 'ConnectivityState.isDisonnected()';
       case _ConnectivityStateTag.isConnected:
         return 'ConnectivityState.isConnected()';
       case _ConnectivityStateTag.notDetermined:
-        return 'ConnectivityState.notDetermined()';  
+        return 'ConnectivityState.notDetermined()';
+    }
   }
-}
-  final _ConnectivityStateTag _tag;
 
+  final _ConnectivityStateTag _tag;
 }
 
 enum _ConnectivityStateTag {
@@ -143,14 +141,17 @@ enum _ConnectivityStateTag {
   isConnected,
   notDetermined,
 }
+
 @immutable
 class _ConnectivityStateIsdisonnected extends ConnectivityState {
   const _ConnectivityStateIsdisonnected() : super.isDisonnected();
 }
+
 @immutable
 class _ConnectivityStateIsconnected extends ConnectivityState {
   const _ConnectivityStateIsconnected() : super.isConnected();
 }
+
 @immutable
 class _ConnectivityStateNotdetermined extends ConnectivityState {
   const _ConnectivityStateNotdetermined() : super.notDetermined();

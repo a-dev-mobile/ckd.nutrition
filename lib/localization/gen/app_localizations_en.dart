@@ -128,7 +128,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get enter_name => 'Введите имя';
 
   @override
-  String get max_text_length => 'Максимальная длина текста';
+  String get max_text_length => 'Maximum text length';
 
   @override
   String get name => 'Ваше имя';
@@ -210,6 +210,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get mcmolL => 'μmol/l';
+
+  @override
+  String get skip => 'Skip';
 
   @override
   String get g => 'g';

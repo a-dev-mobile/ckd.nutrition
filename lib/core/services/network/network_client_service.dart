@@ -11,8 +11,8 @@ class NetworkClientService {
   NetworkClientService()
       : _dio = Dio(
           BaseOptions(
-            connectTimeout: 30000,
-            receiveTimeout: 30000,
+            connectTimeout: 3000,
+            receiveTimeout: 5000,
           ),
         )..interceptors.addAll([
             DioLogInterceptor(),
@@ -26,46 +26,50 @@ class NetworkClientService {
 // ignore: avoid_setters_without_getters
   set isShowHttpInLog(bool value) => DioLogInterceptor.enablePrintLog = value;
 
-  Future<Response<dynamic>> request({
+  /// Sends an HTTP request using the given method, URL, parameters, headers, and body.
+  ///
+  /// Returns a Future that completes with the server's response.
+  ///
+  /// Throws a [DioError] if the request fails.
+  Future<Response<T>> request<T>({
     required Method method,
     required String url,
     Map<String, dynamic>? params,
-    Map<String, dynamic>? header,
+    Map<String, dynamic>? headers,
     dynamic body,
   }) async {
     try {
-      if (method == Method.post) {
-        return await client.post<dynamic>(
-          url,
-          queryParameters: params,
-          options: Options(headers: header),
-          data: body,
-        );
-      } else if (method == Method.get) {
-        return await client.get<dynamic>(
-          url,
-          queryParameters: params,
-          options: Options(headers: header),
-        );
-      } else if (method == Method.patch) {
-        return await client.patch<dynamic>(
-          url,
-          queryParameters: params,
-          options: Options(headers: header),
-          data: body,
-        );
+      switch (method) {
+        case Method.get:
+          return await client.get(
+            url,
+            queryParameters: params,
+            options: Options(headers: headers),
+          );
+        case Method.post:
+          return await client.post(
+            url,
+            queryParameters: params,
+            options: Options(headers: headers),
+            data: body,
+          );
+        case Method.patch:
+          return await client.patch(
+            url,
+            queryParameters: params,
+            options: Options(headers: headers),
+            data: body,
+          );
       }
     } on DioError catch (e) {
       logger.e(e.message, e.error, e.stackTrace);
-
-      return e.response!;
-    } on Object catch (e, stackTrace) {
-      Error.throwWithStackTrace(e, stackTrace);
+      rethrow;
+    } catch (e, stackTrace) {
+      logger.e(e,'', stackTrace);
+      rethrow;
     }
 
-    return Response(
-      requestOptions: RequestOptions(path: ''),
-    );
+    
   }
 }
 

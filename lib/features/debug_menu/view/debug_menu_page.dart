@@ -48,7 +48,7 @@ class DebugMenuPage extends ConsumerWidget {
                 visualDensity: const VisualDensity(vertical: -3),
               ),
               SwitchListTile(
-                value: providerDebug.isShowBtnHttpLog!,
+                value: providerDebug.isShowBtnHttpLog,
                 onChanged: (v) => ref
                     .read(debugProvider.notifier)
                     .setShowBtnHttpLog(isShow: v),

@@ -7,6 +7,8 @@ import 'package:flutter/services.dart';
 
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart';
+import 'package:nutrition/core/services/locale/locale_provider.dart';
 
 import 'package:nutrition/core/services/navigation/app_router_service.dart';
 import 'package:nutrition/core/services/theme/theme_providers.dart';
@@ -42,30 +44,30 @@ class _MobileApp extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     // final go = context.read<AppRouterService>();
-    final themeModeWatch = ref.watch(themeProvider).themeMode;
-    final providerNavigator = ref.watch(appRouterServiceProvider);
-    final providerDebugWatch = ref.watch(debugProvider);
-    // final cubitLocaleWatch = context.watch<LocaleCubit>();
+    final themeMode = ref.watch(themeProvider).themeMode;
+    final navigator = ref.watch(appRouterServiceProvider);
+    final debug = ref.watch(debugProvider);
+    final locale = ref.watch(localeProvider);
 
-    debugRepaintRainbowEnabled = providerDebugWatch.isShowRepaintRainbow;
+    debugRepaintRainbowEnabled = debug.isShowRepaintRainbow;
 
-    debugPaintSizeEnabled = providerDebugWatch.isShowPaintSizeEnabled;
+    debugPaintSizeEnabled = debug.isShowPaintSizeEnabled;
 
     //  global
-    // Intl.defaultLocale = cubitLocaleWatch.state.name;
-    initStatusBar(themeMode: themeModeWatch);
-    print('main build');
+    Intl.defaultLocale = locale.value;
+    initStatusBar(themeMode: themeMode);
+    // print('main build');
 
     return BetterFeedback(
       child: DevicePreview(
-        enabled: providerDebugWatch.isShowDevice,
+        enabled: debug.isShowDevice,
         builder: (context) => MaterialApp.router(
           useInheritedMediaQuery: true,
           routeInformationProvider:
-              providerNavigator.router.routeInformationProvider,
+              navigator.router.routeInformationProvider,
           routeInformationParser:
-              providerNavigator.router.routeInformationParser,
-          routerDelegate: providerNavigator.router.routerDelegate,
+              navigator.router.routeInformationParser,
+          routerDelegate: navigator.router.routerDelegate,
 
           // routerConfig: go.router,
           builder: (context, widget) {
@@ -76,8 +78,8 @@ class _MobileApp extends ConsumerWidget {
           onGenerateTitle: (context) => AppLocalizations.of(context).app_name,
           theme: FlexTheme.lightThemeData(),
           darkTheme: FlexTheme.darkThemeData(),
-          themeMode: themeModeWatch,
-          // locale: Locale(cubitLocaleWatch.state.name),
+          themeMode: themeMode,
+          locale: Locale(locale.name),
           localizationsDelegates: const [
             AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,

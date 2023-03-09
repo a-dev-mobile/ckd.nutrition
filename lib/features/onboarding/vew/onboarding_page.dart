@@ -25,7 +25,7 @@ class OnBoardingPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final state = ref.watch(onboardingProvider);
+    // final state = ref.watch(onboardingProvider);
     final notifier = ref.watch(onboardingProvider.notifier);
 
     final pageDecoration = PageDecoration(
@@ -80,7 +80,6 @@ class OnBoardingPage extends ConsumerWidget {
         back: const Icon(Icons.arrow_back),
         next: const Icon(Icons.arrow_forward),
         done: const Text('Далее'),
-
         onDone: notifier.complectOnboarding,
       ),
     );

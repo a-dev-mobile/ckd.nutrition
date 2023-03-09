@@ -4,8 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'logger.dart';
 
-class LogRiverpod extends ProviderObserver
- {
+class LogRiverpod extends ProviderObserver {
   @override
   void didUpdateProvider(
     ProviderBase<dynamic> provider,

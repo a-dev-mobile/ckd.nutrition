@@ -48,5 +48,7 @@
   "mgDl": "mg/dl",
   "mmmolL": "mmol/l",
   "mcmolL": "μmol/l",
+  "skip": "Skip",
+  "max_text_length": "Maximum text length",
   "g": "g"
 }

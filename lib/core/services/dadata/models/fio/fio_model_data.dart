@@ -2,29 +2,37 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+
 @immutable
 class DataFio {  
-  final String? surname;
-  final String? name;
-  final String? patronymic;
-  final String? gender;
-  final String? source;
-  final String? qc;
+  /* init:'' */
+  final String surname;
+  /* init:'' */
+  final String name;
+  /* init:'' */
+  final String patronymic;
+  /* init:'' */
+  final String gender;
+  /* init:'' */
+  final String source;
+  /* init:'' */
+  final String qc;
 
 // end
    
 //          --TURN_GEN--
+//             v0.3.2
 //  *************************************
 //           GENERATED CODE 
 //  *************************************
   
   const DataFio({
-    this.surname,
-    this.name,
-    this.patronymic,
-    this.gender,
-    this.source,
-    this.qc,
+    this.surname = '',
+    this.name = '',
+    this.patronymic = '',
+    this.gender = '',
+    this.source = '',
+    this.qc = '',
   });
   /*
    factory DataFio.init() => DataFio(
@@ -41,14 +49,16 @@ Map<String, dynamic> toMap() {
     };
   }
 
-    factory DataFio.fromMap(Map<String, dynamic> map) {
+  factory DataFio.fromMap(Map<String, dynamic>? map) {
+    if (map == null) return const DataFio();
+
     return DataFio(
-      surname: map['surname'] != null ? map['surname'] as String : null, 
-      name: map['name'] != null ? map['name'] as String : null, 
-      patronymic: map['patronymic'] != null ? map['patronymic'] as String : null, 
-      gender: map['gender'] != null ? map['gender'] as String : null, 
-      source: map['source'] != null ? map['source'] as String : null, 
-      qc: map['qc'] != null ? map['qc'] as String : null, 
+      surname: map['surname'] != null ? map['surname'] as String : '', 
+      name: map['name'] != null ? map['name'] as String : '', 
+      patronymic: map['patronymic'] != null ? map['patronymic'] as String : '', 
+      gender: map['gender'] != null ? map['gender'] as String : '', 
+      source: map['source'] != null ? map['source'] as String : '', 
+      qc: map['qc'] != null ? map['qc'] as String : '', 
     );
   }
 

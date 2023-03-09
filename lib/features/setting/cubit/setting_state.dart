@@ -29,7 +29,7 @@
 //   });
 //   /*
 //    factory SettingState.init() => SettingState(
-//       ); 
+//       );
 //   */
 //   Map<String, dynamic> toMap() {
 //     return <String, dynamic>{

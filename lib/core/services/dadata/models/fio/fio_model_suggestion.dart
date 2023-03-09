@@ -16,6 +16,7 @@ class SuggestionsFio {
   // end
    
 //          --TURN_GEN--
+//             v0.3.2
 //  *************************************
 //           GENERATED CODE 
 //  *************************************
@@ -37,7 +38,9 @@ Map<String, dynamic> toMap() {
     };
   }
 
-    factory SuggestionsFio.fromMap(Map<String, dynamic> map) {
+  factory SuggestionsFio.fromMap(Map<String, dynamic>? map) {
+    if (map == null) return const SuggestionsFio();
+
     return SuggestionsFio(
       value: map['value'] != null ? map['value'] as String : '', 
       unrestricted_value: map['unrestricted_value'] != null ? map['unrestricted_value'] as String : '', 

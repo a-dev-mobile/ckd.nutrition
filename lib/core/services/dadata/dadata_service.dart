@@ -4,6 +4,8 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:dio_log/dio_log.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:nutrition/core/app_failure/failure.dart';
+import 'package:nutrition/core/log/log.dart';
 import 'package:nutrition/core/services/dadata/dadata.dart';
 import 'package:nutrition/global.dart';
 
@@ -29,43 +31,52 @@ class DaDataService {
 
   final Dio _dio;
   set isShowHttpInLog(bool value) => DioLogInterceptor.enablePrintLog = value;
-  Future<List<SuggestionsFio>> fetchFioTooltip(
+
+  Future<Fio> fetchFioTooltip(
     String value,
     DaDataEnum type,
   ) async {
-    final String typeFio;
-    switch (type) {
-      case DaDataEnum.name:
-        typeFio = 'NAME';
-        break;
-      case DaDataEnum.patronymic:
-        typeFio = 'PATRONYMIC';
-        break;
-      case DaDataEnum.surname:
-        typeFio = 'SURNAME';
-        break;
-      case DaDataEnum.all:
-        typeFio = '';
-        break;
-    }
-    final response = await _dio.post(
-      '/suggestions/api/4_1/rs/suggest/fio',
-      options: Options(
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Token $_apiKey',
-        },
-      ),
-      data: typeFio.isEmpty
-          ? jsonEncode({
-              'query': value,
-            })
-          : jsonEncode({
-              'query': value,
-              'parts': [typeFio],
-            }),
+    final typeFio = type.mapConst(
+      name: 'NAME',
+      surname: 'SURNAME',
+      patronymic: 'PATRONYMIC',
+      all: '',
     );
 
-    return [];
+    try {
+      final response = await _dio.post<Map<String, dynamic>>(
+        '/suggestions/api/4_1/rs/suggest/fio',
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Token $_apiKey',
+          },
+        ),
+        data: typeFio.isEmpty
+            ? jsonEncode({
+                'query': value,
+              })
+            : jsonEncode({
+                'query': value,
+                'parts': [typeFio],
+              }),
+      );
+
+      if (response.statusCode == 200) {
+        final model = Fio.fromMap(response.data);
+
+        if (model.suggestions.isEmpty) return throw const Failure.empty();
+
+        return model;
+      } else {
+        return throw const Failure.badRequest();
+      }
+    } on Object catch (e, stackTrace) {
+      logger.e(e, '', stackTrace);
+      Error.throwWithStackTrace(
+        const Failure.unprocessableEntity(),
+        stackTrace,
+      );
+    }
   }
 }

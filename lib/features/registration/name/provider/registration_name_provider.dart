@@ -6,11 +6,12 @@ import 'dart:convert';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+
 import 'package:nutrition/core/services/dadata/dadata.dart';
 import 'package:nutrition/core/services/storage/app_storage_service.dart';
 import 'package:nutrition/core/valid/field_string_valid.dart';
-
-import 'package:nutrition/features/registration/name/name.dart';
+import 'package:nutrition/core/valid/valid_extension.dart';
+import 'package:nutrition/localization/localization.dart';
 
 part 'registration_name_state.dart';
 
@@ -18,67 +19,86 @@ final registrationNameProvider = StateNotifierProvider.autoDispose<
     RegistrationNameNotifier, RegistrationNameState>(
   (ref) {
     return RegistrationNameNotifier(
-      dadataService: ref.watch(dadataServiceProvider),
-      storage: ref.watch(appStorageServiceProvider),
+      ref: ref,
     );
   },
 );
 
 class RegistrationNameNotifier extends StateNotifier<RegistrationNameState> {
   RegistrationNameNotifier({
-    required DaDataService dadataService,
-    required AppStorageService storage,
-  })  : _dadataService = dadataService,
-        _storage = storage,
+    required Ref ref,
+  })  : _ref = ref,
+        _dadataService = ref.read(dadataServiceProvider),
+        _storage = ref.read(appStorageServiceProvider),
+        _loc = ref.watch(appLocalizationsProvider),
+      
         super(
-          const RegistrationNameState(),
+          ref.read(appStorageServiceProvider).getRegistrationNameState(),
         );
 
+  // ignore: unused_field
+  final Ref _ref;
   final DaDataService _dadataService;
-
   final AppStorageService _storage;
+  final AppLocalizations _loc;
+
 
   void setName(String value) {
-    final nameState = state.copyWith(nameValid: FieldStringValid(value: value));
-
-    late FieldStringValid nameValid;
-
     if (value.isEmpty) {
-      nameValid = nameState.nameValid.copyWith(
-        value: value,
-        errorMessage: 'EMPTY',
-        isValid: false,
+      state = state.copyWith(
+        nameValid: FieldStringValid(
+          value: value,
+          errorMessage: 'empty',
+        ),
       );
       //
-    } else if (value.validName()) {
-      nameValid = nameState.nameValid.copyWith(isValid: true, value: value);
+    } else if (value.minSymbol(1)) {
+      state = state.copyWith(
+        nameValid: FieldStringValid(
+          value: value,
+          errorMessage: 'min sum symbols',
+        ),
+      );
       //
-    } else if (value.maxSymbol(20)) {
-      nameValid = nameState.nameValid
-          .copyWith(isValid: false, errorMessage: 'maxsymbol', value: value);
+    } else if (value.maxSymbol(10)) {
+      state = state.copyWith(
+        nameValid: FieldStringValid(
+          value: value,
+          errorMessage: _loc.max_text_length,
+        ),
+      );
       //
     } else {
-      nameValid = nameState.nameValid
-          .copyWith(isValid: false, errorMessage: 'ERROR', value: value);
+      state = state.copyWith(
+        nameValid: FieldStringValid(
+          value: value,
+          isValid: true,
+        ),
+      );
     }
 
-    state = state.copyWith(nameValid: nameValid);
+    _storage.setRegistrationNameState(state);
   }
 
-  void cleanName() {
-    late FieldStringValid nameValid;
-
-    state = state.copyWith(
-      nameValid: FieldStringValid(),
-    );
+  void checkValid() {
+    setName(state.nameValid.value);
   }
 
-  FutureOr<Iterable<String>> getSuggestionsName(String pattern) {
+  Future<List<String>> getSuggestionsName(String value) async {
     // FioTooltip result;
 
-    // result = await _dadataService.fetchFioTooltip(value, DaDataEnum.name);
+    if (state.nameValid.isValid) {
+      try {
+        final result =
+            await _dadataService.fetchFioTooltip(value, DaDataEnum.name);
 
-    // return _getTips(result);
+        return result.suggestions.map((v) => v.value).toList();
+      } on Exception {
+ 
+
+        return [];
+      }
+    }
 
     return [];
   }

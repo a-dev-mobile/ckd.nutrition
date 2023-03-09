@@ -70,7 +70,7 @@ class AppRouterService {
               child: const RegistrationNamePage(),
             ),
           ),
-            GoRoute(
+          GoRoute(
             path: OnBoardingPage.path,
             name: OnBoardingPage.name,
             pageBuilder: (context, state) => MaterialPage<void>(
@@ -132,13 +132,13 @@ class AppRouterService {
   );
 
   Future<void> nextPage(AppState appState) async {
-    if (appState.isFirstTime||!appState.isOnboardingCompleted) {
+    if (appState.isFirstTime || !appState.isOnboardingCompleted) {
       router.goNamed(OnBoardingPage.name);
       await _storage.setAppState(appState.copyWith(isFirstTime: false));
 
       return;
     }
-   
+
     if (appState.isOnboardingCompleted && !appState.isFirstTime) {
       router.goNamed(RegistrationNamePage.name);
 
@@ -151,7 +151,7 @@ class AppRouterService {
 
     //   return;
     // }
-          router.goNamed(SplashPage.name);
+    router.goNamed(SplashPage.name);
   }
 
   Future<void> exitApp() async {

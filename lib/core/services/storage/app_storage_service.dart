@@ -1,13 +1,15 @@
 // ignore_for_file: constant_identifier_names
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:nutrition/core/log/log.dart';
 import 'package:nutrition/core/services/navigation/models/app_state.dart';
-import 'package:nutrition/core/services/override_providers.dart';
 import 'package:nutrition/core/services/theme/theme_state.dart';
+import 'package:nutrition/core/valid/field_string_valid.dart';
 import 'package:nutrition/features/debug_menu/provider/debug_state.dart';
+import 'package:nutrition/features/registration/name/provider/registration_name_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 final sharedPreferencesProvider = Provider<SharedPreferences>((ref) {
@@ -41,8 +43,6 @@ class AppStorageService {
   static const _debugState = '_debugState';
 
   DebugState getDebugState() {
-    var a = DebugState.fromMap(getJson(key: _debugState));
-
     return DebugState.fromMap(getJson(key: _debugState));
   }
 
@@ -64,10 +64,26 @@ class AppStorageService {
 
 // ******************************
 // ******************************
+  static const _registrationNameState = '_registrationNameState';
+
+  RegistrationNameState getRegistrationNameState() {
+    return RegistrationNameState.fromMap(getJson(key: _registrationNameState));
+  }
+
+  Future<void> setRegistrationNameState(RegistrationNameState value) {
+    return setJson(
+      key: _registrationNameState,
+      value: value
+          .copyWith(nameValid: FieldStringValid(value: value.nameValid.value))
+          .toMap(),
+    );
+  }
+
+// ******************************
+// ******************************
   static const _themeState = '_themeState';
 
   ThemeState getThemeState() {
-    var a = ThemeState.fromMap(getJson(key: _themeState));
     return ThemeState.fromMap(getJson(key: _themeState));
   }
 
@@ -111,7 +127,7 @@ class AppStorageService {
   static const _locale = 'locale';
 
   String getLocale() {
-    return getString(key: _locale);
+    return getString(key: _locale, defaultValue: Platform.localeName);
   }
 
   Future<void> setLocale(String locale) {

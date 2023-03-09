@@ -4,19 +4,20 @@ import 'dart:convert';
 import 'package:meta/meta.dart';
 
 @immutable
-class AppState { 
+class AppState {
   /* init: true */
   final bool isFirstTime;
   /* init: false */
   final bool isOnboardingCompleted;
 
   // end
-   
+
 //          --TURN_GEN--
+//             v0.3.0
 //  *************************************
-//           GENERATED CODE 
+//           GENERATED CODE
 //  *************************************
-  
+
   const AppState({
     this.isFirstTime = true,
     this.isOnboardingCompleted = false,
@@ -25,17 +26,22 @@ class AppState {
    factory AppState.init() => AppState(
       ); 
   */
-Map<String, dynamic> toMap() {
-  return <String, dynamic>{
-      'isFirstTime': isFirstTime, 
-      'isOnboardingCompleted': isOnboardingCompleted, 
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'isFirstTime': isFirstTime,
+      'isOnboardingCompleted': isOnboardingCompleted,
     };
   }
 
-    factory AppState.fromMap(Map<String, dynamic> map) {
+  factory AppState.fromMap(Map<String, dynamic>? map) {
+    if (map == null) return const AppState();
+
     return AppState(
-      isFirstTime: map['isFirstTime'] != null ? map['isFirstTime'] as bool : true, 
-      isOnboardingCompleted: map['isOnboardingCompleted'] != null ? map['isOnboardingCompleted'] as bool : false, 
+      isFirstTime:
+          map['isFirstTime'] != null ? map['isFirstTime'] as bool : true,
+      isOnboardingCompleted: map['isOnboardingCompleted'] != null
+          ? map['isOnboardingCompleted'] as bool
+          : false,
     );
   }
 
@@ -44,32 +50,36 @@ Map<String, dynamic> toMap() {
     bool? isOnboardingCompleted,
   }) {
     return AppState(
-      isFirstTime: isFirstTime ?? this.isFirstTime, 
-      isOnboardingCompleted: isOnboardingCompleted ?? this.isOnboardingCompleted, 
+      isFirstTime: isFirstTime ?? this.isFirstTime,
+      isOnboardingCompleted:
+          isOnboardingCompleted ?? this.isOnboardingCompleted,
     );
   }
 
-  String toJson() => json.encode(toMap());  
-factory AppState.fromJson(String source) => AppState.fromMap(json.decode(source) as Map<String, dynamic>,);  
-      
+  String toJson() => json.encode(toMap());
+  factory AppState.fromJson(String source) => AppState.fromMap(
+        json.decode(source) as Map<String, dynamic>,
+      );
+
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is AppState &&
-            (identical(other.isFirstTime, isFirstTime) || other.isFirstTime == isFirstTime) && 
-            (identical(other.isOnboardingCompleted, isOnboardingCompleted) || other.isOnboardingCompleted == isOnboardingCompleted));
+            (identical(other.isFirstTime, isFirstTime) ||
+                other.isFirstTime == isFirstTime) &&
+            (identical(other.isOnboardingCompleted, isOnboardingCompleted) ||
+                other.isOnboardingCompleted == isOnboardingCompleted));
   }
-  
+
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
         isFirstTime,
         isOnboardingCompleted,
-]);
-      @override
+      ]);
+  @override
   String toString() {
     return 'AppState(isFirstTime: $isFirstTime, isOnboardingCompleted: $isOnboardingCompleted, )';
-    }
-
+  }
 }

@@ -212,5 +212,8 @@ class AppLocalizationsRu extends AppLocalizations {
   String get mcmolL => 'мкмоль/л';
 
   @override
+  String get skip => 'Пропустить';
+
+  @override
   String get g => 'г';
 }

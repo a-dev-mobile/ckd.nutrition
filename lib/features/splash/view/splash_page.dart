@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:nutrition/features/splash/splash.dart';
 
 
 class SplashPage extends ConsumerWidget {
@@ -11,17 +10,16 @@ class SplashPage extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final provider = ref.watch(splashProvider);
-    
+    // final provider = ref.watch(splashProvider);
 
     return Scaffold(
       body: Stack(
         alignment: Alignment.center,
-        children: [
-          const Align(
+        children: const [
+          Align(
             child: Text('load'),
           ),
-          const Positioned(
+          Positioned(
             bottom: 30,
             child: Text('AppPageLoad'),
           ),

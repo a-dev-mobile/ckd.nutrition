@@ -32,9 +32,9 @@
 //     this.nameNutrient = const [],
 //   });
 //   /*
-  
+
 //    factory TestAppState.init() => TestAppState(
-//       ); 
+//       );
 //   */
 
 //   Map<String, dynamic> toMap() {
