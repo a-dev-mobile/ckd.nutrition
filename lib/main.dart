@@ -1,5 +1,5 @@
+import 'package:nutrition/app.dart';
 
-import 'package:nutrition/app/view/view.dart';
 import 'package:nutrition/bootstrap.dart';
 
 void main() {

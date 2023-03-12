@@ -1,6 +1,11 @@
 // ignore_for_file: constant_identifier_names
 
-abstract class DartDefine {
+/// DartDefine Singleton class
+class DartDefine {
+  factory DartDefine() => _internalSingleton;
+  DartDefine._internal();
+
+  static final DartDefine _internalSingleton = DartDefine._internal();
   static const IS_DEBUG = bool.fromEnvironment('IS_DEBUG');
   static const IS_ANALYTICS = bool.fromEnvironment('IS_ANALYTICS_ENABLED');
 

@@ -58,13 +58,9 @@ dart_code_metrics:
     - arguments-ordering: false
     - avoid-late-keyword: false
     - no-magic-number: false
-    - no-equal-arguments: false
 
     - avoid-nested-conditional-expressions: false
-    - prefer-static-class:
-        ignore-annotations:
-          - allowedAnnotation
-        ignore-private: true
+    - prefer-static-class: false
     - no-equal-arguments:
         ignored-parameters:
           - height

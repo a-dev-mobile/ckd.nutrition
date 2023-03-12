@@ -1,2 +1,2 @@
-export 'log_bloc.dart';
+export 'log_riverpod.dart';
 export 'logger.dart';

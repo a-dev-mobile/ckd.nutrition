@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nutrition/app/style/data.dart';
-
+import 'package:nutrition/core/style/app_text_style.dart';
 
 import 'package:nutrition/core/utils/utils.dart';
 
@@ -9,19 +8,19 @@ class BtnToggleText extends StatelessWidget {
     required this.textList,
     required this.isSelected,
     required this.onPressed,
-    this.onPressedAbout,
     super.key,
     this.title = '',
     this.errorText,
     this.infoBottom = '',
+    this.dialogText = '',
   });
   final List<String> textList;
   final String title;
   final String? errorText;
+  final String dialogText;
   final String infoBottom;
   final List<bool> isSelected;
   final void Function(int)? onPressed;
-  final void Function()? onPressedAbout;
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -39,16 +38,20 @@ class BtnToggleText extends StatelessWidget {
                       style: AppTextStyles.h6(),
                     ),
                   ),
-                IconButton(
-                  onPressed: onPressedAbout,
-                  icon: Icon(
-                    Icons.info_outline,
-                    color: context.theme.colorScheme.primary,
+                if (dialogText.isNotEmpty)
+                  IconButton(
+                    onPressed: () => _showInfoDialog(
+                      context: context,
+                      text: dialogText,
+                    ),
+                    icon: Icon(
+                      Icons.info_outline,
+                      color: context.theme.colorScheme.primary,
+                    ),
                   ),
-                ),
               ],
             ),
-            const SizedBox(height: 10),
+            if (dialogText.isEmpty) const SizedBox(height: 10),
             ToggleButtons(
               constraints: BoxConstraints.expand(
                 // number 3 = becouse if less - ovverflow
@@ -85,4 +88,18 @@ class BtnToggleText extends StatelessWidget {
     );
   }
 
+  Future<void> _showInfoDialog({
+    required BuildContext context,
+    required String text,
+  }) async {
+    return showDialog<void>(
+      context: context,
+      useRootNavigator: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          content: Text(text),
+        );
+      },
+    );
+  }
 }
