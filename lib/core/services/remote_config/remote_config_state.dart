@@ -1,5 +1,5 @@
 // ignore_for_file: sort_constructors_first, avoid_bool_literals_in_conditional_expressions
-// ignore_for_file: 
+// ignore_for_file:
 
 import 'dart:convert';
 
@@ -14,6 +14,7 @@ class RemoteConfigState {
   // end
 
 //          --TURN_GEN--
+//             v0.4.1
 //  *************************************
 //           GENERATED CODE
 //  *************************************
@@ -33,7 +34,9 @@ class RemoteConfigState {
     };
   }
 
-  factory RemoteConfigState.fromMap(Map<String, dynamic> map) {
+  factory RemoteConfigState.fromMap(Map<String, dynamic>? map) {
+    if (map == null) return const RemoteConfigState();
+
     return RemoteConfigState(
       isLoad: map['isLoad'] != null ? map['isLoad'] as bool : true,
       isNeedUpdate:

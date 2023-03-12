@@ -36,7 +36,7 @@ class DaDataService {
     String value,
     DaDataEnum type,
   ) async {
-    final typeFio = type.mapConst(
+    final typeFio = type.mapValue(
       name: 'NAME',
       surname: 'SURNAME',
       patronymic: 'PATRONYMIC',

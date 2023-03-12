@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:nutrition/core/services/dadata/dadata.dart';
 
 @immutable
-class SuggestionsFio {   
+class SuggestionsFio {
   /* init: '' */
   final String value;
   /* init: '' */
@@ -14,13 +14,13 @@ class SuggestionsFio {
   final DataFio data;
 
   // end
-   
+
 //          --TURN_GEN--
-//             v0.3.2
+//             v0.4.1
 //  *************************************
-//           GENERATED CODE 
+//           GENERATED CODE
 //  *************************************
-  
+
   const SuggestionsFio({
     this.value = '',
     this.unrestricted_value = '',
@@ -30,11 +30,11 @@ class SuggestionsFio {
    factory SuggestionsFio.init() => SuggestionsFio(
       ); 
   */
-Map<String, dynamic> toMap() {
-  return <String, dynamic>{
-      'value': value, 
-      'unrestricted_value': unrestricted_value, 
-      'data': data.toMap(), 
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'value': value,
+      'unrestricted_value': unrestricted_value,
+      'data': data.toMap(),
     };
   }
 
@@ -42,9 +42,13 @@ Map<String, dynamic> toMap() {
     if (map == null) return const SuggestionsFio();
 
     return SuggestionsFio(
-      value: map['value'] != null ? map['value'] as String : '', 
-      unrestricted_value: map['unrestricted_value'] != null ? map['unrestricted_value'] as String : '', 
-      data: map['data'] != null ? DataFio.fromMap(map['data'] as Map<String, dynamic>) : const DataFio(), 
+      value: map['value'] != null ? map['value'] as String : '',
+      unrestricted_value: map['unrestricted_value'] != null
+          ? map['unrestricted_value'] as String
+          : '',
+      data: map['data'] != null
+          ? DataFio.fromMap(map['data'] as Map<String, dynamic>)
+          : const DataFio(),
     );
   }
 
@@ -54,35 +58,37 @@ Map<String, dynamic> toMap() {
     DataFio? data,
   }) {
     return SuggestionsFio(
-      value: value ?? this.value, 
-      unrestricted_value: unrestricted_value ?? this.unrestricted_value, 
-      data: data ?? this.data, 
+      value: value ?? this.value,
+      unrestricted_value: unrestricted_value ?? this.unrestricted_value,
+      data: data ?? this.data,
     );
   }
 
-  String toJson() => json.encode(toMap());  
-factory SuggestionsFio.fromJson(String source) => SuggestionsFio.fromMap(json.decode(source) as Map<String, dynamic>,);  
-      
+  String toJson() => json.encode(toMap());
+  factory SuggestionsFio.fromJson(String source) => SuggestionsFio.fromMap(
+        json.decode(source) as Map<String, dynamic>,
+      );
+
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is SuggestionsFio &&
-            (identical(other.value, value) || other.value == value) && 
-            (identical(other.unrestricted_value, unrestricted_value) || other.unrestricted_value == unrestricted_value) && 
+            (identical(other.value, value) || other.value == value) &&
+            (identical(other.unrestricted_value, unrestricted_value) ||
+                other.unrestricted_value == unrestricted_value) &&
             (identical(other.data, data) || other.data == data));
   }
-  
+
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
         value,
         unrestricted_value,
         data,
-]);
-      @override
+      ]);
+  @override
   String toString() {
     return 'SuggestionsFio(value: $value, unrestricted_value: $unrestricted_value, data: $data, )';
-    }
-
+  }
 }

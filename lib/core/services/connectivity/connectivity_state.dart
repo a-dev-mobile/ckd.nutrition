@@ -10,6 +10,7 @@ class _ConnectivityState {
 // end
 
 //          --TURN_GEN--
+//             v0.4.1
 //  *************************************
 //           GENERATED CODE
 //  *************************************
@@ -20,8 +21,10 @@ class _ConnectivityState {
 class ConnectivityState {
   const ConnectivityState.isDisonnected()
       : _tag = _ConnectivityStateTag.isDisonnected;
+
   const ConnectivityState.isConnected()
       : _tag = _ConnectivityStateTag.isConnected;
+
   const ConnectivityState.notDetermined()
       : _tag = _ConnectivityStateTag.notDetermined;
 

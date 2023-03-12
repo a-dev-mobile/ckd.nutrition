@@ -63,10 +63,8 @@ class _MobileApp extends ConsumerWidget {
         enabled: debug.isShowDevice,
         builder: (context) => MaterialApp.router(
           useInheritedMediaQuery: true,
-          routeInformationProvider:
-              navigator.router.routeInformationProvider,
-          routeInformationParser:
-              navigator.router.routeInformationParser,
+          routeInformationProvider: navigator.router.routeInformationProvider,
+          routeInformationParser: navigator.router.routeInformationParser,
           routerDelegate: navigator.router.routerDelegate,
 
           // routerConfig: go.router,

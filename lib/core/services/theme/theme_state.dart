@@ -11,6 +11,7 @@ class ThemeState {
   // end
 
 //          --TURN_GEN--
+//             v0.4.1
 //  *************************************
 //           GENERATED CODE
 //  *************************************
@@ -28,7 +29,9 @@ class ThemeState {
     };
   }
 
-  factory ThemeState.fromMap(Map<String, dynamic> map) {
+  factory ThemeState.fromMap(Map<String, dynamic>? map) {
+    if (map == null) return const ThemeState();
+
     return ThemeState(
       themeMode: map['themeMode'] != null
           ? ThemeMode.values[map['themeMode'] as int]

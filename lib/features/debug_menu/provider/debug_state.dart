@@ -17,6 +17,7 @@ class DebugState {
   // end
 
 //          --TURN_GEN--
+//             v0.4.1
 //  *************************************
 //           GENERATED CODE
 //  *************************************
@@ -40,7 +41,9 @@ class DebugState {
     };
   }
 
-  factory DebugState.fromMap(Map<String, dynamic> map) {
+  factory DebugState.fromMap(Map<String, dynamic>? map) {
+    if (map == null) return const DebugState();
+
     return DebugState(
       isShowDevice:
           map['isShowDevice'] != null ? map['isShowDevice'] as bool : false,

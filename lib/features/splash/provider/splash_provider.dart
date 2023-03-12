@@ -23,8 +23,6 @@ class SplashNotifier extends StateNotifier<SplashState> {
   final AppStorageService _storage;
   final AppRouterService _go;
   Future<void> load() async {
-
-
     await Future<void>.delayed(const Duration(seconds: 1));
     final appState = _storage.getAppState();
 

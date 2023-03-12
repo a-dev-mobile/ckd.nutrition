@@ -65,11 +65,9 @@ class NetworkClientService {
       logger.e(e.message, e.error, e.stackTrace);
       rethrow;
     } catch (e, stackTrace) {
-      logger.e(e,'', stackTrace);
+      logger.e(e, '', stackTrace);
       rethrow;
     }
-
-    
   }
 }
 

@@ -13,6 +13,7 @@ class FieldStringValid {
   // end
 
 //          --TURN_GEN--
+//             v0.4.1
 //  *************************************
 //           GENERATED CODE
 //  *************************************
@@ -34,7 +35,9 @@ class FieldStringValid {
     };
   }
 
-  factory FieldStringValid.fromMap(Map<String, dynamic> map) {
+  factory FieldStringValid.fromMap(Map<String, dynamic>? map) {
+    if (map == null) return const FieldStringValid();
+
     return FieldStringValid(
       value: map['value'] != null ? map['value'] as String : '',
       errorMessage:

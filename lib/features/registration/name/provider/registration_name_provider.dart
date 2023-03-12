@@ -6,7 +6,6 @@ import 'dart:convert';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 import 'package:nutrition/core/services/dadata/dadata.dart';
 import 'package:nutrition/core/services/storage/app_storage_service.dart';
 import 'package:nutrition/core/valid/field_string_valid.dart';
@@ -31,7 +30,6 @@ class RegistrationNameNotifier extends StateNotifier<RegistrationNameState> {
         _dadataService = ref.read(dadataServiceProvider),
         _storage = ref.read(appStorageServiceProvider),
         _loc = ref.watch(appLocalizationsProvider),
-      
         super(
           ref.read(appStorageServiceProvider).getRegistrationNameState(),
         );
@@ -41,7 +39,6 @@ class RegistrationNameNotifier extends StateNotifier<RegistrationNameState> {
   final DaDataService _dadataService;
   final AppStorageService _storage;
   final AppLocalizations _loc;
-
 
   void setName(String value) {
     if (value.isEmpty) {
@@ -94,8 +91,6 @@ class RegistrationNameNotifier extends StateNotifier<RegistrationNameState> {
 
         return result.suggestions.map((v) => v.value).toList();
       } on Exception {
- 
-
         return [];
       }
     }

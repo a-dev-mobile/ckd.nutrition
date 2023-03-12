@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 @immutable
-class DataFio {  
+class DataFio {
   /* init:'' */
   final String surname;
   /* init:'' */
@@ -19,13 +19,13 @@ class DataFio {
   final String qc;
 
 // end
-   
+
 //          --TURN_GEN--
-//             v0.3.2
+//             v0.4.1
 //  *************************************
-//           GENERATED CODE 
+//           GENERATED CODE
 //  *************************************
-  
+
   const DataFio({
     this.surname = '',
     this.name = '',
@@ -38,14 +38,14 @@ class DataFio {
    factory DataFio.init() => DataFio(
       ); 
   */
-Map<String, dynamic> toMap() {
-  return <String, dynamic>{
-      'surname': surname, 
-      'name': name, 
-      'patronymic': patronymic, 
-      'gender': gender, 
-      'source': source, 
-      'qc': qc, 
+  Map<String, dynamic> toMap() {
+    return <String, dynamic>{
+      'surname': surname,
+      'name': name,
+      'patronymic': patronymic,
+      'gender': gender,
+      'source': source,
+      'qc': qc,
     };
   }
 
@@ -53,12 +53,12 @@ Map<String, dynamic> toMap() {
     if (map == null) return const DataFio();
 
     return DataFio(
-      surname: map['surname'] != null ? map['surname'] as String : '', 
-      name: map['name'] != null ? map['name'] as String : '', 
-      patronymic: map['patronymic'] != null ? map['patronymic'] as String : '', 
-      gender: map['gender'] != null ? map['gender'] as String : '', 
-      source: map['source'] != null ? map['source'] as String : '', 
-      qc: map['qc'] != null ? map['qc'] as String : '', 
+      surname: map['surname'] != null ? map['surname'] as String : '',
+      name: map['name'] != null ? map['name'] as String : '',
+      patronymic: map['patronymic'] != null ? map['patronymic'] as String : '',
+      gender: map['gender'] != null ? map['gender'] as String : '',
+      source: map['source'] != null ? map['source'] as String : '',
+      qc: map['qc'] != null ? map['qc'] as String : '',
     );
   }
 
@@ -71,31 +71,34 @@ Map<String, dynamic> toMap() {
     String? qc,
   }) {
     return DataFio(
-      surname: surname ?? this.surname, 
-      name: name ?? this.name, 
-      patronymic: patronymic ?? this.patronymic, 
-      gender: gender ?? this.gender, 
-      source: source ?? this.source, 
-      qc: qc ?? this.qc, 
+      surname: surname ?? this.surname,
+      name: name ?? this.name,
+      patronymic: patronymic ?? this.patronymic,
+      gender: gender ?? this.gender,
+      source: source ?? this.source,
+      qc: qc ?? this.qc,
     );
   }
 
-  String toJson() => json.encode(toMap());  
-factory DataFio.fromJson(String source) => DataFio.fromMap(json.decode(source) as Map<String, dynamic>,);  
-      
+  String toJson() => json.encode(toMap());
+  factory DataFio.fromJson(String source) => DataFio.fromMap(
+        json.decode(source) as Map<String, dynamic>,
+      );
+
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is DataFio &&
-            (identical(other.surname, surname) || other.surname == surname) && 
-            (identical(other.name, name) || other.name == name) && 
-            (identical(other.patronymic, patronymic) || other.patronymic == patronymic) && 
-            (identical(other.gender, gender) || other.gender == gender) && 
-            (identical(other.source, source) || other.source == source) && 
+            (identical(other.surname, surname) || other.surname == surname) &&
+            (identical(other.name, name) || other.name == name) &&
+            (identical(other.patronymic, patronymic) ||
+                other.patronymic == patronymic) &&
+            (identical(other.gender, gender) || other.gender == gender) &&
+            (identical(other.source, source) || other.source == source) &&
             (identical(other.qc, qc) || other.qc == qc));
   }
-  
+
   @override
   int get hashCode => Object.hashAll([
         runtimeType,
@@ -105,10 +108,9 @@ factory DataFio.fromJson(String source) => DataFio.fromMap(json.decode(source) a
         gender,
         source,
         qc,
-]);
-      @override
+      ]);
+  @override
   String toString() {
     return 'DataFio(surname: $surname, name: $name, patronymic: $patronymic, gender: $gender, source: $source, qc: $qc, )';
-    }
-
+  }
 }
